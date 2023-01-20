@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.Controller">
+   <children>
+      <Button id="loginButton" fx:id="loginButton" focusTraversable="false" layoutX="-4.0" layoutY="307.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="362.0" styleClass="loginButton" stylesheets="@../../../../java/com/example/istorefx/mainButton.css" text="Login" />
+      <Button fx:id="registerButton" focusTraversable="false" layoutX="239.0" layoutY="248.0" mnemonicParsing="false" onAction="#register" text="Register" />
+      <AnchorPane layoutY="358.0" prefHeight="42.0" prefWidth="356.0" style="-fx-background-color: #274C77;">
+         <children>
+            <Label layoutX="30.0" layoutY="13.0" text="Léo RICHEZ &amp; Adrien EPPLING                                @SUPINFO 2023" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <Label layoutX="56.0" layoutY="252.0" text="You don't have an account yet ?" />
+      <TextField fx:id="pseudoLogin" layoutX="85.0" layoutY="134.0" prefHeight="26.0" prefWidth="186.0" />
+      <PasswordField fx:id="passwordLogin" layoutX="85.0" layoutY="195.0" prefHeight="26.0" prefWidth="185.0" />
+      <AnchorPane prefHeight="62.0" prefWidth="356.0" style="-fx-background-color: #E7ECEF;">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../iStore Design/iStore Logos/istore-logo-zip-file/png/logo-color.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="85.0" layoutY="169.0" text="Password :" />
+      <Label layoutX="85.0" layoutY="108.0" text="Email :" />
+      <Label fx:id="emailError" layoutX="126.0" layoutY="108.0" style="-fx-text-fill: #be4d25;" />
+      <Label fx:id="passwordError" layoutX="148.0" layoutY="169.0" />
+   </children>
+</AnchorPane>
