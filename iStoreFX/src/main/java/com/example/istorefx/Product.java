@@ -12,10 +12,14 @@ public class Product {
     private int     _id;
     private float   _price;
 
-    public          Product(String name, int id, float price) {
+    private int     _current_stock;
+    private int     _max_stock;
+    public          Product(String name, int id, float price, int current_stock, int max_stock) {
         this._name = name;
         this._id = id;
         this._price = price;
+        this._current_stock = current_stock;
+        this._max_stock = max_stock;
     }
 
     public float    getPrice() {

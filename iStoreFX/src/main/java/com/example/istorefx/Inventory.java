@@ -1,6 +1,7 @@
 package com.example.istorefx;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /* LA CLASSE INVENTAIRE COMPRISE DANS STORE
@@ -12,6 +13,18 @@ public class Inventory {
     public          Inventory(ResultSet resultSet) {
 
         this._productList = new ArrayList<Product>();
+
+        try {
+            while (resultSet.next()) {
+                this._productList.add(new Product(resultSet.getString("name"),
+                        resultSet.getInt("id"),
+                        resultSet.getFloat("price"),
+                        resultSet.getInt("current_stock"),
+                        resultSet.getInt("max_storage")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // RECUP WITH SQL HERE
     }
 
