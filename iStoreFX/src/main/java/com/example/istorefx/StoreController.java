@@ -75,25 +75,25 @@ public class StoreController {
             }
             if (row_count > 2)
                 break;
-            System.out.println(this._storeList.get(col_count).getName());
-            System.out.println(this._storeList.get(col_count).getId());
-            System.out.println(this._storeList.get(col_count).getStoreImg());
+            System.out.println(this._storeList.get(tot_count).getName());
+            System.out.println(this._storeList.get(tot_count).getId());
+            System.out.println(this._storeList.get(tot_count).getStoreImg());
             System.out.println("in col = " + col_count + " and row = " + row_count);
-            createStoreWindow(col_count, row_count, this._storeList.get(col_count));
+            createStoreWindow(col_count, row_count, this._storeList.get(tot_count));
             col_count++;
             tot_count++;
         }
     }
     public void createStoreWindow(int x, int y, StoreRecord storeRecord) {
         //IMAGE CREATING
-        Button button = new Button("Enter");
+        Button button = new Button(storeRecord.getName());
         Image image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
         ImageView img = new ImageView();
 
         // ADD STORE IMAGE
         img.setImage(image);
         img.setPickOnBounds(true); // allows click on transparent areas
-        img.setOnMouseClicked(e -> System.out.println("l'image est cliquée"));
+        img.setOnMouseClicked(e -> System.out.println("Clicked store : " + storeRecord.getName()));
         //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
         //img.setFitWidth();
        // System.out.println("Height : " + image.getWidth());

@@ -7,13 +7,14 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="616.0" prefWidth="875.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.StoreController">
    <children>
       <AnchorPane layoutY="113.0" prefHeight="506.0" prefWidth="730.0">
          <children>
             <ScrollBar fx:id="_scrollBar" layoutX="203.0" layoutY="459.0" prefHeight="14.0" prefWidth="324.0" style="-fx-background-color: 0;" />
-            <GridPane fx:id="_gridPane" hgap="20.0" layoutX="-646.0" layoutY="24.0" prefHeight="418.0" prefWidth="1198.0" vgap="10.0">
+            <GridPane fx:id="_gridPane" hgap="30.0" layoutX="-646.0" layoutY="24.0" prefHeight="418.0" prefWidth="1219.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,6 +31,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="664.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="66.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="64.0" layoutY="13.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="13.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="651.0" layoutY="13.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="13.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="77.0" layoutY="13.0" opacity="0.25" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="6.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="645.0" layoutY="13.0" opacity="0.25" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="6.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
