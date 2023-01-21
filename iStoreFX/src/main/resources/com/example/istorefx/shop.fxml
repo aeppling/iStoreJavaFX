@@ -16,9 +16,9 @@
          <children>
             <AnchorPane prefHeight="98.0" prefWidth="730.0" style="-fx-background-color: #ffffffff;">
                <children>
-                  <Label fx:id="_storeName" alignment="CENTER" layoutX="34.0" layoutY="14.0" text="StoreName" textAlignment="CENTER">
+                  <Label fx:id="_storeName" alignment="CENTER" layoutX="55.0" layoutY="30.0" text="StoreName" textAlignment="CENTER">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="36.0" />
                      </font>
                   </Label>
                </children>

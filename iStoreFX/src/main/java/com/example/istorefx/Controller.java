@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,6 +35,12 @@ public class Controller {
     private String          _email;
     private String          _password;
 
+    public void initialize() {
+        this.loginButton.getParent().setOnKeyPressed((KeyEvent event) -> {
+            if(event.getCode().toString().equals("ENTER"))
+            {login();}
+        });
+    }
     public String HashPassword(String hashed_password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(hashed_password.getBytes());
@@ -121,7 +128,7 @@ public class Controller {
         preparedMailStatement.close();
         return (check);
     }
-    public void login(ActionEvent event) {
+    public void login() {
         boolean is_good = false;
         System.out.println("LOGIN");
         //CHECK LOGIN IN DDB AND CONNECT
