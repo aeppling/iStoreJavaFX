@@ -4,10 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javax.imageio.ImageIO;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
+
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
 
 public class AdminController {
@@ -44,6 +47,14 @@ public class AdminController {
     @FXML
     private Label storeNameError;
 
+    @FXML
+    private Label storeImgUrlError;
+    @FXML
+    private TextField storeImgUrlField;
+
+
+
+
     public void initialize() {
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
         this._admin = holder.getUser();
@@ -63,12 +74,13 @@ public class AdminController {
 
     public void CreateStore() {
         String storeName = storeNameField.getText();
+        String imgUrl = storeImgUrlField.getText();
         Connection connection = null;
         boolean is_good = false;
         try {
             // Check if store name already exist in Database
             connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
-            is_good = CheckStoreExists(connection, storeName);
+            is_good = CheckCreateStoreError(connection, storeName, imgUrl);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,9 +90,10 @@ public class AdminController {
         }else{
             try {
                 // Add store to DataBase
-                String sqlStoreInsert = "INSERT INTO iStoreStores(name) VALUES(?)";
+                String sqlStoreInsert = "INSERT INTO iStoreStores(name, store_img) VALUES(?,?)";
                 PreparedStatement preparedStoreInsertStatement = connection.prepareStatement(sqlStoreInsert);
                 preparedStoreInsertStatement.setString(1, storeName);
+                preparedStoreInsertStatement.setString(2, imgUrl);
                 preparedStoreInsertStatement.execute();
                 preparedStoreInsertStatement.close();
                 CloseDisplayCreateStore();
@@ -92,10 +105,33 @@ public class AdminController {
 
     }
 
-    public boolean CheckStoreExists(Connection connection, String storeName) throws SQLException {
-        boolean check = false;
+    public boolean CheckCreateStoreError(Connection connection, String storeName, String imgUrl) throws SQLException {
+        boolean check = true;
         if (storeName.isEmpty()) {
             this.storeNameError.setText("Please enter a store name.");
+            check = false;
+        }else{
+            this.storeNameError.setText("");
+        }
+        if (imgUrl.isEmpty()) {
+            this.storeImgUrlError.setText("Please enter a img url.");
+            check = false;
+        }else {
+            // Check if the url is an existing img
+            try {
+                URL url = new URL(imgUrl);
+                BufferedImage image = ImageIO.read(url);
+                if (image == null) {
+                    check = false;
+                    this.storeImgUrlError.setText("Please enter a valid img url.");
+                }else{
+                    this.storeNameError.setText("");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                check = false;
+                this.storeImgUrlError.setText("Please enter a valid img url.");
+            }
         }
         String sqlEmailRequest = "SELECT * FROM iStoreStores WHERE name LIKE ?";
         PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
@@ -104,10 +140,10 @@ public class AdminController {
 
         if (resultStore.next()) {
             this.storeNameError.setText("A store with this name is already used.");
-
+            check = false;
         } else {
             this.storeNameError.setText("");
-            check = true;
+
         }
         preparedMailStatement.close();
         return (check);

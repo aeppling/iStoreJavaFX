@@ -9,6 +9,7 @@ module com.example.istorefx {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires java.desktop;
     //requires eu.hansolo.tilesfx;
 
     opens com.example.istorefx to javafx.fxml;
