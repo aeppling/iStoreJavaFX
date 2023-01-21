@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -9,7 +10,7 @@
    <children>
       <AnchorPane prefHeight="106.0" prefWidth="602.0" style="-fx-background-color: #E7ECEF;">
          <children>
-            <Button fx:id="_backButton" layoutX="1.0" layoutY="-2.0" mnemonicParsing="false"  prefHeight="106.0" prefWidth="132.0" text="Back" />
+            <Button fx:id="_backButton" layoutX="1.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="106.0" prefWidth="132.0" text="Back" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0">
@@ -34,7 +35,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="248.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="194.0" text="New store" textAlignment="CENTER">
+            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="248.0" mnemonicParsing="false" onAction="#DisplayCreateStore" prefHeight="40.0" prefWidth="194.0" text="New store" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
@@ -44,6 +45,19 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <AnchorPane fx:id="_CreateStorePane" layoutX="61.0" layoutY="99.0" prefHeight="258.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
+               <children>
+                  <TextField fx:id="storeNameField" layoutX="100.0" layoutY="94.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter the store name" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" prefHeight="52.0" prefWidth="478.0" text="Create a new store">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="_CreateStoreDisplayButton" layoutX="100.0" layoutY="163.0" mnemonicParsing="false" onAction="#CreateStore" prefHeight="52.0" prefWidth="278.0" text="Create" />
+                  <Label fx:id="storeNameError" layoutX="100.0" layoutY="129.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
+                  <Button fx:id="_closeDisplayCreateStoreButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayCreateStore" prefHeight="15.0" prefWidth="58.0" text="Close" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane layoutY="571.0" prefHeight="52.0" prefWidth="602.0" style="-fx-background-color: #274C77;">
