@@ -41,16 +41,11 @@ public class StoreController {
             PreparedStatement preparedStoreStatement = connection.prepareStatement(sqlStoreRequest);
             resultStore = preparedStoreStatement.executeQuery();
             while (resultStore.next()) {
-                StoreRecord storeRecord = new StoreRecord(resultStore.getString("name"), resultStore.getInt("id"));
+                StoreRecord storeRecord = new StoreRecord(resultStore.getString("name"), resultStore.getInt("id"), resultStore.getString("store_img"));
                 this._storeList.add(storeRecord);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        int count = 0;
-        while (count < this._storeList.size()) {
-            System.out.println(this._storeList.get(count).getName());
-            count++;
         }
     }
     public void initialize() {
@@ -65,10 +60,31 @@ public class StoreController {
             this._gridPane.setTranslateX(newValue.doubleValue());
           //  this._test.setLayoutX(newValue.doubleValue());
         });
-        createStoreWindow(3,2);
+        displayStores();
     }
 
-    public void createStoreWindow(int x, int y) {
+    public void displayStores() {
+        int col_count = 0;
+        int row_count = 0;
+        int tot_count = 0;
+
+        while ((tot_count < this._storeList.size()) && (tot_count < 24)) {
+            if (col_count > 7) {
+                col_count = 0;
+                row_count++;
+            }
+            if (row_count > 2)
+                break;
+            System.out.println(this._storeList.get(col_count).getName());
+            System.out.println(this._storeList.get(col_count).getId());
+            System.out.println(this._storeList.get(col_count).getStoreImg());
+            System.out.println("in col = " + col_count + " and row = " + row_count);
+            createStoreWindow(col_count, row_count, this._storeList.get(col_count));
+            col_count++;
+            tot_count++;
+        }
+    }
+    public void createStoreWindow(int x, int y, StoreRecord storeRecord) {
         //IMAGE CREATING
         Button button = new Button("Enter");
         Image image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));

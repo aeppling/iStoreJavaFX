@@ -4,9 +4,12 @@ public class StoreRecord {
     private int     _id;
     private String  _name;
 
-    StoreRecord(String name, int id) {
+    private String _store_img;
+
+    StoreRecord(String name, int id, String store_img) {
         this._name = name;
         this._id = id;
+        this._store_img = store_img;
     }
 
     public String   getName() {
@@ -16,4 +19,6 @@ public class StoreRecord {
     public int      getId() {
         return (this._id);
     }
+
+    public String   getStoreImg() { return (this._store_img);}
 }

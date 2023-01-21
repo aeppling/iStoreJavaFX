@@ -49,7 +49,9 @@
             <Separator layoutX="34.0" layoutY="96.0" prefHeight="0.0" prefWidth="114.0" />
             <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
             <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
-            <Button layoutX="34.0" layoutY="69.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Favorites" textFill="#fafafa" />
+            <Button layoutX="34.0" layoutY="69.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My cart" textFill="#fafafa" />
+            <Button layoutX="34.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Favorites" textFill="#fafafa" />
+            <Button layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Account" textFill="#fafafa" />
          </children>
       </AnchorPane>
    </children>
