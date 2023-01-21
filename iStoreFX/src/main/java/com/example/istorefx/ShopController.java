@@ -2,8 +2,13 @@ package com.example.istorefx;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -22,6 +27,46 @@ public class ShopController {
     @FXML
     private GridPane    _gridPane;
 
+    public void createTitleProduct(int x, int y, Product product) {
+        Label       label = new Label(product.getName());
+
+
+        this._gridPane.setHalignment(label, HPos.CENTER);
+        this._gridPane.setValignment(label, VPos.BOTTOM);
+        this._gridPane.add(label, x, y);
+    }
+    public void createImageProduct(int x, int y, Product product) {
+        Image       image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
+        ImageView   img = new ImageView();
+
+        // ADD PRODUCT IMAGE
+        img.setImage(image);
+        img.setPickOnBounds(true);
+        //img.setOnMouseClicked(e -> buyProduct());
+        this._gridPane.setHalignment(img, HPos.CENTER);
+        this._gridPane.setValignment(img, VPos.TOP);
+        this._gridPane.setMargin(img, new Insets(0, 0, 50, 0));
+        this._gridPane.add(img, x, y);
+    }
+    public void displayInventory() {
+        int     tot_count = 0;
+        int     row_count = 0;
+        int     col_count = 0;
+
+        while (tot_count < this._shop.getInventorySize()) {
+            if (col_count == 3) {
+                this._gridPane.addRow(row_count);
+                col_count = 0;
+                row_count++;
+            }
+            Product product = this._shop.getProduct(tot_count);
+            System.out.println(product.getName());
+            createImageProduct(col_count, row_count, product);
+            //createTitleProduct(col_count, row_count, product);
+            tot_count++;
+            col_count++;
+        }
+    }
     public void initialize() {
         Connection connection = null;
         SingletonStoreHolder holder = SingletonStoreHolder.getInstance();
@@ -40,6 +85,7 @@ public class ShopController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        displayInventory();
     }
     public void Home() {
         Stage currentStage2 = (Stage) this._storeName.getScene().getWindow();
