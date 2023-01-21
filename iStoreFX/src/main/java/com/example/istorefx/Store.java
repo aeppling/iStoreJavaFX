@@ -33,7 +33,6 @@ public class Store {
         String query = "SELECT * From iStoreProducts LEFT JOIN StoreProductLink ON iStoreProducts.id = StoreProductLink.ProductID LEFT JOIN iStoreStores ON iStoreStores.id = StoreProductLink.StoreID WHERE iStoreStores.id = ?;";
         PreparedStatement preparedProductStatement = connection.prepareStatement(query);
         preparedProductStatement.setInt(1, this._id);
-        System.out.println(preparedProductStatement);
         ResultSet results = preparedProductStatement.executeQuery();
         return (results);
     }
@@ -106,5 +105,14 @@ public class Store {
     // USAGE EX: store.dropProduct(user.cart.delProduct(id))
     public void         dropProduct(Product product) {
         this._inventory.dropProduct(product);
+    }
+
+    public int          getInventorySize()
+    {
+        return (this._inventory.getSize());
+    }
+
+    public Product      getProduct(int i) {
+        return (this._inventory.getElem(i));
     }
 }
