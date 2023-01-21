@@ -55,7 +55,7 @@
             <Button disable="true" layoutX="100.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" text="Home" />
             <Button fx:id="_categoriesButton" layoutX="234.0" layoutY="15.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Categories" />
             <Button fx:id="_allstoresButton" layoutX="364.0" layoutY="15.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" text="All Stores" />
-            <Button layoutX="491.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="button" />
+            <Button layoutX="491.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="My cart" />
          </children></AnchorPane>
       <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
          <children>

@@ -1,6 +1,7 @@
 package com.example.istorefx;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.layout.GridPane;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.lang.*;
@@ -20,6 +23,7 @@ import java.util.Objects;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 
 public class StoreController {
     private User            _user;
@@ -55,6 +59,11 @@ public class StoreController {
                 StoreRecord storeRecord = new StoreRecord(resultStore.getString("name"), resultStore.getInt("id"), resultStore.getString("store_img"));
                 this._storeList.add(storeRecord);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,8 +127,8 @@ public class StoreController {
 
         // ADD STORE IMAGE
         img.setImage(image);
-        img.setPickOnBounds(true); // allows click on transparent areas
-        img.setOnMouseClicked(e -> System.out.println("Clicked store : " + storeRecord.getName()));
+        img.setPickOnBounds(true);
+        img.setOnMouseClicked(e -> enterStore(storeRecord));
         //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
         //img.setFitWidth();
        // System.out.println("Height : " + image.getWidth());
@@ -138,23 +147,42 @@ public class StoreController {
         this._gridPane.add(button, x, y);
 
     }
-    public static ArrayList<ArrayList<Node>> gridPaneToArrayList(GridPane gridPane){
-
-        ArrayList<ArrayList<Node>> matrix = new ArrayList<ArrayList<Node>>();
-
-        for(int row = 0; row < gridPane.getRowCount(); row++) {
-            ArrayList<Node> column = new ArrayList<>();
-            for (int col = 0; col < gridPane.getColumnCount(); col++) {
-                column.add(gridPane.getChildren().get(row * gridPane.getColumnCount() + col));
+    public void enterStore(StoreRecord store) {
+            Stage currentStage = (Stage) _allstoresButton.getScene().getWindow();
+            currentStage.close();
+            Stage primaryStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("shop.fxml"));
+            try {
+                SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+                userHolder.setUser(this._user);
+                SingletonStoreHolder storeHolder = SingletonStoreHolder.getInstance();
+                storeHolder.setStore(store);
+                Scene scene = new Scene(fxmlLoader.load(), 910, 616);
+                primaryStage.setTitle("iStore");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            matrix.add(column);
-        }
-
-        return matrix;
     }
-
     public void AllStores() {
         System.out.println("Allstores");
+        Stage currentStage = (Stage) _allstoresButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AllStores.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(this._user);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void Categories() {
         System.out.println("Categories");
