@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -41,17 +43,21 @@
       </AnchorPane>
       <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
          <children>
-            <Separator layoutX="126.0" layoutY="14.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <Separator layoutX="258.0" layoutY="14.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <Separator layoutX="384.0" layoutY="14.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <Separator layoutX="516.0" layoutY="14.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #6096BA;" />
-            <Button layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" text="Button" />
-            <Button layoutX="134.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Button" />
-            <Button layoutX="264.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" text="Stores list" />
-            <Button layoutX="391.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Category" />
+            <Separator layoutX="226.0" layoutY="13.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <Separator layoutX="358.0" layoutY="13.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <Separator layoutX="484.0" layoutY="13.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
+               <children>
+                  <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="72.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="65.0" layoutY="81.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
+                  <Label fx:id="_emailLabel" alignment="CENTER" layoutX="64.0" layoutY="99.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
+               </children></AnchorPane>
+            <Button disable="true" layoutX="100.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" text="Home" />
+            <Button fx:id="_categoriesButton" layoutX="234.0" layoutY="15.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Categories" />
+            <Button fx:id="_allstoresButton" layoutX="364.0" layoutY="15.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" text="All Stores" />
+            <Button layoutX="491.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="button" />
          </children></AnchorPane>
-      <AnchorPane layoutX="730.0" layoutY="113.0" prefHeight="505.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
+      <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
          <children>
             <Separator layoutX="34.0" layoutY="96.0" prefHeight="0.0" prefWidth="114.0" />
             <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />

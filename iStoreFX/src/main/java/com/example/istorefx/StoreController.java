@@ -26,10 +26,21 @@ public class StoreController {
     ArrayList<StoreRecord>  _storeList;
 
     @FXML
-    private ScrollBar _scrollBar;
+    private ImageView       _profileIcon;
+    @FXML
+    private ScrollBar       _scrollBar;
 
     @FXML
-    private GridPane _gridPane;
+    private GridPane        _gridPane;
+    @FXML
+    private Label           _emailLabel;
+    @FXML
+    private Label           _pseudoLabel;
+    @FXML
+    private Button          _categoriesButton;
+    @FXML
+    private Button          _allstoresButton;
+
 
     public void getStores() {
         Connection connection = null;
@@ -48,6 +59,20 @@ public class StoreController {
             e.printStackTrace();
         }
     }
+
+    public void displayProfile() {
+        Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
+
+        // ADD PROFIL ICON
+        this._profileIcon.setImage(image);
+        this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
+        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
+        this._profileIcon.setFitWidth(40);
+        this._profileIcon.setFitWidth(40);
+        // ADD PROFIL INFO
+        this._pseudoLabel.setText(this._user.getPseudo());
+        this._emailLabel.setText(this._user.getEmail());
+    }
     public void initialize() {
         System.out.println("Receiving data");
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
@@ -60,6 +85,7 @@ public class StoreController {
             this._gridPane.setTranslateX(newValue.doubleValue());
           //  this._test.setLayoutX(newValue.doubleValue());
         });
+        displayProfile();
         displayStores();
     }
 
@@ -125,5 +151,12 @@ public class StoreController {
         }
 
         return matrix;
+    }
+
+    public void AllStores() {
+        System.out.println("Allstores");
+    }
+    public void Categories() {
+        System.out.println("Categories");
     }
 }
