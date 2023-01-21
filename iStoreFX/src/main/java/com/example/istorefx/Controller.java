@@ -58,7 +58,12 @@ public class Controller {
                 if (resultPassword.getString("psswd").equals(password)) {
                     // IS VALIDa
                     User user = new User(resultPassword.getString("pseudo"), this._email, resultPassword.getInt("id"));
-                    Store(user);
+                    if(resultPassword.getString("role").equals("standart")) {
+
+                        Store(user);
+                    }else if(resultPassword.getString("role").equals("admin")){
+                        AdminDashboard(user);
+                    }
                 }
             }
         }
@@ -169,6 +174,24 @@ public class Controller {
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void AdminDashboard(User user) {
+        // Redirect to Admin Dashboard
+        Stage currentStage2 = (Stage) loginButton.getScene().getWindow();
+        currentStage2.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(user);
+            Scene scene = new Scene(fxmlLoader.load(), 600.0, 620);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
