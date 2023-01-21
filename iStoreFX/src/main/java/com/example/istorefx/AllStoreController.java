@@ -7,7 +7,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -26,40 +28,49 @@ public class AllStoreController {
     private Button      _homeButton;
     @FXML
     private GridPane    _gridPane;
+    @FXML
+    private TextField   _searchBar;
 
+    private GridPane    _baseGrid;
     public void displayStore() {
         int i = 6;
         int col_count = 0;
         int row_count = 3;
 
+        this._gridPane = this._baseGrid;
+        System.out.println(this._searchBar.getText());
         while (i - 6 < this._storeList.size()) {
-            if (col_count > 2) {
-                col_count = 0;
-                row_count++;
-                if (row_count > 2) {
-                this._gridPane.addRow(row_count);
+            int occurence = (this._storeList.get(i - 6).getName().split(this._searchBar.getText()).length) - 1;
+            if (occurence > 0) {
+                System.out.println("DISPLAY" + i);
+                if (col_count > 2) {
+                    col_count = 0;
+                    row_count++;
+                    if (row_count > 2) {
+                        this._gridPane.addRow(row_count);
+                    }
                 }
+                Button storeName = new Button(this._storeList.get(i - 6).getName());
+                Image image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
+                ImageView img = new ImageView();
+                img.setImage(image);
+                img.setPickOnBounds(true);
+                StoreRecord store = this._storeList.get(i - 6);
+                img.setOnMouseClicked(e -> enterStore(store));
+                //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
+                //img.setFitWidth();
+                // System.out.println("Height : " + image.getWidth());
+                img.setFitWidth(60);
+                img.setFitHeight(60);
+                this._gridPane.setHalignment(img, HPos.CENTER);
+                this._gridPane.setValignment(img, VPos.TOP);
+                this._gridPane.add(img, col_count, row_count);
+                this._gridPane.setHalignment(storeName, HPos.CENTER);
+                this._gridPane.setValignment(storeName, VPos.BOTTOM);
+                this._gridPane.add(storeName, col_count, row_count);
+                col_count++;
             }
-            Button storeName = new Button(this._storeList.get(i - 6).getName());
-            Image image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
-            ImageView img = new ImageView();
-            img.setImage(image);
-            img.setPickOnBounds(true);
-            StoreRecord store = this._storeList.get(i - 6);
-            img.setOnMouseClicked(e -> enterStore(store));
-            //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
-            //img.setFitWidth();
-            // System.out.println("Height : " + image.getWidth());
-            img.setFitWidth(60);
-            img.setFitHeight(60);
-            this._gridPane.setHalignment(img, HPos.CENTER);
-            this._gridPane.setValignment(img, VPos.TOP);
-            this._gridPane.add(img, col_count, row_count);
-            this._gridPane.setHalignment(storeName, HPos.CENTER);
-            this._gridPane.setValignment(storeName, VPos.BOTTOM);
-            this._gridPane.add(storeName, col_count, row_count);
             i++;
-            col_count++;
         }
         this._gridPane.addRow(++row_count);
         this._gridPane.addRow(++row_count);
@@ -91,6 +102,7 @@ public class AllStoreController {
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
         this._user = holder.getUser();
         getStores();
+        this._baseGrid = this._gridPane;
         displayStore();
     }
 

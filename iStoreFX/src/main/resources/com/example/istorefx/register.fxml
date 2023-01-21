@@ -23,7 +23,7 @@
             <Button fx:id="backButton" layoutY="1.0" mnemonicParsing="false" onAction="#back" prefHeight="123.0" prefWidth="123.0" text="Back" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="561.0" prefHeight="52.0" prefWidth="414.0" style="-fx-background-color: #274C77;">
+      <AnchorPane layoutY="561.0" prefHeight="52.0" prefWidth="412.0" style="-fx-background-color: #274C77;">
          <children>
             <Label layoutX="34.0" layoutY="18.0" text="Léo RICHEZ &amp; Adrien EPPLING                                                 @SUPINFO 2023" textFill="WHITE">
                <font>

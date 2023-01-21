@@ -28,6 +28,8 @@ public class Store {
     public ResultSet    getResultSet(Connection connection) {
         ResultSet results = null;
         String query = "SELECT * FROM iStoreStores;";
+        //Select * From iStoreProducts INNER JOIN StoreProductLink ON iStoreProducts.id = StoreProductLink.ProductID
+        // INNER JOIN iStoreStores ON iStoreStores.id = StoreProductLink.StoreID
         try {
             Statement stmt = connection.createStatement();
             results = stmt.executeQuery(query);

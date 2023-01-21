@@ -10,7 +10,9 @@ Les données de stock sont dans la BDD
 public class Inventory {
     ArrayList<Product>  _productList;
     public          Inventory(ResultSet resultSet) {
+
         this._productList = new ArrayList<Product>();
+        // RECUP WITH SQL HERE
     }
 
     public Product  takeProduct(int id) {

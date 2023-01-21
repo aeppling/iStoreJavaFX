@@ -46,7 +46,7 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="14.0" layoutY="84.0" promptText="Search for a store..." />
+                  <TextField fx:id="_searchBar" layoutX="14.0" layoutY="84.0" onKeyPressed="#displayStore" promptText="Search for a store..." />
                </children>
             </AnchorPane>
          </children></AnchorPane>

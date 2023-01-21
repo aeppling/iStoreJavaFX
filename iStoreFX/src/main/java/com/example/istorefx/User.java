@@ -8,10 +8,10 @@ Crée lors de la connexion utilisateur via la BDD
 package com.example.istorefx;
 
 public class User {
-    protected Cart    _cart;
-    protected String  _pseudo;
-    protected String  _email;
-    protected int     _id = -1;
+    private Cart    _cart;
+    private String  _pseudo;
+    private String  _email;
+    private int     _id = -1;
 
     public          User() {
         this._pseudo = "Anonymous_User";
