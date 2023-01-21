@@ -86,7 +86,6 @@ public class Controller {
         String sqlPasswordRequest = "SELECT * FROM iStoreUsers WHERE email LIKE ?";
         PreparedStatement preparedPasswordStatement = connection.prepareStatement(sqlPasswordRequest);
         preparedPasswordStatement.setString(1, this._email);
-        System.out.println("After S: " + preparedPasswordStatement.toString());
         ResultSet resultPassword = preparedPasswordStatement.executeQuery();
             try {
                 String hashed_password = HashPassword(this._password);

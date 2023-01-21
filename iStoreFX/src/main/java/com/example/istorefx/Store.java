@@ -23,19 +23,19 @@ public class Store {
     public              Store(String name, int id, Connection connection) {
         this._name = name;
         this._id = id;
-        this._inventory = new Inventory(this.getResultSet(connection));
-    }
-    public ResultSet    getResultSet(Connection connection) {
-        ResultSet results = null;
-        String query = "SELECT * FROM iStoreStores;";
-        //Select * From iStoreProducts INNER JOIN StoreProductLink ON iStoreProducts.id = StoreProductLink.ProductID
-        // INNER JOIN iStoreStores ON iStoreStores.id = StoreProductLink.StoreID
         try {
-            Statement stmt = connection.createStatement();
-            results = stmt.executeQuery(query);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+            this._inventory = new Inventory(this.getResultSet(connection));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
+    public ResultSet    getResultSet(Connection connection) throws SQLException {
+        String query = "SELECT * From iStoreProducts LEFT JOIN StoreProductLink ON iStoreProducts.id = StoreProductLink.ProductID LEFT JOIN iStoreStores ON iStoreStores.id = StoreProductLink.StoreID WHERE iStoreStores.id LIKE ?;";
+        PreparedStatement preparedPasswordStatement = connection.prepareStatement(query);
+        preparedPasswordStatement.setInt(1, this._id);
+        System.out.println(preparedPasswordStatement);
+        ResultSet results = preparedPasswordStatement.executeQuery(query);
+        System.out.println(results);
         return (results);
     }
 
