@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,8 +56,9 @@ public class Controller {
                 System.out.println(resultPassword.getString("psswd"));
                 System.out.println(password);
                 if (resultPassword.getString("psswd").equals(password)) {
-                    // IS VALIDa
+                    // IS VALID
                     User user = new User(resultPassword.getString("pseudo"), this._email, resultPassword.getInt("id"));
+
 
                     if(resultPassword.getString("role").equals("standart")) {
 
@@ -65,6 +67,7 @@ public class Controller {
                         AdminDashboard(user);
                     }
                     System.out.println("USER LOGGED!");
+
                 }
             }
         }
@@ -173,10 +176,10 @@ public class Controller {
         try {
             SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
             userHolder.setUser(user);
-            Scene scene = new Scene(fxmlLoader.load(), 875, 616);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

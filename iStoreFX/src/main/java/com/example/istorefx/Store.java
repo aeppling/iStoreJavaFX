@@ -15,6 +15,11 @@ public class Store {
     private String      _name;
     private int         _id;
 
+    /*
+    Select * From iStoreProducts INNER JOIN StoreProductLink ON iStoreProducts.id = StoreProductLink.ProductID
+     INNER JOIN iStoreStores ON iStoreStores.id = StoreProductLink.StoreID
+        //// REQUEST PRODUCT FROM STORE
+     */
     public              Store(String name, int id, Connection connection) {
         this._name = name;
         this._id = id;
