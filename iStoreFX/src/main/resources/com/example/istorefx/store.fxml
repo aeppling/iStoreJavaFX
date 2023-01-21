@@ -41,7 +41,7 @@
             <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #6096BA;" />
             <Button layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" text="Button" />
             <Button layoutX="134.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Button" />
-            <Button layoutX="264.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" text="Button" />
+            <Button layoutX="264.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" text="Stores list" />
             <Button layoutX="391.0" layoutY="16.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Category" />
          </children></AnchorPane>
       <AnchorPane layoutX="730.0" layoutY="113.0" prefHeight="505.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
@@ -49,7 +49,7 @@
             <Separator layoutX="34.0" layoutY="96.0" prefHeight="0.0" prefWidth="114.0" />
             <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
             <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
-            <Button layoutX="34.0" layoutY="69.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Button" textFill="#fafafa" />
+            <Button layoutX="34.0" layoutY="69.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Favorites" textFill="#fafafa" />
          </children>
       </AnchorPane>
    </children>

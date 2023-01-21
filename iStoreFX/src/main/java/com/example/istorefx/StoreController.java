@@ -70,21 +70,21 @@ public class StoreController {
 
     public void createStoreWindow(int x, int y) {
         //IMAGE CREATING
-        Button button = new Button("Store Name");
-        //Image image = new Image(getClass().getResourceAsStream("fnac-test-logo.jpg"));
-       ImageView img = new ImageView();
+        Button button = new Button("Enter");
+        Image image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
+        ImageView img = new ImageView();
 
         // ADD STORE IMAGE
-        //img.setImage(image);
+        img.setImage(image);
         img.setPickOnBounds(true); // allows click on transparent areas
         img.setOnMouseClicked(e -> System.out.println("l'image est cliquée"));
         //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
         //img.setFitWidth();
        // System.out.println("Height : " + image.getWidth());
-        //img.setFitWidth(image.getWidth() * 20/100);
-        //img.setFitHeight(image.getHeight() * 20/100);
+        img.setFitWidth(80);
+        img.setFitHeight(80);
         this._gridPane.setHalignment(img, HPos.CENTER);
-        this._gridPane.setValignment(img, VPos.CENTER);
+        this._gridPane.setValignment(img, VPos.TOP);
         this._gridPane.setMargin(button, new Insets(0, 0, 0, 0));
         System.out.println("Height after : " + img.getFitWidth());
         this._gridPane.add(img, x, y);
