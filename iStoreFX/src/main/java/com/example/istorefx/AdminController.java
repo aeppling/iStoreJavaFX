@@ -18,25 +18,20 @@ public class AdminController {
     private User _admin; // TODO -> change to Admin Use = error
     @FXML
     private Button _manageEmployeeButton;
-
     @FXML
     private Button _createStoreButton;
-
+    @FXML
+    private Button _whitelistEmailButton;
     @FXML
     private Button _manageInventoryButton;
-
-    @FXML
-    private Button _viewWhitelistButton;
-
     @FXML
     private Button _backButton;
-
     @FXML
     private Label pseudo;
-
+    @FXML
+    private AnchorPane _whitelistPane;
     @FXML
     private AnchorPane _CreateStorePane;
-
     @FXML
     private Button _closeDisplayCreateStoreButton;
     @FXML
@@ -45,7 +40,11 @@ public class AdminController {
     @FXML
     private TextField storeNameField;
     @FXML
+    private TextField emailWhitelistField;
+    @FXML
     private Label storeNameError;
+    @FXML
+    private Label emailWhitelistError;
 
     @FXML
     private Label storeImgUrlError;
@@ -61,6 +60,8 @@ public class AdminController {
         this.pseudo.setText(this._admin.getPseudo());
 
     }
+
+    // Create New Store
 
     public void DisplayCreateStore() {
         this._CreateStorePane.setVisible(true);
@@ -133,10 +134,10 @@ public class AdminController {
                 this.storeImgUrlError.setText("Please enter a valid img url.");
             }
         }
-        String sqlEmailRequest = "SELECT * FROM iStoreStores WHERE name LIKE ?";
-        PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
-        preparedMailStatement.setString(1, storeName);
-        ResultSet resultStore = preparedMailStatement.executeQuery();
+        String sqlStoreNameRequest = "SELECT * FROM iStoreStores WHERE name = ?";
+        PreparedStatement preparedStoreNameStatement = connection.prepareStatement(sqlStoreNameRequest);
+        preparedStoreNameStatement.setString(1, storeName);
+        ResultSet resultStore = preparedStoreNameStatement.executeQuery();
 
         if (resultStore.next()) {
             this.storeNameError.setText("A store with this name is already used.");
@@ -145,9 +146,73 @@ public class AdminController {
             this.storeNameError.setText("");
 
         }
-        preparedMailStatement.close();
+        preparedStoreNameStatement.close();
         return (check);
 
     }
+    // WhiteList
+    public void DisplayWhitelist() {
+        this._whitelistPane.setVisible(true);
+
+    }
+    public void CloseDisplayWhitelist() {
+        this._whitelistPane.setVisible(false);
+
+    }
+    public void AddToWhiteList(){
+        String emailWhiteList = emailWhitelistField.getText();
+        Connection connection = null;
+        boolean is_good = false;
+        try {
+            // Check if store name already exist in Database
+            connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            is_good = CheckMailError(connection, emailWhiteList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (!is_good){
+            return ;
+        }else{
+            try {
+                // Add store to DataBase
+                String sqlMailWhitelistInsert = "INSERT INTO iStoreWhitelist(email) VALUES(?)";
+                PreparedStatement preparedsqlMailWhitelistInsertStatement = connection.prepareStatement(sqlMailWhitelistInsert);
+                preparedsqlMailWhitelistInsertStatement.setString(1, emailWhiteList);
+                preparedsqlMailWhitelistInsertStatement.execute();
+                preparedsqlMailWhitelistInsertStatement.close();
+                CloseDisplayWhitelist();
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private boolean CheckMailError(Connection connection, String emailWhiteList) throws SQLException{
+        boolean check = true;
+        if (emailWhiteList.isEmpty()) {
+            this.emailWhitelistError.setText("Please enter a mail.");
+            check = false;
+        }else{
+            this.emailWhitelistError.setText("");
+        }
+        String sqlEmailWhiteListRequest = "SELECT * FROM iStoreWhitelist WHERE email = ?";
+        PreparedStatement preparedMailWhiteListStatement = connection.prepareStatement(sqlEmailWhiteListRequest);
+        preparedMailWhiteListStatement.setString(1, emailWhiteList);
+        ResultSet resultStore = preparedMailWhiteListStatement.executeQuery();
+
+        if (resultStore.next()) {
+            this.storeNameError.setText("The email is already whitelisted");
+            check = false;
+        } else {
+            this.storeNameError.setText("");
+
+        }
+        preparedMailWhiteListStatement.close();
+        return (check);
+
+    }
+
 
 }
