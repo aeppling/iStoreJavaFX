@@ -58,7 +58,6 @@ public class Controller {
                     // IS VALIDa
                     User user = new User(resultPassword.getString("pseudo"), this._email, resultPassword.getInt("id"));
                     Store(user);
-                    System.out.println("USER LOGGED!");
                 }
             }
         }
@@ -168,7 +167,7 @@ public class Controller {
             Scene scene = new Scene(fxmlLoader.load(), 875, 616);
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
