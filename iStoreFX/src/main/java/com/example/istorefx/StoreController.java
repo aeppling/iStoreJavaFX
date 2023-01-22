@@ -23,30 +23,35 @@ import java.lang.*;
 import java.util.Objects;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class StoreController {
-    private User            _user;
-    ArrayList<StoreRecord>  _storeList;
+    private User _user;
+    ArrayList<StoreRecord> _storeList;
 
     @FXML
-    private ImageView       _profileIcon;
+    private ImageView _profileIcon;
     @FXML
-    private ScrollBar       _scrollBar;
+    private ScrollBar _scrollBar;
 
     @FXML
-    private GridPane        _gridPane;
+    private GridPane _gridPane;
     @FXML
-    private Label           _emailLabel;
+    private Label _emailLabel;
     @FXML
-    private Label           _pseudoLabel;
+    private Label _pseudoLabel;
     @FXML
-    private Button          _categoriesButton;
+    private Button _categoriesButton;
     @FXML
-    private Button          _homeButton;
+    private Button _homeButton;
     @FXML
-    private Button          _allstoresButton;
+    private Button _allstoresButton;
+    @FXML
+    private ImageView _logoHeader;
+    @FXML
+    private Pane      _logoHeaderPane;
 
 
     public void getStores() {
@@ -86,6 +91,12 @@ public class StoreController {
         this._emailLabel.setText(this._user.getEmail());
     }
 
+    public void initImage() {
+        Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
+        this._logoHeader.setImage(image);
+       this._logoHeader.setFitWidth(170);
+        this._logoHeader.setFitHeight(170);
+    }
     public void initButtons() {
         //ALL STORES BTN
         Image image = new Image(getClass().getResourceAsStream("allstores-icon.png"));
@@ -121,6 +132,7 @@ public class StoreController {
             this._gridPane.setTranslateX(newValue.doubleValue());
           //  this._test.setLayoutX(newValue.doubleValue());
         });
+        initImage();
         initButtons();
         displayProfile();
         displayStores();
