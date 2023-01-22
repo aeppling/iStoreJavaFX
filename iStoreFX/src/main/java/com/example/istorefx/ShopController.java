@@ -28,17 +28,14 @@ public class ShopController {
     private GridPane    _gridPane;
 
     public void createTitleProduct(int x, int y, Product product) {
-        Label       label = new Label(product.getName());
 
 
-        this._gridPane.setHalignment(label, HPos.CENTER);
-        this._gridPane.setValignment(label, VPos.BOTTOM);
-        this._gridPane.setMargin(label, new Insets(0, 0, 50, 0));
-        this._gridPane.add(label, x, y);
     }
     public void createImageProduct(int x, int y, Product product) {
         Image       image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
         ImageView   img = new ImageView();
+        Label       label = new Label(product.getName());
+        Button      buyButton = new Button("Buy for " + product.getPrice() + "$");
 
         // ADD PRODUCT IMAGE
         img.setImage(image);
@@ -46,38 +43,35 @@ public class ShopController {
         img.setOnMouseClicked(e -> System.out.println(product.getName()));
         this._gridPane.setHalignment(img, HPos.CENTER);
         this._gridPane.setValignment(img, VPos.TOP);
+        this._gridPane.setMargin(img, new Insets(50, 0, 20, 0));
         this._gridPane.add(img, x, y);
+        this._gridPane.setHalignment(label, HPos.CENTER);
+        this._gridPane.setValignment(label, VPos.BOTTOM);
+        this._gridPane.setMargin(label, new Insets(0, 0, 0, 0));
+        this._gridPane.add(label, x, y);
+   /*     this._gridPane.setHalignment(buyButton, HPos.CENTER);
+        this._gridPane.setValignment(buyButton, VPos.BOTTOM);
+        this._gridPane.setMargin(buyButton, new Insets(0, 0, 0, 0));
+        this._gridPane.add(buyButton, x, y);
+        
+    */
     }
     public void displayInventory() {
         int     tot_count = 0;
         int     row_count = 0;
         int     col_count = 0;
-        boolean check = false;
 
         while (tot_count < this._shop.getInventorySize()) {
             if (col_count == 3) {
-                if (row_count % 2 == 0) {
-                    tot_count = tot_count - 3;
-                }
                 this._gridPane.addRow(row_count);
                 col_count = 0;
                 row_count++;
             }
             Product product = this._shop.getProduct(tot_count);
-            if (row_count % 2 == 0) {
-                createImageProduct(col_count, row_count, product);
-            }
-            else {
-                createTitleProduct(col_count, row_count, product);
-            }
+            createImageProduct(col_count, row_count, product);
             tot_count++;
             col_count++;
             System.out.println(this._shop.getInventorySize() - tot_count);
-            if (((this._shop.getInventorySize() - tot_count) <= 3)
-                && (col_count != 3))
-            {
-                System.out.println("Display left");
-            }
         }
     }
     public void initialize() {
