@@ -253,7 +253,7 @@ public class AdminController {
 
     }
 
-    private boolean CheckMailManageEmployeeError(Connection connection, String emailManageEmployee) {
+    private boolean CheckMailManageEmployeeError(Connection connection, String emailManageEmployee) throws SQLException {
         boolean check = true;
         if (emailManageEmployee.isEmpty()) {
             this.emailManageEmployeeError.setText("Please enter a mail.");
@@ -261,6 +261,19 @@ public class AdminController {
         }else{
             this.emailManageEmployeeError.setText("");
         }
+        String sqlEmailManageEmployeeRequest = "SELECT * FROM iStoreUsers WHERE email = ?";
+        PreparedStatement preparedEmailManageEmployeeStatement = connection.prepareStatement(sqlEmailManageEmployeeRequest);
+        preparedEmailManageEmployeeStatement.setString(1, emailManageEmployee);
+        ResultSet resultEmployee = preparedEmailManageEmployeeStatement.executeQuery();
+
+        if (resultEmployee.next()) {
+            this.emailManageEmployeeError.setText("");
+
+        } else {
+            check = false;
+            this.emailManageEmployeeError.setText("No account using this email exists.");
+        }
+
         return check;
     }
 
