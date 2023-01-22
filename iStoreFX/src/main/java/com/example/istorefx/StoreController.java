@@ -3,6 +3,7 @@ package com.example.istorefx;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -43,6 +44,8 @@ public class StoreController {
     @FXML
     private Button          _categoriesButton;
     @FXML
+    private Button          _homeButton;
+    @FXML
     private Button          _allstoresButton;
 
 
@@ -82,6 +85,30 @@ public class StoreController {
         this._pseudoLabel.setText(this._user.getPseudo());
         this._emailLabel.setText(this._user.getEmail());
     }
+
+    public void initButtons() {
+        //ALL STORES BTN
+        Image image = new Image(getClass().getResourceAsStream("allstores-icon.png"));
+        ImageView img = new ImageView();
+        img.setImage(image);
+        img.setFitWidth(80);
+        img.setFitHeight(80);
+        this._allstoresButton.setGraphic(img);
+        //CATEGORIES BTN
+        Image image2 = new Image(getClass().getResourceAsStream("categories-icon.png"));
+        ImageView img2 = new ImageView();
+        img2.setImage(image2);
+        img2.setFitWidth(70);
+        img2.setFitHeight(75);
+        this._categoriesButton.setGraphic(img2);
+        //HOME BTN
+        Image image3 = new Image(getClass().getResourceAsStream("home-icon.png"));
+        ImageView img3 = new ImageView();
+        img3.setImage(image3);
+        img3.setFitWidth(80);
+        img3.setFitHeight(80);
+        this._homeButton.setGraphic(img3);
+    }
     public void initialize() {
         System.out.println("Receiving data");
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
@@ -94,6 +121,7 @@ public class StoreController {
             this._gridPane.setTranslateX(newValue.doubleValue());
           //  this._test.setLayoutX(newValue.doubleValue());
         });
+        initButtons();
         displayProfile();
         displayStores();
     }
@@ -137,7 +165,6 @@ public class StoreController {
         this._gridPane.setHalignment(img, HPos.CENTER);
         this._gridPane.setValignment(img, VPos.TOP);
         this._gridPane.setMargin(button, new Insets(0, 0, 0, 0));
-        System.out.println("Height after : " + img.getFitWidth());
         this._gridPane.add(img, x, y);
         // ADD STORE BUTTON
         button.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
