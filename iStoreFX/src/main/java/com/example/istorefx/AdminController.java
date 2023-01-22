@@ -33,6 +33,9 @@ public class AdminController {
     @FXML
     private AnchorPane _CreateStorePane;
     @FXML
+    private AnchorPane _manageEmployeePane;
+
+    @FXML
     private Button _closeDisplayCreateStoreButton;
     @FXML
     private Button _CreateStoreDisplayButton;
@@ -42,9 +45,13 @@ public class AdminController {
     @FXML
     private TextField emailWhitelistField;
     @FXML
+    private TextField emailManageEmployeeField;
+    @FXML
     private Label storeNameError;
     @FXML
     private Label emailWhitelistError;
+    @FXML
+    private Label emailManageEmployeeError;
 
     @FXML
     private Label storeImgUrlError;
@@ -90,13 +97,23 @@ public class AdminController {
             return ;
         }else{
             try {
+                if (imgUrl.isEmpty()) {
+                    String sqlStoreInsert = "INSERT INTO iStoreStores(name) VALUES(?)";
+                    PreparedStatement preparedStoreInsertStatement = connection.prepareStatement(sqlStoreInsert);
+                    preparedStoreInsertStatement.setString(1, storeName);
+                    preparedStoreInsertStatement.execute();
+                    preparedStoreInsertStatement.close();
+                }else{
+                    String sqlStoreInsert = "INSERT INTO iStoreStores(name, store_img) VALUES(?,?)";
+                    PreparedStatement preparedStoreInsertStatement = connection.prepareStatement(sqlStoreInsert);
+                    preparedStoreInsertStatement.setString(1, storeName);
+                    preparedStoreInsertStatement.setString(2, imgUrl);
+                    preparedStoreInsertStatement.execute();
+                    preparedStoreInsertStatement.close();
+                }
                 // Add store to DataBase
-                String sqlStoreInsert = "INSERT INTO iStoreStores(name, store_img) VALUES(?,?)";
-                PreparedStatement preparedStoreInsertStatement = connection.prepareStatement(sqlStoreInsert);
-                preparedStoreInsertStatement.setString(1, storeName);
-                preparedStoreInsertStatement.setString(2, imgUrl);
-                preparedStoreInsertStatement.execute();
-                preparedStoreInsertStatement.close();
+
+
                 CloseDisplayCreateStore();
             }catch (SQLException e) {
                 e.printStackTrace();
@@ -114,10 +131,7 @@ public class AdminController {
         }else{
             this.storeNameError.setText("");
         }
-        if (imgUrl.isEmpty()) {
-            this.storeImgUrlError.setText("Please enter a img url.");
-            check = false;
-        }else {
+        if (!imgUrl.isEmpty()) {
             // Check if the url is an existing img
             try {
                 URL url = new URL(imgUrl);
@@ -166,7 +180,7 @@ public class AdminController {
         try {
             // Check if store name already exist in Database
             connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
-            is_good = CheckMailError(connection, emailWhiteList);
+            is_good = CheckMailWhiteListError(connection, emailWhiteList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -189,7 +203,7 @@ public class AdminController {
 
     }
 
-    private boolean CheckMailError(Connection connection, String emailWhiteList) throws SQLException{
+    private boolean CheckMailWhiteListError(Connection connection, String emailWhiteList) throws SQLException{
         boolean check = true;
         if (emailWhiteList.isEmpty()) {
             this.emailWhitelistError.setText("Please enter a mail.");
@@ -212,6 +226,42 @@ public class AdminController {
         preparedMailWhiteListStatement.close();
         return (check);
 
+    }
+
+    // Manage Employee
+    public void DisplayManageEmployee() {
+        this._manageEmployeePane.setVisible(true);
+
+    }
+
+    public void CloseDisplayManageEmployee() {
+        this._manageEmployeePane.setVisible(false);
+
+    }
+
+    public void UpdateUser(){
+        String emailManageEmployee = emailManageEmployeeField.getText();
+        Connection connection = null;
+        boolean is_good = false;
+        try {
+            // Check if store name already exist in Database
+            connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            is_good = CheckMailManageEmployeeError(connection, emailManageEmployee);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean CheckMailManageEmployeeError(Connection connection, String emailManageEmployee) {
+        boolean check = true;
+        if (emailManageEmployee.isEmpty()) {
+            this.emailManageEmployeeError.setText("Please enter a mail.");
+            check = false;
+        }else{
+            this.emailManageEmployeeError.setText("");
+        }
+        return check;
     }
 
 
