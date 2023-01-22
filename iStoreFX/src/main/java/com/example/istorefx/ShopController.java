@@ -33,6 +33,7 @@ public class ShopController {
 
         this._gridPane.setHalignment(label, HPos.CENTER);
         this._gridPane.setValignment(label, VPos.BOTTOM);
+        this._gridPane.setMargin(label, new Insets(0, 0, 50, 0));
         this._gridPane.add(label, x, y);
     }
     public void createImageProduct(int x, int y, Product product) {
@@ -42,29 +43,41 @@ public class ShopController {
         // ADD PRODUCT IMAGE
         img.setImage(image);
         img.setPickOnBounds(true);
-        //img.setOnMouseClicked(e -> buyProduct());
+        img.setOnMouseClicked(e -> System.out.println(product.getName()));
         this._gridPane.setHalignment(img, HPos.CENTER);
         this._gridPane.setValignment(img, VPos.TOP);
-        this._gridPane.setMargin(img, new Insets(0, 0, 50, 0));
         this._gridPane.add(img, x, y);
     }
     public void displayInventory() {
         int     tot_count = 0;
         int     row_count = 0;
         int     col_count = 0;
+        boolean check = false;
 
         while (tot_count < this._shop.getInventorySize()) {
             if (col_count == 3) {
+                if (row_count % 2 == 0) {
+                    tot_count = tot_count - 3;
+                }
                 this._gridPane.addRow(row_count);
                 col_count = 0;
                 row_count++;
             }
             Product product = this._shop.getProduct(tot_count);
-            System.out.println(product.getName());
-            createImageProduct(col_count, row_count, product);
-            //createTitleProduct(col_count, row_count, product);
+            if (row_count % 2 == 0) {
+                createImageProduct(col_count, row_count, product);
+            }
+            else {
+                createTitleProduct(col_count, row_count, product);
+            }
             tot_count++;
             col_count++;
+            System.out.println(this._shop.getInventorySize() - tot_count);
+            if (((this._shop.getInventorySize() - tot_count) <= 3)
+                && (col_count != 3))
+            {
+                System.out.println("Display left");
+            }
         }
     }
     public void initialize() {
