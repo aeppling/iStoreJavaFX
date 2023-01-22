@@ -6,6 +6,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.scene.control.Button;
 
@@ -31,20 +34,32 @@ public class ShopController {
 
 
     }
+    public void buyConfirm(Product product) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Buying product");
+        alert.setHeaderText(null);
+        alert.setContentText("Confirm buy of " + product.getName() + " for " + product.getPrice() + "$");
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+            System.out.println("BOUGHT");
+        }
+    }
     public void createImageProduct(int x, int y, Product product) {
-        Image       image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
+        Image       image = new Image(getClass().getResourceAsStream("product-icon.png"));
         ImageView   img = new ImageView();
-        Label       label = new Label(product.getName());
-        Button      buyButton = new Button("Buy for " + product.getPrice() + "$");
+        Button      label = new Button(product.getName() + " : " + product.getPrice() + "$");
 
         // ADD PRODUCT IMAGE
         img.setImage(image);
         img.setPickOnBounds(true);
-        img.setOnMouseClicked(e -> System.out.println(product.getName()));
+        img.setOnMouseClicked(e -> buyConfirm(product));
+        img.setFitWidth(70);
+        img.setFitHeight(70);
         this._gridPane.setHalignment(img, HPos.CENTER);
         this._gridPane.setValignment(img, VPos.TOP);
         this._gridPane.setMargin(img, new Insets(50, 0, 20, 0));
         this._gridPane.add(img, x, y);
+        label.setStyle("-fx-border-color: black; -fx-background-color: white; -fx-border-radius: 5em");
         this._gridPane.setHalignment(label, HPos.CENTER);
         this._gridPane.setValignment(label, VPos.BOTTOM);
         this._gridPane.setMargin(label, new Insets(0, 0, 0, 0));
@@ -53,7 +68,7 @@ public class ShopController {
         this._gridPane.setValignment(buyButton, VPos.BOTTOM);
         this._gridPane.setMargin(buyButton, new Insets(0, 0, 0, 0));
         this._gridPane.add(buyButton, x, y);
-        
+
     */
     }
     public void displayInventory() {

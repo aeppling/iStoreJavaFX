@@ -6,10 +6,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -19,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class AllStoreController {
 
@@ -32,6 +31,8 @@ public class AllStoreController {
     private TextField   _searchBar;
 
     private GridPane    _baseGrid;
+
+
     public void displayStore() {
         int i = 6;
         int col_count = 0;
@@ -65,8 +66,10 @@ public class AllStoreController {
                 this._gridPane.setHalignment(img, HPos.CENTER);
                 this._gridPane.setValignment(img, VPos.TOP);
                 this._gridPane.add(img, col_count, row_count);
+                storeName.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
                 this._gridPane.setHalignment(storeName, HPos.CENTER);
                 this._gridPane.setValignment(storeName, VPos.BOTTOM);
+                this._gridPane.setMargin(img, new Insets(40, 0, 40, 0));
                 this._gridPane.add(storeName, col_count, row_count);
                 col_count++;
             }

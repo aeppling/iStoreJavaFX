@@ -140,8 +140,8 @@ public class StoreController {
         System.out.println("Height after : " + img.getFitWidth());
         this._gridPane.add(img, x, y);
         // ADD STORE BUTTON
-        button.setStyle("-fx-text-fill: white; -fx-background-color: black;");
-        this._gridPane.setMargin(button, new Insets(0, 0, 10, 0));
+        button.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
+        this._gridPane.setMargin(button, new Insets(0, 0, 20, 0));
         this._gridPane.setHalignment(button, HPos.CENTER);
         this._gridPane.setValignment(button, VPos.BOTTOM);
         this._gridPane.add(button, x, y);
