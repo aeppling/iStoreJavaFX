@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -32,10 +33,19 @@ public class Controller {
     private Label           emailError;
     @FXML
     private Label           passwordError;
+    @FXML
+    private ImageView       _logoHeader;
     private String          _email;
     private String          _password;
 
+    public void initImage() {
+        Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
+        this._logoHeader.setImage(image);
+        this._logoHeader.setFitWidth(100);
+        this._logoHeader.setFitHeight(100);
+    }
     public void initialize() {
+        initImage();
         this.loginButton.getParent().setOnKeyPressed((KeyEvent event) -> {
             if(event.getCode().toString().equals("ENTER"))
             {login();}

@@ -57,25 +57,27 @@
         </AnchorPane>
         <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
             <children>
-                <Separator layoutX="226.0" layoutY="13.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-                <Separator layoutX="358.0" layoutY="13.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-                <Separator layoutX="484.0" layoutY="13.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
                 <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                     <children>
                         <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="72.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="65.0" layoutY="81.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
                         <Label fx:id="_emailLabel" alignment="CENTER" layoutX="64.0" layoutY="99.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
                     </children></AnchorPane>
-                <Button fx:id="_homeButton" layoutX="100.0" layoutY="15.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
-                <Button fx:id="_categoriesButton" layoutX="234.0" layoutY="15.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
-                <Button fx:id="_allstoresButton" layoutX="364.0" layoutY="15.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
+            <Separator layoutX="380.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <Separator layoutX="512.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <Separator layoutX="638.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <Button fx:id="_homeButton" disable="true" layoutX="254.0" layoutY="24.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
+            <Button fx:id="_categoriesButton" layoutX="388.0" layoutY="24.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
+            <Button fx:id="_allstoresButton" layoutX="518.0" layoutY="24.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
+            <Separator layoutX="250.0" layoutY="24.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+            <ImageView fx:id="_logoHeader" fitHeight="74.0" fitWidth="183.0" layoutX="41.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
             </children></AnchorPane>
         <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
             <children>
                 <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
                 <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
-                <Button layoutX="34.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other users" textFill="#fafafa" />
-                <Button layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Account" textFill="#fafafa" />
+                <Button layoutX="34.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
+                <Button layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
                 <Separator layoutX="34.0" layoutY="221.0" prefHeight="0.0" prefWidth="114.0" />
                 <Button layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
             </children>

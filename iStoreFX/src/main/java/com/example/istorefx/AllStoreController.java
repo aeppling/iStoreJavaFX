@@ -36,6 +36,15 @@ public class AllStoreController {
     private Button          _categoriesButton;
     @FXML
     private Button          _allstoresButton;
+    @FXML
+    private ImageView       _logoHeader;
+
+    public void initImage() {
+        Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
+        this._logoHeader.setImage(image);
+        this._logoHeader.setFitWidth(170);
+        this._logoHeader.setFitHeight(170);
+    }
     public void initButtons() {
         //ALL STORES BTN
         Image image = new Image(getClass().getResourceAsStream("allstores-icon.png"));
@@ -133,6 +142,7 @@ public class AllStoreController {
         getStores();
         this._baseGrid = this._gridPane;
         initButtons();
+        initImage();
         displayStore();
     }
 

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -26,11 +25,7 @@
       <PasswordField fx:id="passwordLogin" layoutX="85.0" layoutY="195.0" prefHeight="26.0" prefWidth="185.0" />
       <AnchorPane prefHeight="62.0" prefWidth="356.0" style="-fx-background-color: #E7ECEF;">
          <children>
-            <ImageView fitHeight="80.0" fitWidth="80.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../../../iStore Design/iStore Logos/istore-logo-zip-file/png/logo-color.png" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="_logoHeader" fitHeight="50.0" fitWidth="118.0" layoutX="119.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <Label layoutX="85.0" layoutY="169.0" text="Password :" />
