@@ -65,7 +65,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="_whitelistPane" layoutX="71.0" layoutY="109.0" prefHeight="258.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;">
+            <AnchorPane fx:id="_whitelistPane" layoutX="71.0" layoutY="109.0" prefHeight="258.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
                <children>
                   <TextField fx:id="emailWhitelistField" layoutX="100.0" layoutY="87.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter an email" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" prefHeight="52.0" prefWidth="478.0" text="Whitelist an email">
