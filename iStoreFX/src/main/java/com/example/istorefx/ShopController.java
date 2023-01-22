@@ -30,6 +30,35 @@ public class ShopController {
     @FXML
     private GridPane    _gridPane;
 
+    @FXML
+    private Button          _categoriesButton;
+    @FXML
+    private Button          _homeButton;
+    @FXML
+    private Button          _allstoresButton;
+    public void initButtons() {
+        //ALL STORES BTN
+        Image image = new Image(getClass().getResourceAsStream("allstores-icon.png"));
+        ImageView img = new ImageView();
+        img.setImage(image);
+        img.setFitWidth(80);
+        img.setFitHeight(80);
+        this._allstoresButton.setGraphic(img);
+        //CATEGORIES BTN
+        Image image2 = new Image(getClass().getResourceAsStream("categories-icon.png"));
+        ImageView img2 = new ImageView();
+        img2.setImage(image2);
+        img2.setFitWidth(70);
+        img2.setFitHeight(75);
+        this._categoriesButton.setGraphic(img2);
+        //HOME BTN
+        Image image3 = new Image(getClass().getResourceAsStream("home-icon.png"));
+        ImageView img3 = new ImageView();
+        img3.setImage(image3);
+        img3.setFitWidth(80);
+        img3.setFitHeight(80);
+        this._homeButton.setGraphic(img3);
+    }
     public void createTitleProduct(int x, int y, Product product) {
 
 
@@ -107,6 +136,7 @@ public class ShopController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        initButtons();
         displayInventory();
     }
     public void Home() {
@@ -114,6 +144,41 @@ public class ShopController {
         currentStage2.close();
         Stage primaryStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("store.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(this._user);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void Categories() {
+        Stage currentStage2 = (Stage) this._homeButton.getScene().getWindow();
+        currentStage2.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Categories.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(this._user);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void AllStores() {
+        System.out.println("Allstores");
+        Stage currentStage = (Stage) _allstoresButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AllStores.fxml"));
         try {
             SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
             userHolder.setUser(this._user);

@@ -52,10 +52,9 @@
                         <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="65.0" layoutY="81.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
                         <Label fx:id="_emailLabel" alignment="CENTER" layoutX="64.0" layoutY="99.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
                     </children></AnchorPane>
-                <Button layoutX="100.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" text="Home" />
-                <Button disable="true" layoutX="234.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="Categories" />
-                <Button layoutX="364.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" text="All Stores" />
-                <Button layoutX="491.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" text="button" />
+                <Button fx:id="_homeButton" layoutX="100.0" layoutY="15.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
+                <Button fx:id="_categoriesButton" disable="true" layoutX="234.0" layoutY="15.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
+                <Button fx:id="_allstoresButton" layoutX="364.0" layoutY="15.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
             </children></AnchorPane>
         <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
             <children>
