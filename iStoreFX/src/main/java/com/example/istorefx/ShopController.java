@@ -38,12 +38,15 @@ public class ShopController {
     private Button          _allstoresButton;
     @FXML
     private ImageView       _logoHeader;
+    @FXML
+    private GridPane        _employeeMenu;
 
     public void initImage() {
         Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
         this._logoHeader.setImage(image);
         this._logoHeader.setFitWidth(170);
         this._logoHeader.setFitHeight(170);
+        this._employeeMenu.setVisible(false);
     }
     public void initButtons() {
         //ALL STORES BTN
