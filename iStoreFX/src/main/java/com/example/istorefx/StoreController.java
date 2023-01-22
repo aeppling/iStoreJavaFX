@@ -77,6 +77,16 @@ public class StoreController {
         }
     }
 
+    public String cutProfileString(String input) {
+        String output;
+        if (input.length() > 20) {
+            output = input.substring(0, Math.min(input.length(), 20));
+            output = output + "...";
+        }
+        else
+            output = input;
+        return (output);
+    }
     public void displayProfile() {
         Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
 
@@ -87,8 +97,8 @@ public class StoreController {
         this._profileIcon.setFitWidth(40);
         this._profileIcon.setFitWidth(40);
         // ADD PROFIL INFO
-        this._pseudoLabel.setText(this._user.getPseudo());
-        this._emailLabel.setText(this._user.getEmail());
+        this._pseudoLabel.setText(cutProfileString(this._user.getPseudo()));
+        this._emailLabel.setText(cutProfileString(this._user.getEmail()));
     }
 
     public void initImage() {

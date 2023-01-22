@@ -38,6 +38,36 @@ public class AllStoreController {
     private Button          _allstoresButton;
     @FXML
     private ImageView       _logoHeader;
+    @FXML
+    private ImageView       _profileIcon;
+    @FXML
+    private Label           _pseudoLabel;
+    @FXML
+    private Label           _emailLabel;
+
+    public String cutProfileString(String input) {
+        String output;
+        if (input.length() > 20) {
+            output = input.substring(0, Math.min(input.length(), 20));
+            output = output + "...";
+        }
+        else
+            output = input;
+        return (output);
+    }
+    public void displayProfile() {
+        Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
+
+        // ADD PROFIL ICON
+        this._profileIcon.setImage(image);
+        this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
+        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
+        this._profileIcon.setFitWidth(40);
+        this._profileIcon.setFitWidth(40);
+        // ADD PROFIL INFO
+        this._pseudoLabel.setText(cutProfileString(this._user.getPseudo()));
+        this._emailLabel.setText(cutProfileString(this._user.getEmail()));
+    }
 
     public void initImage() {
         Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
@@ -68,15 +98,16 @@ public class AllStoreController {
         img3.setFitHeight(60);
         this._homeButton.setGraphic(img3);
     }
+
     public void displayStore() {
         int i = 6;
         int col_count = 0;
         int row_count = 3;
 
-        this._gridPane = this._baseGrid;
+        this._gridPane.getChildren().clear();
         System.out.println(this._searchBar.getText());
         while (i - 6 < this._storeList.size()) {
-            int occurence = (this._storeList.get(i - 6).getName().split(this._searchBar.getText()).length) - 1;
+            int occurence = (this._storeList.get(i - 6).getName().toLowerCase().split(this._searchBar.getText().toLowerCase()).length) - 1;
             if (occurence > 0) {
                 System.out.println("DISPLAY" + i);
                 if (col_count > 2) {
@@ -143,6 +174,7 @@ public class AllStoreController {
         this._baseGrid = this._gridPane;
         initButtons();
         initImage();
+        displayProfile();
         displayStore();
     }
 

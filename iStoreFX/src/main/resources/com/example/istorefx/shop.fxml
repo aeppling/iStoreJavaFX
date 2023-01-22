@@ -57,10 +57,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ChoiceBox prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button mnemonicParsing="false" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <TextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_actionType" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_productAimed" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>
@@ -71,9 +71,9 @@
             <children>
                 <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                     <children>
-                        <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="72.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="65.0" layoutY="81.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
-                        <Label fx:id="_emailLabel" alignment="CENTER" layoutX="64.0" layoutY="99.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
+                        <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="78.0" layoutY="40.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="_emailLabel" alignment="CENTER" layoutX="24.0" layoutY="76.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
                     </children></AnchorPane>
             <Separator layoutX="380.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
             <Separator layoutX="512.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />

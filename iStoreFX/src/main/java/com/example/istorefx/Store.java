@@ -1,5 +1,7 @@
 package com.example.istorefx;
 
+import javafx.collections.ObservableList;
+
 import java.sql.ResultSet;
 import java.sql.*;
 import java.util.ArrayList;
@@ -114,5 +116,13 @@ public class Store {
 
     public Product      getProduct(int i) {
         return (this._inventory.getElem(i));
+    }
+
+    public ArrayList<Product>    getInventory() {
+        return (this._inventory.getInventory());
+    }
+
+    public ObservableList<String>  getInventoryString() {
+        return (this._inventory.getInventoryString());
     }
 }

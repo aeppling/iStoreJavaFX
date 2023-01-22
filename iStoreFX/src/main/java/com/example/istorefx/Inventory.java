@@ -1,5 +1,8 @@
 package com.example.istorefx;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,5 +55,24 @@ public class Inventory {
 
     public Product  getElem(int index) {
         return (this._productList.get(index));
+    }
+
+    public ArrayList<Product> getInventory() {
+        return (this._productList);
+    }
+
+    public ObservableList<String>           getInventoryString() {
+        ObservableList<String> InventoryObs = FXCollections.observableArrayList();
+        String[] inventoryString = new String[this._productList.size()];
+        int count = 0;
+
+        while (count < this._productList.size()) {
+            inventoryString[count] = this._productList.get(count).getName() + " - " + this._productList.get(count).getId();
+            count++;
+        }
+        for (String s : inventoryString) {
+            InventoryObs.add(s);
+        }
+        return (InventoryObs);
     }
 }

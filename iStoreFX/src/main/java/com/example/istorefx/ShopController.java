@@ -1,14 +1,14 @@
 package com.example.istorefx;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
-
-import javafx.scene.control.Button;
 
 public class ShopController {
     private StoreRecord _store;
@@ -41,12 +39,77 @@ public class ShopController {
     @FXML
     private GridPane        _employeeMenu;
 
+    @FXML
+    private ChoiceBox       _actionType;
+    @FXML
+    private ChoiceBox       _productAimed;
+    @FXML
+    private TextField       _actionAmount;
+    @FXML
+    private Button          _confirmAction;
+
+    @FXML
+    private ImageView       _profileIcon;
+    @FXML
+    private Label           _pseudoLabel;
+    @FXML
+    private Label           _emailLabel;
+
+    public String cutProfileString(String input) {
+        String output;
+        if (input.length() > 20) {
+            output = input.substring(0, Math.min(input.length(), 20));
+            output = output + "...";
+        }
+        else
+            output = input;
+        return (output);
+    }
+    public void displayProfile() {
+        Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
+
+        // ADD PROFIL ICON
+        this._profileIcon.setImage(image);
+        this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
+        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
+        this._profileIcon.setFitWidth(40);
+        this._profileIcon.setFitWidth(40);
+        // ADD PROFIL INFO
+        this._pseudoLabel.setText(cutProfileString(this._user.getPseudo()));
+        this._emailLabel.setText(cutProfileString(this._user.getEmail()));
+    }
+
+    public void employeeConfirm(String actionname, String productname, String number) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Stock managing");
+        alert.setHeaderText(null);
+        alert.setContentText("Confirm " + actionname + " of " + number + " unit(s) of " + productname);
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+            System.out.println("Applied");
+        }
+    }
+    public void employeeAction() {
+        employeeConfirm(_actionType.getSelectionModel().getSelectedItem().toString(),
+                _productAimed.getSelectionModel().getSelectedItem().toString(),
+                _actionAmount.getText());
+    }
+
+    public void employeeInit() {
+        ObservableList<String>      actionTypes = FXCollections.observableArrayList();
+        actionTypes.add("Add");
+        actionTypes.add("Lower");
+
+        this._employeeMenu.setVisible(true);
+        this._productAimed.setItems(this._shop.getInventoryString());
+        this._actionType.setItems(actionTypes);
+    }
+
     public void initImage() {
         Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
         this._logoHeader.setImage(image);
         this._logoHeader.setFitWidth(170);
         this._logoHeader.setFitHeight(170);
-        this._employeeMenu.setVisible(false);
     }
     public void initButtons() {
         //ALL STORES BTN
@@ -131,6 +194,7 @@ public class ShopController {
         }
     }
     public void initialize() {
+        this._employeeMenu.setVisible(false);
         Connection connection = null;
         SingletonStoreHolder holder = SingletonStoreHolder.getInstance();
         SingletonUserHolder holder2 = SingletonUserHolder.getInstance();
@@ -150,6 +214,8 @@ public class ShopController {
         }
         initButtons();
         initImage();
+        employeeInit();
+        displayProfile();
         displayInventory();
     }
     public void Home() {
