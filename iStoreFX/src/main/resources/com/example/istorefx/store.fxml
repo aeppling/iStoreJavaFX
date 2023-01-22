@@ -59,7 +59,7 @@
             <Separator layoutX="248.0" layoutY="19.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
             <Pane fx:id="_logoHeaderPane" layoutX="2.0" layoutY="6.0" prefHeight="100.0" prefWidth="210.0">
                <children>
-                  <ImageView fx:id="_logoHeader" fitHeight="74.0" fitWidth="183.0" layoutX="21.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="_logoHeader" fitHeight="74.0" fitWidth="183.0" layoutX="39.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
          </children></AnchorPane>

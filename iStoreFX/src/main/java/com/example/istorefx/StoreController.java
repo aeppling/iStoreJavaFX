@@ -102,22 +102,22 @@ public class StoreController {
         Image image = new Image(getClass().getResourceAsStream("allstores-icon.png"));
         ImageView img = new ImageView();
         img.setImage(image);
-        img.setFitWidth(80);
-        img.setFitHeight(80);
+        img.setFitWidth(55);
+        img.setFitHeight(55);
         this._allstoresButton.setGraphic(img);
         //CATEGORIES BTN
         Image image2 = new Image(getClass().getResourceAsStream("categories-icon.png"));
         ImageView img2 = new ImageView();
         img2.setImage(image2);
-        img2.setFitWidth(70);
-        img2.setFitHeight(75);
+        img2.setFitWidth(50);
+        img2.setFitHeight(55);
         this._categoriesButton.setGraphic(img2);
         //HOME BTN
         Image image3 = new Image(getClass().getResourceAsStream("home-icon.png"));
         ImageView img3 = new ImageView();
         img3.setImage(image3);
-        img3.setFitWidth(80);
-        img3.setFitHeight(80);
+        img3.setFitWidth(60);
+        img3.setFitHeight(60);
         this._homeButton.setGraphic(img3);
     }
     public void initialize() {
