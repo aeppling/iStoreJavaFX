@@ -79,20 +79,91 @@ public class ShopController {
         this._emailLabel.setText(cutProfileString(this._user.getEmail()));
     }
 
-    public void employeeConfirm(String actionname, String productname, String number) {
+    public void executeStockAction(String actionType, Product product, int quantity, String mode) {
+        System.out.println("Executing :");
+        System.out.println(actionType + " " + quantity + " " + product.getName() + " as " + mode);
+    }
+    public void errorStockAlert(String msg, String mode) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (mode == "user") {
+            alert.setTitle("Product purchase error");
+        }
+        else {
+            alert.setTitle("Stock managing error");
+        }
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+    public void employeeConfirm(String actionType, String productAimed, String quantity_s, Product product) {
+        int quantity = Integer.valueOf(quantity_s);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Stock managing");
         alert.setHeaderText(null);
-        alert.setContentText("Confirm " + actionname + " of " + number + " unit(s) of " + productname);
+        alert.setContentText("Confirm " + actionType + " of " + quantity + " unit(s) of " + product.getName());
         Optional<ButtonType> action = alert.showAndWait();
         if (action.get() == ButtonType.OK) {
-            System.out.println("Applied");
+            executeStockAction(actionType, product, quantity, "employee");
         }
     }
+
+    public boolean isActionPossible(String actionType, String productAimed, String actionAmount, String mode, Product product) {
+        boolean bool = false;
+        Integer actionAmountInt = Integer.valueOf(actionAmount);
+
+        if (actionType == "Add") {
+            if ((product.getMaxStock() - product.getCurrentStock()) < actionAmountInt) {
+                //PAS POSSIBLE D'AJOUT
+                String msg = new String ("You're trying to add " + actionAmountInt + " but here is only " + (product.getMaxStock() - product.getCurrentStock()) + " storage left");
+                errorStockAlert(msg, mode);
+            } else {
+                bool = true;
+            }
+        }
+        else if (actionType == "Lower") {
+            String actionString = "lower";
+            if (mode == "user") {
+                actionString = "buy";
+            }
+            if ((product.getCurrentStock() - actionAmountInt) < 0) {
+                //PAS POSSIBLE DE SOUSTRAIRE
+                String msg = new String("You're trying to " + actionString + " " + actionAmountInt + " but there is only " + product.getCurrentStock() + " in stock");
+                errorStockAlert(msg, mode);
+            } else {
+                bool = true;
+            }
+        }
+        return (bool);
+    }
     public void employeeAction() {
-        employeeConfirm(_actionType.getSelectionModel().getSelectedItem().toString(),
-                _productAimed.getSelectionModel().getSelectedItem().toString(),
-                _actionAmount.getText());
+        String  actionAmount = _actionAmount.getText();
+        if ((_actionType.getSelectionModel().getSelectedItem() == null)
+                || (_productAimed.getSelectionModel().getSelectedItem() == null)) {
+            errorStockAlert("You need to fill all the fields", "employee");
+            return;
+        }
+        String  actionType = _actionType.getSelectionModel().getSelectedItem().toString();
+        String  productAimed = _productAimed.getSelectionModel().getSelectedItem().toString();
+        if (actionType.isEmpty() || productAimed.isEmpty() || (actionAmount.isEmpty())) {
+            errorStockAlert("You need to fill all the fields", "employee");
+            return;
+        }
+        Product product = null;
+        Integer actionAmountInt = Integer.valueOf(actionAmount);
+        int count = 0;
+        while (count < this._shop.getInventorySize()) {
+            if (this._shop.getProduct(count).getName() == productAimed) {
+                product = this._shop.getProduct(count);
+                break;
+            }
+            count++;
+        }
+        if (actionAmountInt <= 0) {
+            errorStockAlert("You can't make an operation of 0 or negative unit", "employee");
+        }
+        else if (isActionPossible(actionType, productAimed, actionAmount, "employee", product) == true) {
+            employeeConfirm(actionType, productAimed, actionAmount, product);
+        }
     }
 
     public void employeeInit() {
@@ -134,18 +205,32 @@ public class ShopController {
         img3.setFitHeight(60);
         this._homeButton.setGraphic(img3);
     }
-    public void createTitleProduct(int x, int y, Product product) {
 
-
+    public void buyProduct(Product product, int quantity) {
+        if (isActionPossible("Lower", product.getName(), Integer.toString(quantity), "user", product) == false)
+            return;
+        executeStockAction("Lower", product, quantity, "user");
     }
     public void buyConfirm(Product product) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Buying product");
-        alert.setHeaderText(null);
-        alert.setContentText("Confirm buy of " + product.getName() + " for " + product.getPrice() + "$");
-        Optional<ButtonType> action = alert.showAndWait();
-        if (action.get() == ButtonType.OK) {
-            System.out.println("BOUGHT");
+        int quantity = 0;
+        String buyMsg = new String("Confirm buy of " + product.getName() + " for " + product.getPrice() + "$");
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(buyMsg);
+
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(quantity, 1, 2, 3, 4, 5, 10, 20, 50, 100);
+        Optional<Integer> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            quantity = result.get();
+            float total_price = (float)quantity * product.getPrice();
+            total_price = (float)((int)(total_price * 100f))/100f;
+            alert.setHeaderText("Confirm buy of " + product.getName());
+            alert.setContentText(quantity + " x " + product.getName() + " (" + product.getPrice() + "$) = " + total_price + "$");
+            Optional<ButtonType> action = alert.showAndWait();
+            if (action.get() == ButtonType.OK) {
+                buyProduct(product, quantity);
+            }
         }
     }
     public void createImageProduct(int x, int y, Product product) {
@@ -168,12 +253,6 @@ public class ShopController {
         this._gridPane.setValignment(label, VPos.BOTTOM);
         this._gridPane.setMargin(label, new Insets(0, 0, 0, 0));
         this._gridPane.add(label, x, y);
-   /*     this._gridPane.setHalignment(buyButton, HPos.CENTER);
-        this._gridPane.setValignment(buyButton, VPos.BOTTOM);
-        this._gridPane.setMargin(buyButton, new Insets(0, 0, 0, 0));
-        this._gridPane.add(buyButton, x, y);
-
-    */
     }
     public void displayInventory() {
         int     tot_count = 0;
@@ -190,7 +269,6 @@ public class ShopController {
             createImageProduct(col_count, row_count, product);
             tot_count++;
             col_count++;
-            System.out.println(this._shop.getInventorySize() - tot_count);
         }
     }
     public void initialize() {
@@ -253,7 +331,6 @@ public class ShopController {
         }
     }
     public void AllStores() {
-        System.out.println("Allstores");
         Stage currentStage = (Stage) _allstoresButton.getScene().getWindow();
         currentStage.close();
         Stage primaryStage = new Stage();

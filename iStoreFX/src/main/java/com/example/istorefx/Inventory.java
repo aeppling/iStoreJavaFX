@@ -67,7 +67,7 @@ public class Inventory {
         int count = 0;
 
         while (count < this._productList.size()) {
-            inventoryString[count] = this._productList.get(count).getName() + " - " + this._productList.get(count).getId();
+            inventoryString[count] = this._productList.get(count).getName();
             count++;
         }
         for (String s : inventoryString) {

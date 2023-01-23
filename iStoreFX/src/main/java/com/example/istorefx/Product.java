@@ -31,4 +31,28 @@ public class Product {
     public int      getId() {
         return (this._id);
     }
+
+    public void     incrStock() {
+        this._current_stock++;
+    }
+
+    public void     decrStock() {
+        this._current_stock--;
+    }
+
+    public void     addStock(int nb) {
+        this._current_stock = this._current_stock + nb;
+    }
+
+    public void     lowerStock(int nb) {
+        this._current_stock = this._current_stock - nb;
+    }
+
+    public int      getCurrentStock() {
+        return (this._current_stock);
+    }
+    public int      getMaxStock() {
+        return (this._max_stock);
+    }
+
 }
