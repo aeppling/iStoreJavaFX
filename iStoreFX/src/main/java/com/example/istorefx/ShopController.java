@@ -319,6 +319,29 @@ public class ShopController {
             col_count++;
         }
     }
+
+    public boolean isEmployeeWorkingHere(User user) {
+        boolean check = false;
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String lowerUpdateRequest = "SELECT * FROM iStoreUsers INNER JOIN StoreUserLink ON iStoreUsers.id = StoreUserLink.UserID WHERE StoreID = ?";
+            PreparedStatement preparedEmployeeRequest = connection.prepareStatement(lowerUpdateRequest);
+            preparedEmployeeRequest.setInt(1, this._store.getId());
+            ResultSet EmployeeList = preparedEmployeeRequest.executeQuery();
+            while (EmployeeList.next()) {
+                if (EmployeeList.getInt("id") == user.getId()) {
+                    check = true;
+                    connection.close();
+                    return (check);
+                }
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (check);
+    }
     public void initialize() {
         this._employeeMenu.setVisible(false);
         Connection connection = null;
@@ -342,11 +365,10 @@ public class ShopController {
         initImage();
         System.out.println("ROLES :");
         System.out.println(this._user.getRole());
-       /* if ((this._user.getRole().equals("employee")) || (this._user.getRole().equals("admin"))) {
-            System.out.println("here");
+        if (((this._user.getRole().equals("employee")) && isEmployeeWorkingHere(this._user))
+            || (this._user.getRole().equals("admin"))) {
             employeeInit();
-        }*/
-        employeeInit();
+        }
         displayProfile();
         displayInventory();
     }

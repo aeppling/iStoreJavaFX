@@ -73,6 +73,13 @@ public class Controller {
         return (check);
     }
 
+    public void errorPassword() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Login error");
+        alert.setHeaderText("Wrong password");
+        alert.setContentText("Try again...");
+        alert.showAndWait();
+    }
     public void errorWhitelist(String email) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Whitelist missing");
@@ -106,6 +113,10 @@ public class Controller {
                     } else if(resultPassword.getString("role").equals("admin")){
                         AdminDashboard(user);
                     }
+                }
+                else {
+                    errorPassword();
+                    return (false);
                 }
             }
         }
