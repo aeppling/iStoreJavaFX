@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.AllUsersController">
+    <children>
+        <AnchorPane layoutY="113.0" prefHeight="506.0" prefWidth="730.0">
+            <children>
+                <AnchorPane prefHeight="506.0" prefWidth="730.0" style="-fx-background-color: #274C77;">
+                    <children>
+                        <Separator layoutX="36.0" layoutY="82.0" prefHeight="3.0" prefWidth="347.0" style="-fx-background-color: #ffffff;" />
+                        <Label fx:id="_pseudoLabel1" alignment="CENTER" layoutX="36.0" layoutY="34.0" text="Users Browser" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                  <Pane layoutX="36.0" layoutY="110.0" prefHeight="370.0" prefWidth="551.0" style="-fx-background-color: #E7ECEF;">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="58.0" prefHeight="301.0" prefWidth="522.0" style="-fx-background-color: #ffffff;" />
+                        <TextField layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="336.0" promptText=" username or user email..." />
+                        <Button layoutX="386.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" text="Search">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                     </children>
+                  </Pane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
+            <children>
+                <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
+                    <children>
+                        <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="78.0" layoutY="40.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="_emailLabel" alignment="CENTER" layoutX="24.0" layoutY="76.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
+                    </children></AnchorPane>
+                <Separator layoutX="382.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <Separator layoutX="514.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <Separator layoutX="640.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <Button fx:id="_homeButton" layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
+                <Button fx:id="_categoriesButton" layoutX="390.0" layoutY="24.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
+                <Button fx:id="_allStoresButton" layoutX="520.0" layoutY="24.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
+                <Separator layoutX="252.0" layoutY="24.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <ImageView fx:id="_logoHeader" fitHeight="74.0" fitWidth="183.0" layoutX="43.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+            </children></AnchorPane>
+        <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
+            <children>
+                <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
+                <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button disable="true" layoutX="34.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
+                <Button fx:id="_accountButton" layoutX="34.0" layoutY="148.0" mnemonicParsing="false" onAction="#Account" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
+                <Separator layoutX="34.0" layoutY="221.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

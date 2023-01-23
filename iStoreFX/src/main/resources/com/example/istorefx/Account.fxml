@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.AccountController">
+    <children>
+        <AnchorPane layoutY="113.0" prefHeight="506.0" prefWidth="730.0">
+         <children>
+            <AnchorPane prefHeight="506.0" prefWidth="730.0" style="-fx-background-color: #274C77;">
+               <children>
+                  <Separator layoutX="36.0" layoutY="82.0" prefHeight="3.0" prefWidth="347.0" style="-fx-background-color: #ffffff;" />
+                  <Label fx:id="_pseudoLabel1" alignment="CENTER" layoutX="36.0" layoutY="34.0" text="My Account" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="108.0" text="Email :" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="183.0" text="Username :" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="143.0" text="email" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="217.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="96.0" layoutY="344.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="228.0" style="-fx-background-color: #FF9494;" text="Delete account" />
+                  <Button layoutX="393.0" layoutY="215.0" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Change username" />
+                  <Button layoutX="393.0" layoutY="140.0" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Change email" />
+                  <Button layoutX="96.0" layoutY="303.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="228.0" style="-fx-background-color: #ffffff;" text="Change password" />
+               </children>
+            </AnchorPane>
+         </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
+            <children>
+                <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
+                    <children>
+                        <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="78.0" layoutY="40.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="_emailLabel" alignment="CENTER" layoutX="24.0" layoutY="76.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
+                    </children></AnchorPane>
+                <Separator layoutX="382.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <Separator layoutX="514.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <Separator layoutX="640.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <Button fx:id="_homeButton" layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
+                <Button fx:id="_categoriesButton" layoutX="390.0" layoutY="24.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
+                <Button fx:id="_allStoresButton" layoutX="520.0" layoutY="24.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
+                <Separator layoutX="252.0" layoutY="24.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
+                <ImageView fx:id="_logoHeader" fitHeight="74.0" fitWidth="183.0" layoutX="43.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+            </children></AnchorPane>
+        <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
+            <children>
+                <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
+                <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button fx:id="AllUsersButton" layoutX="34.0" layoutY="109.0" mnemonicParsing="false" onAction="#AllUsers" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
+                <Button disable="true" layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
+                <Separator layoutX="34.0" layoutY="221.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
