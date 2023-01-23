@@ -178,6 +178,10 @@ public class AllStoreController {
         initButtons();
         initImage();
         displayProfile();
+        this._logoHeader.getParent().setOnKeyPressed((KeyEvent event) -> {
+            if(event.getCode().toString().equals("ENTER"))
+            {displayStore();}
+        });
         displayStore();
     }
 
