@@ -79,9 +79,42 @@ public class ShopController {
         this._emailLabel.setText(cutProfileString(this._user.getEmail()));
     }
 
+    public void updateDatabaseStock(String actionType, Product product, int quantity) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            if (actionType == "Lower") {
+                String lowerUpdateRequest = "UPDATE iStoreProducts SET iStoreProducts.current_stock = iStoreProducts.current_stock - ? WHERE iStoreProducts.id = ?";
+                PreparedStatement preparedUpdateRequest = connection.prepareStatement(lowerUpdateRequest);
+                preparedUpdateRequest.setInt(1, quantity);
+                preparedUpdateRequest.setInt(2, product.getId());
+                System.out.println(preparedUpdateRequest);
+                preparedUpdateRequest.executeUpdate();
+            } else if (actionType == "Add") {
+                String addUpdateRequest = "UPDATE iStoreProducts SET iStoreProducts.current_stock = iStoreProducts.current_stock + ? WHERE iStoreProducts.id = ?";
+                PreparedStatement preparedUpdateRequest = connection.prepareStatement(addUpdateRequest);
+                preparedUpdateRequest.setInt(1, quantity);
+                preparedUpdateRequest.setInt(2, product.getId());
+                System.out.println(preparedUpdateRequest);
+                preparedUpdateRequest.executeUpdate();
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateLocalStock(String actionType, Product product, int quantity) {
+        if (actionType == "Lower") {
+            product.lowerStock(quantity);
+        }
+        else if (actionType == "Add") {
+            product.addStock(quantity);
+        }
+    }
     public void executeStockAction(String actionType, Product product, int quantity, String mode) {
         System.out.println("Executing :");
         System.out.println(actionType + " " + quantity + " " + product.getName() + " as " + mode);
+        updateLocalStock(actionType, product, quantity);
+        updateDatabaseStock(actionType, product, quantity);
     }
     public void errorStockAlert(String msg, String mode) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -211,18 +244,33 @@ public class ShopController {
             return;
         executeStockAction("Lower", product, quantity, "user");
     }
+
+    public void errorBuyNull() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Buying error");
+        alert.setHeaderText(null);
+        alert.setContentText("You can't operate with values inferiors or equal to 0");
+        alert.showAndWait();
+    }
     public void buyConfirm(Product product) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         int quantity = 0;
         String buyMsg = new String("Confirm buy of " + product.getName() + " for " + product.getPrice() + "$");
-        alert.setTitle("Confirmation");
+        alert.setTitle("iStores -  Buy Confirmation");
         alert.setHeaderText(buyMsg);
 
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(quantity, 1, 2, 3, 4, 5, 10, 20, 50, 100);
+        dialog.setTitle("iStore - Purchasing");
+        dialog.setHeaderText("Choose the amount");
+        dialog.setContentText(product.getPrice() + "$ x ");
         Optional<Integer> result = dialog.showAndWait();
 
         if (result.isPresent()) {
             quantity = result.get();
+            if (quantity <= 0) {
+                errorBuyNull();
+                return ;
+            }
             float total_price = (float)quantity * product.getPrice();
             total_price = (float)((int)(total_price * 100f))/100f;
             alert.setHeaderText("Confirm buy of " + product.getName());
@@ -294,10 +342,11 @@ public class ShopController {
         initImage();
         System.out.println("ROLES :");
         System.out.println(this._user.getRole());
-        if ((this._user.getRole().equals("employee")) || (this._user.getRole().equals("admin"))) {
+       /* if ((this._user.getRole().equals("employee")) || (this._user.getRole().equals("admin"))) {
             System.out.println("here");
             employeeInit();
-        }
+        }*/
+        employeeInit();
         displayProfile();
         displayInventory();
     }
