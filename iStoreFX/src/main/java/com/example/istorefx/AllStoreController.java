@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -44,6 +45,8 @@ public class AllStoreController {
     private Label           _pseudoLabel;
     @FXML
     private Label           _emailLabel;
+    @FXML
+    private Button      _accountButton;
 
     public String cutProfileString(String input) {
         String output;
@@ -175,6 +178,10 @@ public class AllStoreController {
         initButtons();
         initImage();
         displayProfile();
+        this._logoHeader.getParent().setOnKeyPressed((KeyEvent event) -> {
+            if(event.getCode().toString().equals("ENTER"))
+            {displayStore();}
+        });
         displayStore();
     }
 
@@ -230,6 +237,68 @@ public class AllStoreController {
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void Account() {
+        Stage currentStage = (Stage) _allstoresButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Account.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(this._user);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
+            primaryStage.setTitle("iStore - Account");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private Button AllUsersButton;
+    public void AllUsers() {
+        Stage currentStage = (Stage) _homeButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AllUsers.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(this._user);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private Button _disconnectButton;
+    public void Disconnect() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Disconnection");
+        alert.setHeaderText("Do you want to disconnect ?");
+        alert.setContentText(null);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Stage currentStage = (Stage) _homeButton.getScene().getWindow();
+            currentStage.close();
+            Stage primaryStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 356, 400);
+                primaryStage.setTitle("iStore - Login Page");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

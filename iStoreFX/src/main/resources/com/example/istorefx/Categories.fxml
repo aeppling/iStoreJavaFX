@@ -41,7 +41,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="645.0" layoutY="13.0" opacity="0.25" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="6.0" />
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
+        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF; -fx-border-color: #6096BA; -fx-border-width: 0 0 1 0;">
             <children>
                 <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                     <children>
@@ -60,12 +60,12 @@
             </children></AnchorPane>
         <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
             <children>
-                <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
-                <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
-                <Button layoutX="34.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
-                <Button layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
-                <Separator layoutX="34.0" layoutY="221.0" prefHeight="0.0" prefWidth="114.0" />
-                <Button layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
+                <Separator layoutX="34.0" layoutY="74.0" prefHeight="0.0" prefWidth="114.0" />
+                <Separator layoutX="34.0" layoutY="115.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button fx:id="AllUsersButton" layoutX="34.0" layoutY="47.0" mnemonicParsing="false" onAction="#AllUsers" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
+                <Button fx:id="_accountButton" layoutX="34.0" layoutY="88.0" mnemonicParsing="false" onAction="#Account" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
+                <Separator layoutX="34.0" layoutY="161.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button fx:id="_disconnectButton" layoutX="34.0" layoutY="134.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
             </children>
         </AnchorPane>
     </children>

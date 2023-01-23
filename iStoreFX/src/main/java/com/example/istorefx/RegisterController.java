@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,6 +45,19 @@ public class RegisterController {
     @FXML
     private Label password2Error;
 
+    @FXML
+    private ImageView _logoHeader;
+
+    public void initImage() {
+        Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
+        this._logoHeader.setImage(image);
+        this._logoHeader.setFitWidth(140);
+        this._logoHeader.setFitHeight(140);
+    }
+
+    public void initialize() {
+        initImage();
+    }
     public void requestWhitelist(Connection connection) {
         PreparedStatement preparedRegisterStatementWhitelist = null;
         try {
@@ -289,10 +304,10 @@ public class RegisterController {
         try {
             SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
             userHolder.setUser(user);
-            Scene scene = new Scene(fxmlLoader.load(), 875, 616);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -321,6 +336,23 @@ public class RegisterController {
         try {
             Scene scene = new Scene(fxmlLoader.load(), 356, 400);
             primaryStage.setTitle("iStore - Login page");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private Button _disconnectButton;
+    public void Disconnect() {
+        Stage currentStage = (Stage) _disconnectButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 356, 400);
+            primaryStage.setTitle("iStore - Login Page");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.show();

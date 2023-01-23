@@ -5,22 +5,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.RegisterController">
+<AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.RegisterController">
    <children>
       <Accordion layoutX="106.0" layoutY="167.0" />
       <AnchorPane layoutX="2.0" prefHeight="119.0" prefWidth="408.0" style="-fx-background-color: #E7ECEF;">
          <children>
-            <ImageView fitHeight="123.0" fitWidth="158.0" layoutX="142.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../../../iStore%20Design/iStore%20Logos/istore-logo-zip-file/png/logo-color.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="backButton" layoutY="1.0" mnemonicParsing="false" onAction="#back" prefHeight="123.0" prefWidth="123.0" text="Back" />
+            <ImageView fx:id="_logoHeader" fitHeight="97.0" fitWidth="184.0" layoutX="26.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="561.0" prefHeight="52.0" prefWidth="412.0" style="-fx-background-color: #274C77;">
@@ -32,16 +26,17 @@
             </Label>
          </children>
       </AnchorPane>
-      <PasswordField fx:id="inputPassword" layoutX="67.0" layoutY="383.0" prefHeight="26.0" prefWidth="278.0" promptText="Your password" />
-      <TextField fx:id="inputPseudo" layoutX="66.0" layoutY="191.0" prefHeight="34.0" prefWidth="158.0" promptText="Your nickname" />
-      <Button fx:id="formButton" layoutY="512.0" mnemonicParsing="false" onAction="#submitForm" prefHeight="52.0" prefWidth="414.0" text="Create my account" />
+      <PasswordField fx:id="inputPassword" layoutX="67.0" layoutY="383.0" prefHeight="26.0" prefWidth="278.0" promptText="Your password" style="-fx-background-radius: 5; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" />
+      <TextField fx:id="inputPseudo" layoutX="67.0" layoutY="197.0" prefHeight="34.0" prefWidth="158.0" promptText="Your nickname" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #A3CEF1;" />
+      <Button fx:id="formButton" layoutY="512.0" mnemonicParsing="false" onAction="#submitForm" prefHeight="52.0" prefWidth="414.0" style="-fx-background-color: #ffffff; -fx-border-color: #6096BA; -fx-background-radius: 5; -fx-border-radius: 5;" text="Create my account" />
       <Label fx:id="pseudoError" layoutX="65.0" layoutY="167.0" style="-fx-text-fill: #be4d25;" />
       <Label fx:id="passwordError" layoutX="67.0" layoutY="358.0" style="-fx-text-fill: #be4d25;" />
-      <TextField fx:id="inputEmail" layoutX="67.0" layoutY="256.0" prefHeight="34.0" prefWidth="278.0" promptText="Your email" />
+      <TextField fx:id="inputEmail" layoutX="67.0" layoutY="260.0" prefHeight="34.0" prefWidth="278.0" promptText="Your email" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #A3CEF1;" />
       <Label fx:id="emailError" layoutX="66.0" layoutY="232.0" style="-fx-text-fill: #be4d25;" />
-      <TextField fx:id="inputEmail2" layoutX="68.0" layoutY="319.0" prefHeight="34.0" prefWidth="278.0" promptText="Confirm email" />
+      <TextField fx:id="inputEmail2" layoutX="67.0" layoutY="323.0" prefHeight="34.0" prefWidth="278.0" promptText="Confirm email" style="-fx-background-radius: 5; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" />
       <Label fx:id="email2Error" layoutX="67.0" layoutY="295.0" style="-fx-text-fill: #be4d25;" />
-      <PasswordField fx:id="inputPassword2" layoutX="68.0" layoutY="440.0" prefHeight="26.0" prefWidth="278.0" promptText="Confirm password" />
+      <PasswordField fx:id="inputPassword2" layoutX="68.0" layoutY="440.0" prefHeight="26.0" prefWidth="278.0" promptText="Confirm password" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #A3CEF1;" />
       <Label fx:id="password2Error" layoutX="68.0" layoutY="416.0" style="-fx-text-fill: #be4d25;" />
+      <Button fx:id="backButton" layoutX="25.0" layoutY="139.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0" prefWidth="82.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #274C77; -fx-background-radius: 5; -fx-border-radius: 5;" text="&lt;     Back" />
    </children>
 </AnchorPane>

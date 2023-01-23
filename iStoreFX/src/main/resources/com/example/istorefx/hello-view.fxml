@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="356.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.Controller">
    <children>
-      <Button id="loginButton" fx:id="loginButton" focusTraversable="false" layoutX="-4.0" layoutY="307.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="362.0" styleClass="loginButton" stylesheets="@../../../../java/com/example/istorefx/mainButton.css" text="Login" />
-      <Button fx:id="registerButton" focusTraversable="false" layoutX="239.0" layoutY="248.0" mnemonicParsing="false" onAction="#register" text="Register" />
+      <Button id="loginButton" fx:id="loginButton" focusTraversable="false" layoutX="-4.0" layoutY="307.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="362.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #6096BA; -fx-border-radius: 5;" styleClass="loginButton" stylesheets="@../../../../java/com/example/istorefx/mainButton.css" text="Login" />
+      <Button fx:id="registerButton" focusTraversable="false" layoutX="239.0" layoutY="248.0" mnemonicParsing="false" onAction="#register" prefHeight="27.0" prefWidth="82.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" text="Register" />
       <AnchorPane layoutY="358.0" prefHeight="42.0" prefWidth="356.0" style="-fx-background-color: #274C77;">
          <children>
             <Label layoutX="30.0" layoutY="13.0" text="Léo RICHEZ &amp; Adrien EPPLING                                @SUPINFO 2023" textFill="WHITE">
@@ -21,8 +21,8 @@
             </Label>
          </children></AnchorPane>
       <Label layoutX="56.0" layoutY="252.0" text="You don't have an account yet ?" />
-      <TextField fx:id="pseudoLogin" layoutX="85.0" layoutY="134.0" prefHeight="26.0" prefWidth="186.0" />
-      <PasswordField fx:id="passwordLogin" layoutX="85.0" layoutY="195.0" prefHeight="26.0" prefWidth="185.0" />
+      <TextField fx:id="pseudoLogin" layoutX="85.0" layoutY="134.0" prefHeight="26.0" prefWidth="186.0" style="-fx-background-radius: 5; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" />
+      <PasswordField fx:id="passwordLogin" layoutX="85.0" layoutY="195.0" prefHeight="26.0" prefWidth="185.0" style="-fx-background-radius: 5; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" />
       <AnchorPane prefHeight="62.0" prefWidth="356.0" style="-fx-background-color: #E7ECEF;">
          <children>
             <ImageView fx:id="_logoHeader" fitHeight="50.0" fitWidth="118.0" layoutX="119.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />

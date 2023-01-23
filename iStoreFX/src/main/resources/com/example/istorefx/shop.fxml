@@ -20,7 +20,7 @@
          <children>
             <AnchorPane prefHeight="98.0" prefWidth="730.0" style="-fx-background-color: #ffffffff;">
                <children>
-                  <Label fx:id="_storeName" alignment="CENTER" layoutX="55.0" layoutY="30.0" text="StoreName" textAlignment="CENTER">
+                  <Label fx:id="_storeName" alignment="CENTER" layoutX="55.0" layoutY="22.0" text="StoreName" textAlignment="CENTER">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -29,7 +29,7 @@
             </AnchorPane>
             <ScrollPane layoutY="163.0" prefHeight="341.0" prefWidth="730.0">
                <content>
-                  <GridPane fx:id="_gridPane" hgap="10.0" prefHeight="144.0" prefWidth="724.0">
+                  <GridPane fx:id="_gridPane" hgap="10.0" prefHeight="311.0" prefWidth="730.0" style="-fx-background-color: #ffffff;">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -57,17 +57,17 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ChoiceBox fx:id="_actionType" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <ChoiceBox fx:id="_productAimed" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_actionType" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_productAimed" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" prefHeight="27.0" prefWidth="139.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #6096BA; -fx-background-radius: 5; -fx-border-radius: 5;" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" promptText=" Enter amount..." style="-fx-border-color: #A3CEF1; -fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
          </children>
         </AnchorPane>
-        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
+        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF; -fx-border-color: #6096BA; -fx-border-width: 0 0 1 0;">
             <children>
                 <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                     <children>
@@ -78,7 +78,7 @@
             <Separator layoutX="380.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
             <Separator layoutX="512.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
             <Separator layoutX="638.0" layoutY="22.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <Button fx:id="_homeButton" disable="true" layoutX="254.0" layoutY="24.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
+            <Button fx:id="_homeButton" layoutX="254.0" layoutY="24.0" mnemonicParsing="false" onAction="#Home" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
             <Button fx:id="_categoriesButton" layoutX="388.0" layoutY="24.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
             <Button fx:id="_allstoresButton" layoutX="518.0" layoutY="24.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
             <Separator layoutX="250.0" layoutY="24.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
@@ -86,12 +86,12 @@
             </children></AnchorPane>
         <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
             <children>
-                <Separator layoutX="34.0" layoutY="136.0" prefHeight="0.0" prefWidth="114.0" />
-                <Separator layoutX="34.0" layoutY="175.0" prefHeight="0.0" prefWidth="114.0" />
-                <Button layoutX="34.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
-                <Button layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
-                <Separator layoutX="34.0" layoutY="221.0" prefHeight="0.0" prefWidth="114.0" />
-                <Button layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
+                <Separator layoutX="34.0" layoutY="74.0" prefHeight="0.0" prefWidth="114.0" />
+                <Separator layoutX="34.0" layoutY="115.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button fx:id="AllUsersButton" layoutX="34.0" layoutY="47.0" mnemonicParsing="false" onAction="#AllUsers" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
+                <Button fx:id="_accountButton" layoutX="34.0" layoutY="88.0" mnemonicParsing="false" onAction="#Account" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
+                <Separator layoutX="34.0" layoutY="161.0" prefHeight="0.0" prefWidth="114.0" />
+                <Button fx:id="_disconnectButton" layoutX="34.0" layoutY="134.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
             </children>
         </AnchorPane>
     </children>
