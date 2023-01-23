@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -9,7 +10,10 @@
    <children>
       <AnchorPane layoutX="2.0" layoutY="2.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <AnchorPane layoutX="-2.0" prefHeight="106.0" prefWidth="604.0" style="-fx-background-color: #E7ECEF;" />
+            <AnchorPane layoutX="-2.0" prefHeight="106.0" prefWidth="604.0" style="-fx-background-color: #E7ECEF;">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" prefHeight="106.0" prefWidth="114.0" text="Back" />
+               </children></AnchorPane>
             <AnchorPane layoutX="-2.0" layoutY="572.0" prefHeight="54.0" prefWidth="604.0" style="-fx-background-color: #274C77;">
                <children>
                   <Label layoutX="34.0" layoutY="18.0" text="Léo RICHEZ &amp; Adrien EPPLING                                                 @SUPINFO 2023" textFill="WHITE">
@@ -19,23 +23,66 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="2.0" layoutY="105.0" onDragDetected="#DeleteAccount" prefHeight="466.0" prefWidth="598.0">
+            <AnchorPane layoutX="2.0" layoutY="105.0" onDragDetected="#DeleteAccount" opacity="0.89" prefHeight="466.0" prefWidth="598.0">
                <children>
                   <Label contentDisplay="CENTER" layoutX="14.0" layoutY="9.0" prefHeight="52.0" prefWidth="221.0" text="Update User">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="393.0" layoutY="9.0" prefHeight="52.0" prefWidth="194.0" text="Pseudo">
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="-30.0" layoutY="86.0" prefHeight="52.0" prefWidth="194.0" text="Nickname : ">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="317.0" mnemonicParsing="false" onAction="#DeleteAccount" prefHeight="40.0" prefWidth="194.0" text="Delete account" textAlignment="CENTER" textFill="RED">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="372.0" mnemonicParsing="false" onAction="#DeleteAccount" prefHeight="40.0" prefWidth="194.0" text="Delete account" textAlignment="CENTER" textFill="RED">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="-30.0" layoutY="164.0" prefHeight="52.0" prefWidth="194.0" text="Email : ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="_nicknameLabel" contentDisplay="RIGHT" layoutX="174.0" layoutY="86.0" prefHeight="52.0" prefWidth="194.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="_nicknameLabel1" contentDisplay="RIGHT" layoutX="174.0" layoutY="164.0" prefHeight="52.0" prefWidth="194.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="405.0" layoutY="92.0" mnemonicParsing="false" onAction="#DisplayUpdateNickname" prefHeight="40.0" prefWidth="176.0" text="Update nickname" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="405.0" layoutY="170.0" mnemonicParsing="false" onAction="#DisplayUpdateEmailPane" prefHeight="40.0" prefWidth="176.0" text="Update email" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="309.0" mnemonicParsing="false" onAction="#DisplayUpdatePassword" prefHeight="40.0" prefWidth="194.0" text="Update password" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <AnchorPane fx:id="_updateEmailPane" layoutX="71.0" layoutY="109.0" prefHeight="258.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
+                     <children>
+                        <TextField fx:id="_newEmailTextField" layoutX="100.0" layoutY="112.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter the new email" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" onDragDetected="#UpdateMail" prefHeight="52.0" prefWidth="478.0" text="Update Email">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#UpdateMail" prefHeight="40.0" prefWidth="278.0" text="Update" />
+                        <Label fx:id="storeNameError" layoutX="100.0" layoutY="146.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseUpdateEmailPane" prefHeight="15.0" prefWidth="58.0" text="Close" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>

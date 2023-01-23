@@ -73,13 +73,13 @@ public class AdminController {
 
     // Create New Store
 
-    public void DisplayCreateStore() {
+    public void DisplayCreateStorePane() {
         // Display Create Store overlay
         this._CreateStorePane.setVisible(true);
 
     }
 
-    public void CloseDisplayCreateStore() {
+    public void CloseDisplayCreateStorePane() {
         // Close Create Store overlay
         this._CreateStorePane.setVisible(false);
     }
@@ -119,7 +119,7 @@ public class AdminController {
                 // Add store to DataBase
 
 
-                CloseDisplayCreateStore();
+                CloseDisplayCreateStorePane();
             }catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -171,12 +171,12 @@ public class AdminController {
 
     }
     // WhiteList
-    public void DisplayWhitelist() {
+    public void DisplayWhitelistPane() {
         // Display whitelist overlay
         this._whitelistPane.setVisible(true);
 
     }
-    public void CloseDisplayWhitelist() {
+    public void CloseDisplayWhitelistPane() {
         // Close Whitelist overlay
         this._whitelistPane.setVisible(false);
 
@@ -204,7 +204,7 @@ public class AdminController {
                 preparedsqlMailWhitelistInsertStatement.setString(1, emailWhiteList);
                 preparedsqlMailWhitelistInsertStatement.execute();
                 preparedsqlMailWhitelistInsertStatement.close();
-                CloseDisplayWhitelist();
+                CloseDisplayWhitelistPane();
             }catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -238,13 +238,13 @@ public class AdminController {
     }
 
     // Manage Employee
-    public void DisplayManageEmployee() {
+    public void DisplayManageEmployeePane() {
         // Display manage employee overlay
         this._manageEmployeePane.setVisible(true);
 
     }
 
-    public void CloseDisplayManageEmployee() {
+    public void CloseDisplayManageEmployeePane() {
         // Close manage employee overlay
         this._manageEmployeePane.setVisible(false);
 

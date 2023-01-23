@@ -179,7 +179,7 @@ public class RegisterController {
         preparedMailStatement.setString(1, this.inputEmail.getText());
         ResultSet resultEmail = preparedMailStatement.executeQuery();
         if (resultEmail.next()) {
-            this.emailError.setText("An account is already registered with this email");
+            this.emailError.setText("0");
             check = true;
         }
         else
