@@ -325,10 +325,10 @@ public class AdminController {
         try {
             SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
             userHolder.setUser(user);
-            Scene scene = new Scene(fxmlLoader.load(), 875, 616);
+            Scene scene = new Scene(fxmlLoader.load(), 910, 616);
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

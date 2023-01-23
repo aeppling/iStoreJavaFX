@@ -41,7 +41,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="455.0" layoutX="645.0" layoutY="13.0" opacity="0.25" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="6.0" />
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
+        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF; -fx-border-color: #6096BA;">
             <children>
                 <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                     <children>

@@ -27,7 +27,7 @@
                      <children>
                         <ScrollPane layoutX="14.0" layoutY="58.0" prefHeight="301.0" prefWidth="522.0" style="-fx-background-color: #ffffff;" />
                         <TextField layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="336.0" promptText=" username or user email..." />
-                        <Button layoutX="386.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" text="Search">
+                        <Button layoutX="386.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #274C77; -fx-border-radius: 5;" text="Search">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -38,7 +38,7 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF;">
+        <AnchorPane prefHeight="106.0" prefWidth="875.0" style="-fx-background-color: #E7ECEF; -fx-border-color: #6096BA;">
             <children>
                 <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                     <children>
