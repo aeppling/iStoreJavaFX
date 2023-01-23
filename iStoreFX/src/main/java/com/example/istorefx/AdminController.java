@@ -1,11 +1,14 @@
 package com.example.istorefx;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javax.imageio.ImageIO;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 
 import java.awt.image.BufferedImage;
@@ -71,16 +74,18 @@ public class AdminController {
     // Create New Store
 
     public void DisplayCreateStore() {
+        // Display Create Store overlay
         this._CreateStorePane.setVisible(true);
 
     }
 
     public void CloseDisplayCreateStore() {
+        // Close Create Store overlay
         this._CreateStorePane.setVisible(false);
-
     }
 
     public void CreateStore() {
+        // Called when user clicks on Create Store button
         String storeName = storeNameField.getText();
         String imgUrl = storeImgUrlField.getText();
         Connection connection = null;
@@ -124,6 +129,7 @@ public class AdminController {
     }
 
     public boolean CheckCreateStoreError(Connection connection, String storeName, String imgUrl) throws SQLException {
+        // Check Create Store overlay error after the User send form
         boolean check = true;
         if (storeName.isEmpty()) {
             this.storeNameError.setText("Please enter a store name.");
@@ -166,14 +172,17 @@ public class AdminController {
     }
     // WhiteList
     public void DisplayWhitelist() {
+        // Display whitelist overlay
         this._whitelistPane.setVisible(true);
 
     }
     public void CloseDisplayWhitelist() {
+        // Close Whitelist overlay
         this._whitelistPane.setVisible(false);
 
     }
     public void AddToWhiteList(){
+        // Called when user click on Add to Whitelist button
         String emailWhiteList = emailWhitelistField.getText();
         Connection connection = null;
         boolean is_good = false;
@@ -230,16 +239,19 @@ public class AdminController {
 
     // Manage Employee
     public void DisplayManageEmployee() {
+        // Display manage employee overlay
         this._manageEmployeePane.setVisible(true);
 
     }
 
     public void CloseDisplayManageEmployee() {
+        // Close manage employee overlay
         this._manageEmployeePane.setVisible(false);
 
     }
 
     public void UpdateUser(){
+        // Called when user click on Update Employee button
         String emailManageEmployee = emailManageEmployeeField.getText();
         Connection connection = null;
         boolean is_good = false;
@@ -250,10 +262,16 @@ public class AdminController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if(!is_good){
+            return;
+        }else{
+            RedirectToUpdatePage();
 
+        }
     }
 
     private boolean CheckMailManageEmployeeError(Connection connection, String emailManageEmployee) throws SQLException {
+        // Check error from Manage employee form
         boolean check = true;
         if (emailManageEmployee.isEmpty()) {
             this.emailManageEmployeeError.setText("Please enter a mail.");
@@ -265,17 +283,55 @@ public class AdminController {
         PreparedStatement preparedEmailManageEmployeeStatement = connection.prepareStatement(sqlEmailManageEmployeeRequest);
         preparedEmailManageEmployeeStatement.setString(1, emailManageEmployee);
         ResultSet resultEmployee = preparedEmailManageEmployeeStatement.executeQuery();
-
         if (resultEmployee.next()) {
             this.emailManageEmployeeError.setText("");
 
-        } else {
+            if(resultEmployee.getString("role") == "admin") {
+                check = false;
+                this.emailManageEmployeeError.setText("You cannot update an admin account.");
+            }
+        }else{
             check = false;
             this.emailManageEmployeeError.setText("No account using this email exists.");
         }
-
         return check;
     }
+    public void RedirectToUpdatePage(){
+        User user = this._admin;
+        Stage currentStage2 = (Stage) _manageEmployeeButton.getScene().getWindow();
+        currentStage2.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("UpdateEmployee.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(user);
+            Scene scene = new Scene(fxmlLoader.load(), 875, 616);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-
+    // Manage Inventory
+    public void Store() {
+        User user = this._admin;
+        Stage currentStage2 = (Stage) _manageEmployeeButton.getScene().getWindow();
+        currentStage2.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("store.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(user);
+            Scene scene = new Scene(fxmlLoader.load(), 875, 616);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

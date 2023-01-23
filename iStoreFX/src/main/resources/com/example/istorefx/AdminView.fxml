@@ -36,7 +36,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="317.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="194.0" text="Manage inventory" textAlignment="CENTER">
+            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="317.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" text="Manage inventory" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>

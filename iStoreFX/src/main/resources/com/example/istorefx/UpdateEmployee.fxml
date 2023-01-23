@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.UpdateEmployeeController">
+   <children>
+      <AnchorPane layoutX="2.0" layoutY="2.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane layoutX="-2.0" prefHeight="106.0" prefWidth="604.0" style="-fx-background-color: #E7ECEF;" />
+            <AnchorPane layoutX="-2.0" layoutY="572.0" prefHeight="54.0" prefWidth="604.0" style="-fx-background-color: #274C77;">
+               <children>
+                  <Label layoutX="34.0" layoutY="18.0" text="Léo RICHEZ &amp; Adrien EPPLING                                                 @SUPINFO 2023" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="2.0" layoutY="105.0" onDragDetected="#DeleteAccount" prefHeight="466.0" prefWidth="598.0">
+               <children>
+                  <Label contentDisplay="CENTER" layoutX="14.0" layoutY="9.0" prefHeight="52.0" prefWidth="221.0" text="Update User">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="393.0" layoutY="9.0" prefHeight="52.0" prefWidth="194.0" text="Pseudo">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="317.0" mnemonicParsing="false" onAction="#DeleteAccount" prefHeight="40.0" prefWidth="194.0" text="Delete account" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
