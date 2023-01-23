@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
@@ -27,6 +28,36 @@ public class AccountController {
     @FXML
     private ImageView   _logoHeader;
     private User        _user;
+
+    @FXML
+    private ImageView       _profileIcon;
+    @FXML
+    private javafx.scene.control.Label _pseudoLabel;
+    @FXML
+    private Label _emailLabel;
+    public String cutProfileString(String input) {
+        String output;
+        if (input.length() > 20) {
+            output = input.substring(0, Math.min(input.length(), 20));
+            output = output + "...";
+        }
+        else
+            output = input;
+        return (output);
+    }
+    public void displayProfile() {
+        Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
+
+        // ADD PROFIL ICON
+        this._profileIcon.setImage(image);
+        this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
+        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
+        this._profileIcon.setFitWidth(40);
+        this._profileIcon.setFitWidth(40);
+        // ADD PROFIL INFO
+        this._pseudoLabel.setText(cutProfileString(this._user.getPseudo()));
+        this._emailLabel.setText(cutProfileString(this._user.getEmail()));
+    }
 
     public void initImage() {
         Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
@@ -62,6 +93,7 @@ public class AccountController {
         this._user = holder2.getUser();
         initButtons();
         initImage();
+        displayProfile();
     }
     public void Home() {
         Stage currentStage2 = (Stage) this._homeButton.getScene().getWindow();

@@ -3,14 +3,16 @@ package com.example.istorefx;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AllUsersController {
@@ -25,8 +27,46 @@ public class AllUsersController {
     private ImageView   _logoHeader;
     @FXML
     private Button      _accountButton;
+    @FXML
+    private GridPane    _usersListPane;
     private User        _user;
 
+    private ArrayList<User> _usersList;
+    @FXML
+    private ImageView       _profileIcon;
+    @FXML
+    private Label           _pseudoLabel;
+    @FXML
+    private Label           _emailLabel;
+
+    @FXML
+    private TextField       _searchBar;
+    @FXML
+    private Button          _searchButton;
+
+    public String cutProfileString(String input) {
+        String output;
+        if (input.length() > 20) {
+            output = input.substring(0, Math.min(input.length(), 20));
+            output = output + "...";
+        }
+        else
+            output = input;
+        return (output);
+    }
+    public void displayProfile() {
+        Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
+
+        // ADD PROFIL ICON
+        this._profileIcon.setImage(image);
+        this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
+        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
+        this._profileIcon.setFitWidth(40);
+        this._profileIcon.setFitWidth(40);
+        // ADD PROFIL INFO
+        this._pseudoLabel.setText(cutProfileString(this._user.getPseudo()));
+        this._emailLabel.setText(cutProfileString(this._user.getEmail()));
+    }
     public void initImage() {
         Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
         this._logoHeader.setImage(image);
@@ -56,11 +96,56 @@ public class AllUsersController {
         img3.setFitHeight(60);
         this._homeButton.setGraphic(img3);
     }
+
+    public void searchRequest() {
+        String  research = new String(this._searchBar.getText());
+        displayUsers(research);
+    }
+    public void displayUsers(String request) {
+        this._usersListPane.getChildren().clear();
+        int count = 0;
+        int jump_count = 0;
+
+        while (jump_count < this._usersList.size()) {
+            int occurence = (this._usersList.get(jump_count).getPseudo().toLowerCase().split(request.toLowerCase()).length) - 1;
+            if (occurence > 0) {
+                Label userInfos = new Label(this._usersList.get(jump_count).getPseudo() + "    " + this._usersList.get(jump_count).getEmail());
+                this._usersListPane.addRow(0);
+                this._usersListPane.add(userInfos, 0, count);
+                this._usersListPane.setVgap(20);
+                count++;
+            }
+            jump_count++;
+        }
+    }
+
+    public void getUsersList() {
+        this._usersList = new ArrayList<User>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlUsersRequest = "SELECT pseudo, email FROM iStoreUsers";
+            PreparedStatement preparedStoreStatement = connection.prepareStatement(sqlUsersRequest);
+            ResultSet resultUsers = preparedStoreStatement.executeQuery();
+            while (resultUsers.next()) {
+                User newUser = new User(resultUsers.getString("pseudo"), resultUsers.getString("email"));
+                this._usersList.add(newUser);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this._accountButton.getParent().setOnKeyPressed((KeyEvent event) -> {
+            if(event.getCode().toString().equals("ENTER"))
+            {searchRequest();}
+        });
+    }
     public void initialize() {
         SingletonUserHolder holder2 = SingletonUserHolder.getInstance();
         this._user = holder2.getUser();
         initButtons();
         initImage();
+        displayProfile();
+        getUsersList();
+        displayUsers("");
     }
     public void Home() {
         Stage currentStage2 = (Stage) this._homeButton.getScene().getWindow();
