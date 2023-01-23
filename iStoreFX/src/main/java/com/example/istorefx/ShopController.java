@@ -292,7 +292,12 @@ public class ShopController {
         }
         initButtons();
         initImage();
-        employeeInit();
+        System.out.println("ROLES :");
+        System.out.println(this._user.getRole());
+        if ((this._user.getRole().equals("employee")) || (this._user.getRole().equals("admin"))) {
+            System.out.println("here");
+            employeeInit();
+        }
         displayProfile();
         displayInventory();
     }

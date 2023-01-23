@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -61,7 +58,29 @@ public class Controller {
         }
         return buffer.toString();
     }
-    public boolean checkPasswordMatch(ResultSet resultPassword, String password) throws SQLException {
+    public boolean isWhitelisted(String email, Connection connection) throws SQLException {
+        boolean check = false;
+
+        String sqlMailRequest = "SELECT * FROM iStoreWhitelist WHERE email LIKE ?";
+        PreparedStatement preparedMailStatement = connection.prepareStatement(sqlMailRequest);
+        preparedMailStatement.setString(1, email);
+        System.out.println("After : " + preparedMailStatement.toString());
+        ResultSet resultEmail = preparedMailStatement.executeQuery();
+        if (resultEmail.next()) {
+            check = true;
+        }
+        preparedMailStatement.close();
+        return (check);
+    }
+
+    public void errorWhitelist(String email) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Whitelist missing");
+        alert.setHeaderText(null);
+        alert.setContentText(email + " : this email is not whitelisted yet");
+        alert.showAndWait();
+    }
+    public boolean checkPasswordMatch(ResultSet resultPassword, String password, Connection connection) throws SQLException {
         boolean check = false;
 
         while (resultPassword.next()) {
@@ -74,11 +93,17 @@ public class Controller {
                 System.out.println(password);
                 if (resultPassword.getString("psswd").equals(password)) {
                     // IS VALIDa
-                    User user = new User(resultPassword.getString("pseudo"), this._email, resultPassword.getInt("id"));
-                    if(resultPassword.getString("role").equals("standart")) {
-
-                        Store(user);
-                    }else if(resultPassword.getString("role").equals("admin")){
+                    User user = new User(resultPassword.getString("pseudo"), this._email, resultPassword.getInt("id"), resultPassword.getString("role"));
+                    if ((resultPassword.getString("role").equals("standart"))
+                    || (resultPassword.getString("role").equals("employee"))) {
+                        if (isWhitelisted(this._email, connection)) {
+                            Store(user);
+                        }
+                        else {
+                            errorWhitelist(this._email);
+                            return (false);
+                        }
+                    } else if(resultPassword.getString("role").equals("admin")){
                         AdminDashboard(user);
                     }
                 }
@@ -99,7 +124,7 @@ public class Controller {
         ResultSet resultPassword = preparedPasswordStatement.executeQuery();
             try {
                 String hashed_password = HashPassword(this._password);
-                if (checkPasswordMatch(resultPassword, hashed_password) == true) {
+                if (checkPasswordMatch(resultPassword, hashed_password, connection) == true) {
                     this.passwordError.setText("");
                     check = true;
                 }
