@@ -343,4 +343,21 @@ public class RegisterController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private Button _disconnectButton;
+    public void Disconnect() {
+        Stage currentStage = (Stage) _disconnectButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 356, 400);
+            primaryStage.setTitle("iStore - Login Page");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

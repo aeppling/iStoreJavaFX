@@ -65,7 +65,7 @@
                 <Button fx:id="AllUsersButton" layoutX="34.0" layoutY="109.0" mnemonicParsing="false" onAction="#AllUsers" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Other user" textFill="#fafafa" />
                 <Button fx:id="_accountButton" layoutX="34.0" layoutY="148.0" mnemonicParsing="false" onAction="#Account" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="My account" textFill="#fafafa" />
                 <Separator layoutX="34.0" layoutY="221.0" prefHeight="0.0" prefWidth="114.0" />
-                <Button layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
+                <Button fx:id="_disconnectButton" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77;" text="Disconnect" textFill="#fafafa" />
             </children>
         </AnchorPane>
     </children>
