@@ -1,10 +1,17 @@
 package com.example.istorefx;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class UpdateEmployeeController {
@@ -18,13 +25,33 @@ public class UpdateEmployeeController {
     @FXML
     private Label _nicknameLabel;
     @FXML
+    private Button _backButton;
+    @FXML
     private Label _emailLabel;
     @FXML
     private AnchorPane _updateEmailPane;
     @FXML
+    private AnchorPane _updatePasswordPane;
+    @FXML
+    private AnchorPane _updateNicknamePane;
+    @FXML
+    private AnchorPane _updatePane;
+    @FXML
     private TextField _newEmailTextField;
     @FXML
+    private TextField _newNicknameTextField;
+    @FXML
+    private TextField _newPasswordTextField;
+    @FXML
+    private TextField _newPasswordConfirmTextField;
+    @FXML
+    private Label _newPasswordError;
+    @FXML
+    private Label _newPasswordConfirmError;
+    @FXML
     private Label _newEmailError;
+    @FXML
+    private Label _newNicknameError;
 
     public void initialize() {
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
@@ -57,16 +84,16 @@ public class UpdateEmployeeController {
 
     }
     public void DisplayUpdateNicknamePane(){
-
+        this._updateNicknamePane.setVisible(true);
     }
     public void CloseUpdateNicknamePane(){
-
+        this._updatePasswordPane.setVisible(false);
     }
     public void DisplayUpdatePasswordPane(){
-
+        this._updatePasswordPane.setVisible(true);
     }
     public void CloseUpdatePasswordPane(){
-
+        this._updatePasswordPane.setVisible(false);
     }
     public void DisplayUpdateEmailPane(){
         this._updateEmailPane.setVisible(true);
@@ -74,8 +101,56 @@ public class UpdateEmployeeController {
     public void CloseUpdateEmailPane(){
         this._updateEmailPane.setVisible(false);
     }
-    public void UpdateNickname(){
 
+    public void UpdateNickname(){
+        String newNickname = this._newNicknameTextField.getText();
+        Connection connection = null;
+        boolean is_good = false;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            is_good = CheckErrorFromUpdateNickname(connection, newNickname);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(!is_good){
+            return;
+        }else{
+            // Update DB
+            try {
+                String sqlUpdateNickname = "UPDATE `iStoreUsers` SET `pseudo`=?, WHERE id = ?";
+                PreparedStatement preparedNicknameUpdateStatement = connection.prepareStatement(sqlUpdateNickname);
+                preparedNicknameUpdateStatement.setString(1, newNickname);
+                preparedNicknameUpdateStatement.setInt(2, this._id);
+                preparedNicknameUpdateStatement.execute();
+                this._nickname = newNickname;
+                this._nicknameLabel.setText(this._nickname);
+                CloseUpdateNicknamePane();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+    private boolean CheckErrorFromUpdateNickname(Connection connection, String newNickname) {
+        boolean check = true;
+        this._newNicknameError.setText("");
+        if (newNickname.isEmpty()) {
+            this._newNicknameError.setText("Please enter a username.");
+            check = false;
+        }else{
+            if(newNickname.length() <= 3) {
+                this._newNicknameError.setText("Username need to be at least 3 character length");
+                check = false;
+            }else{
+                if(this._nickname.equals(newNickname)){
+                    this._newNicknameError.setText("You have to enter a new nickname.");
+                    check = false;
+                }
+            }
+        }
+        return check;
     }
 
     public void UpdateMail(){
@@ -83,7 +158,6 @@ public class UpdateEmployeeController {
         Connection connection = null;
         boolean is_good = false;
         try {
-
             connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
             is_good = CheckErrorFromUpdateMail(connection, newEmail);
         } catch (SQLException e) {
@@ -99,51 +173,42 @@ public class UpdateEmployeeController {
                 preparedMailUpdateStatement.setString(1, newEmail);
                 preparedMailUpdateStatement.setInt(2, this._id);
                 preparedMailUpdateStatement.execute();
-
+                this._email = newEmail;
+                this._emailLabel.setText(this._email);
+                CloseUpdateEmailPane();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
         }
-
-
     }
     public boolean CheckErrorFromUpdateMail(Connection connection, String newEmail)throws SQLException{
+        this._newEmailError.setText("");
         boolean check = true;
         if (newEmail.isEmpty()) {
             this._newEmailError.setText("Please enter a mail.");
             check = false;
         }else{
-            this._newEmailError.setText("");
-        }
-        // Check if mail is already used
-        String sqlEmailRequest = "SELECT * FROM iStoreUser WHERE email = ? AND id != ?";
-        PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
-        preparedMailStatement.setString(1, newEmail);
-        preparedMailStatement.setInt(2, this._id);
-        ResultSet resultMail = preparedMailStatement.executeQuery();
-
-        if (resultMail.next()) {
-            this._newEmailError.setText("An account is already registered with this email.");
-            check = false;
-        } else {
-            this._newEmailError.setText("");
-
-        }
-        if(this._email.equals(newEmail)){
-
-            this._newEmailError.setText("You have to enter a new email.");
-            check = false;
-        } else {
-            this._newEmailError.setText("");
-
+            // Check if mail is already used
+            String sqlEmailRequest = "SELECT * FROM iStoreUser WHERE email = ? AND id != ?";
+            PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
+            preparedMailStatement.setString(1, newEmail);
+            preparedMailStatement.setInt(2, this._id);
+            ResultSet resultMail = preparedMailStatement.executeQuery();
+            if (resultMail.next()) {
+                this._newEmailError.setText("An account is already registered with this email.");
+                check = false;
+            }
+            if(this._email.equals(newEmail)){
+                this._newEmailError.setText("You have to enter a new email.");
+                check = false;
+            }
         }
         // Check if mail is whitelisted
         String sqlEmailWhiteListRequest = "SELECT * FROM iStoreWhitelist WHERE email = ?";
         PreparedStatement preparedMailWhitelistStatement = connection.prepareStatement(sqlEmailWhiteListRequest);
         preparedMailWhitelistStatement.setString(1, newEmail);
         ResultSet resultMailWhitelist = preparedMailWhitelistStatement.executeQuery();
-
         if(!resultMailWhitelist.next()){
             // Add mail to whitelist
             String sqlEmailAddWhitelist = "INSERT INTO iStoreWhitelist(email) VALUES(?)";
@@ -151,13 +216,95 @@ public class UpdateEmployeeController {
             preparedMailAddWhiteListStatement.setString(1, newEmail);
             preparedMailAddWhiteListStatement.execute();
         }
-
         return check;
     }
 
-    public void UpdatePassword(){
+    public void UpdatePassword() throws NoSuchAlgorithmException {
+        String newPassword = this._newPasswordTextField.getText();
+        String newPasswordHash = HashPassword(newPassword);
+        Connection connection = null;
+        boolean is_good = false;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            is_good = CheckErrorFromUpdatePassword(connection, newPassword, newPasswordHash);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(!is_good){
+            return;
+        }else{
+            // Update DB
+            try {
+                String sqlUpdateEmail = "UPDATE `iStoreUsers` SET `psswd`=?, WHERE id = ?";
+                PreparedStatement preparedMailUpdateStatement = connection.prepareStatement(sqlUpdateEmail);
+                preparedMailUpdateStatement.setString(1, newPasswordHash);
+                preparedMailUpdateStatement.setInt(2, this._id);
+                preparedMailUpdateStatement.execute();
+                CloseUpdateNicknamePane();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
 
+    }
+
+    private boolean CheckErrorFromUpdatePassword(Connection connection, String newPassword, String newPasswordHash) throws SQLException{
+
+        this._newPasswordError.setText("");
+        this._newPasswordConfirmError.setText("");
+        String newPasswordConfirm = this._newPasswordConfirmTextField.getText();
+        boolean check = true;
+        if (newPassword.isEmpty()) {
+            this._newPasswordError.setText("Please enter a password.");
+            check = false;
+        }else {
+            if (newPasswordConfirm.isEmpty()) {
+                this._newPasswordConfirmError.setText("You need to confirm your password.");
+                check = false;
+            } else {
+                if (!newPassword.equals(newPasswordConfirm)) {
+                    this._newPasswordConfirmError.setText("Passwords are not matching !");
+                }else{
+                    if (newPassword.length() < 8) {
+                        this._newPasswordError.setText("Password need to be at least 3 character length");
+                        check = false;
+                    }
+                    if (!(newPassword.matches("(.*[A-Z].*)" )))
+                    {
+                        this._newPasswordError.setText("Password need to contain at least 1 uppercase character");
+                        check = false;
+                    }
+                    if (!(newPassword.matches("(.*[a-z].*)" )))
+                    {
+                        this._newPasswordError.setText("Password need to contain at least 1 lowercase character");
+                        check = false;
+                    }
+                    if (!(newPassword.matches("(.*[0-9].*)" )))
+                    {
+                        this._newPasswordError.setText("Password need to contain at least 1 digit");
+                        check = false;
+                    }
+                    if (!(newPassword.matches("(.*[@,#,!,.,/,;,?,$,%].*$)" )))
+                    {
+                        this._newPasswordError.setText("Password need to contain at least 1 special character");
+                        check = false;
+                    }
+                }
+            }
+        }
+
+
+        String sqlPasswordRequest = "SELECT psswd FROM iStoreUser WHERE email = ?";
+        PreparedStatement preparedPasswordStatement = connection.prepareStatement(sqlPasswordRequest);
+        preparedPasswordStatement.setString(1, newPassword);
+        ResultSet resultPassword = preparedPasswordStatement.executeQuery();
+        if(newPasswordHash.equals(resultPassword.getString("psswd"))) {
+            this._newPasswordError.setText("You have to enter a new password.");
+            check = false;
+        }
+
+        return check;
     }
 
     public int GetAccountIdFromMail(){
@@ -176,5 +323,30 @@ public class UpdateEmployeeController {
         }
         return id;
 
+    }
+    public String HashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+        byte[] digest = md.digest();
+        StringBuffer buffer = new StringBuffer();
+        for (byte b : digest) {
+            buffer.append(String.format("%02x", b & 0xff));
+        }
+        return buffer.toString();
+    }
+    public void Back() {
+        Stage currentStage = (Stage) _backButton.getScene().getWindow();
+        currentStage.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 600.0, 620);
+            primaryStage.setTitle("iStore - Admin Dashboard");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

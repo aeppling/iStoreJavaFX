@@ -130,12 +130,12 @@ public class AdminController {
 
     public boolean CheckCreateStoreError(Connection connection, String storeName, String imgUrl) throws SQLException {
         // Check Create Store overlay error after the User send form
+        this.storeNameError.setText("");
+        this.storeImgUrlError.setText("");
         boolean check = true;
         if (storeName.isEmpty()) {
             this.storeNameError.setText("Please enter a store name.");
             check = false;
-        }else{
-            this.storeNameError.setText("");
         }
         if (!imgUrl.isEmpty()) {
             // Check if the url is an existing img
@@ -145,8 +145,6 @@ public class AdminController {
                 if (image == null) {
                     check = false;
                     this.storeImgUrlError.setText("Please enter a valid img url.");
-                }else{
-                    this.storeNameError.setText("");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -162,9 +160,6 @@ public class AdminController {
         if (resultStore.next()) {
             this.storeNameError.setText("A store with this name is already used.");
             check = false;
-        } else {
-            this.storeNameError.setText("");
-
         }
         preparedStoreNameStatement.close();
         return (check);
@@ -214,11 +209,10 @@ public class AdminController {
 
     private boolean CheckMailWhiteListError(Connection connection, String emailWhiteList) throws SQLException{
         boolean check = true;
+        this.emailWhitelistError.setText("");
         if (emailWhiteList.isEmpty()) {
             this.emailWhitelistError.setText("Please enter a mail.");
             check = false;
-        }else{
-            this.emailWhitelistError.setText("");
         }
         String sqlEmailWhiteListRequest = "SELECT * FROM iStoreWhitelist WHERE email = ?";
         PreparedStatement preparedMailWhiteListStatement = connection.prepareStatement(sqlEmailWhiteListRequest);
@@ -226,15 +220,11 @@ public class AdminController {
         ResultSet resultStore = preparedMailWhiteListStatement.executeQuery();
 
         if (resultStore.next()) {
-            this.storeNameError.setText("The email is already whitelisted");
+            this.emailWhitelistError.setText("The email is already whitelisted");
             check = false;
-        } else {
-            this.storeNameError.setText("");
-
         }
         preparedMailWhiteListStatement.close();
         return (check);
-
     }
 
     // Manage Employee
@@ -273,11 +263,10 @@ public class AdminController {
     private boolean CheckMailManageEmployeeError(Connection connection, String emailManageEmployee) throws SQLException {
         // Check error from Manage employee form
         boolean check = true;
+        this.emailManageEmployeeError.setText("");
         if (emailManageEmployee.isEmpty()) {
             this.emailManageEmployeeError.setText("Please enter a mail.");
             check = false;
-        }else{
-            this.emailManageEmployeeError.setText("");
         }
         String sqlEmailManageEmployeeRequest = "SELECT * FROM iStoreUsers WHERE email = ?";
         PreparedStatement preparedEmailManageEmployeeStatement = connection.prepareStatement(sqlEmailManageEmployeeRequest);
