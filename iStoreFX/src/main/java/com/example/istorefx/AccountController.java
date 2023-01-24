@@ -1,18 +1,19 @@
 package com.example.istorefx;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.*;
 import java.util.Optional;
 
 public class AccountController {
@@ -44,6 +45,91 @@ public class AccountController {
         else
             output = input;
         return (output);
+    }
+
+    @FXML
+    private Button _changePassword;
+    @FXML
+    private Button _changeEmail;
+    @FXML
+    private Button _changePseudo;
+    @FXML
+    private Button _deleteAccount;
+    public void changePassword() {
+        TextInputDialog pop_up = new TextInputDialog("Eeeeee");
+        pop_up.setTitle("iStores -  Password Changing");
+        pop_up.setHeaderText("Changing password");
+        pop_up.setContentText("Enter your current password");
+        pop_up.show();
+        Optional<String> result = pop_up.showAndWait();
+        String  input_psswd = null;
+        if (result.isPresent()) {
+            input_psswd = result.get();
+        }
+    }
+
+    public void changeEmail() {
+
+    }
+
+    public void changePseudo() {
+
+    }
+
+    public void deleteAccount() {
+        /*Button yesButton = (Button) alert.getDialogPane().lookupButton( ButtonType.YES );
+        yesButton.setDefaultButton( false );
+
+        //Activate Defaultbehavior for no-Button:
+        Button noButton = (Button) alert.getDialogPane().lookupButton( ButtonType.NO );
+        noButton.setDefaultButton( true );
+        */
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("iStore - Account deleting");
+        alert.setHeaderText("You're going to delete your account");
+        alert.setContentText("Do you want to continue ?");
+        alert.getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+        alert.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
+        alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+        // ZDZDQZDZ
+        Button yesButton = (Button) alert.getDialogPane().lookupButton(ButtonType.YES);
+        yesButton.setDefaultButton(false);
+        Button noButton = (Button) alert.getDialogPane().lookupButton(ButtonType.NO);
+        noButton.setDefaultButton(true);
+        //DZDZDDZ
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.YES) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("iStore - Adios");
+            alert2.setHeaderText("Account deletion");
+            alert2.setContentText("Confirm to delete account");
+            alert2.getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+            alert2.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
+            alert2.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+            yesButton.setDefaultButton(false);
+            noButton.setDefaultButton(true);
+            Optional<ButtonType> action2 = alert2.showAndWait();
+            if (action2.get() == ButtonType.YES) {
+                System.out.println("DELETE");
+                String deleteRequest = new String("DELETE FROM iStoreUsers WHERE id = ?");
+                String deleteRequest2 = new String("DELETE FROM StoreUserLink WHERE UserID = ?");
+                try {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+                    PreparedStatement preparedDelete2Request = connection.prepareStatement(deleteRequest2);
+                    preparedDelete2Request.setInt(1, this._user.getId());
+                    preparedDelete2Request.execute();
+                    PreparedStatement preparedDeleteRequest = connection.prepareStatement(deleteRequest);
+                    preparedDeleteRequest.setInt(1, this._user.getId());
+                    preparedDeleteRequest.execute();
+                    connection.close();
+                    Platform.exit();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //DELETE FROM table_name WHERE condition;
     }
     public void displayProfile() {
         Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));

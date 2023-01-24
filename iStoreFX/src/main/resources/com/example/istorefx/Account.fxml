@@ -14,35 +14,40 @@
             <AnchorPane prefHeight="506.0" prefWidth="730.0" style="-fx-background-color: #274C77;">
                <children>
                   <Separator layoutX="36.0" layoutY="82.0" prefHeight="3.0" prefWidth="347.0" style="-fx-background-color: #ffffff;" />
-                  <Label fx:id="_pseudoLabel1" alignment="CENTER" layoutX="36.0" layoutY="34.0" text="My Account" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="_pseudoLabel1" alignment="CENTER" layoutX="36.0" layoutY="25.0" text="My Account" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="192.0" text="Email :" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="267.0" text="Username :" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="227.0" text="email" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="78.0" layoutY="301.0" text="username" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="_deleteAccount" layoutX="138.0" layoutY="428.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="26.0" prefWidth="228.0" style="-fx-background-color: #FF9494; -fx-background-radius: 5;" text="Delete account" />
+                  <Button fx:id="_changePseudo" layoutX="435.0" layoutY="297.0" mnemonicParsing="false" onAction="#changePseudo" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;" text="Change username" />
+                  <Button fx:id="_changeEmail" layoutX="435.0" layoutY="224.0" mnemonicParsing="false" onAction="#changeEmail" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;" text="Change email" />
+                  <Button fx:id="_changePassword" layoutX="138.0" layoutY="387.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="26.0" prefWidth="228.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;" text="Change password" />
+                  <Label fx:id="_pseudoLabel11" alignment="CENTER" layoutX="78.0" layoutY="123.0" text="Informations" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="36.0" layoutY="108.0" text="Email :" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="36.0" layoutY="183.0" text="Username :" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="36.0" layoutY="143.0" text="email" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="36.0" layoutY="217.0" text="username" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="96.0" layoutY="344.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="228.0" style="-fx-background-color: #FF9494; -fx-background-radius: 5;" text="Delete account" />
-                  <Button layoutX="517.0" layoutY="139.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;" text="Change username" />
-                  <Button layoutX="393.0" layoutY="140.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;" text="Change email" />
-                  <Button layoutX="96.0" layoutY="303.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="228.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5;" text="Change password" />
                </children>
             </AnchorPane>
          </children>
