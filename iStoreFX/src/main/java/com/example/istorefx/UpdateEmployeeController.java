@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -45,9 +42,9 @@ public class UpdateEmployeeController {
     @FXML
     private TextField _newNicknameTextField;
     @FXML
-    private TextField _newPasswordTextField;
+    private PasswordField _newPasswordTextField;
     @FXML
-    private TextField _newPasswordConfirmTextField;
+    private PasswordField _newPasswordConfirmTextField;
     @FXML
     private Label _newPasswordError;
     @FXML
@@ -67,7 +64,10 @@ public class UpdateEmployeeController {
         this._nickname = GetAccountUsernameFromID();
         this._nicknameLabel.setText(this._nickname);
         this._emailLabel.setText(this._email);
-        this._roleChoice = new ChoiceBox<String>();
+
+
+
+        DisplayRoleChoiceBox();
     }
 
     public void DisplayRoleChoiceBox(){
@@ -79,20 +79,19 @@ public class UpdateEmployeeController {
             role1 = "employee";
         }
         role2 = "admin";
-        this._roleChoice.setItems(FXCollections.observableArrayList(this._role, role1, role2));
-
+        this._roleChoice = new ChoiceBox<String>(FXCollections.observableArrayList(this._role, role1, role2));
     }
     public void DeleteAccount() {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
             // Delete from StoreUserLink
-            String sqlDeleteLink = "DELETE * FROM StoreUserLink WHERE UserID = ?";
+            String sqlDeleteLink = "DELETE FROM StoreUserLink WHERE UserID = ?";
             PreparedStatement preparedDeleteLinkStatement = connection.prepareStatement(sqlDeleteLink);
             preparedDeleteLinkStatement.setInt(1, this._id);
             preparedDeleteLinkStatement.execute();
             preparedDeleteLinkStatement.close();
             // Delete account from iStoreUsers
-            String sqlDeleteAccount = "DELETE * FROM iStoreUsers WHERE email = ?";
+            String sqlDeleteAccount = "DELETE FROM iStoreUsers WHERE email = ?";
             PreparedStatement preparedDeleteAccountStatement = connection.prepareStatement(sqlDeleteAccount);
             preparedDeleteAccountStatement.setString(1, this._email);
             preparedDeleteAccountStatement.execute();
@@ -107,7 +106,7 @@ public class UpdateEmployeeController {
         this._updateNicknamePane.setVisible(true);
     }
     public void CloseUpdateNicknamePane(){
-        this._updatePasswordPane.setVisible(false);
+        this._updateNicknamePane.setVisible(false);
     }
     public void DisplayUpdatePasswordPane(){
         this._updatePasswordPane.setVisible(true);
@@ -136,7 +135,7 @@ public class UpdateEmployeeController {
         }else{
             // Update DB
             try {
-                String sqlUpdateNickname = "UPDATE `iStoreUsers` SET `pseudo`= ?, WHERE id = ?";
+                String sqlUpdateNickname = "UPDATE `iStoreUsers` SET `pseudo`= ? WHERE id = ?";
                 PreparedStatement preparedNicknameUpdateStatement = connection.prepareStatement(sqlUpdateNickname);
                 preparedNicknameUpdateStatement.setString(1, newNickname);
                 preparedNicknameUpdateStatement.setInt(2, this._id);
@@ -184,7 +183,9 @@ public class UpdateEmployeeController {
         }else{
             // Update DB
             try {
-                String sqlUpdateEmail = "UPDATE `iStoreUsers` SET `email`=?, WHERE id = ?";
+                connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+
+                String sqlUpdateEmail = "UPDATE `iStoreUsers` SET `email`=? WHERE id = ?";
                 PreparedStatement preparedMailUpdateStatement = connection.prepareStatement(sqlUpdateEmail);
                 preparedMailUpdateStatement.setString(1, newEmail);
                 preparedMailUpdateStatement.setInt(2, this._id);
@@ -206,7 +207,7 @@ public class UpdateEmployeeController {
             check = false;
         }else{
             // Check if mail is already used
-            String sqlEmailRequest = "SELECT * FROM iStoreUser WHERE email = ? AND id != ?";
+            String sqlEmailRequest = "SELECT * FROM iStoreUsers WHERE email = ? AND id != ?";
             PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
             preparedMailStatement.setString(1, newEmail);
             preparedMailStatement.setInt(2, this._id);
@@ -252,12 +253,14 @@ public class UpdateEmployeeController {
         }else{
             // Update DB
             try {
-                String sqlUpdateEmail = "UPDATE `iStoreUsers` SET `psswd`=?, WHERE id = ?";
+                connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+
+                String sqlUpdateEmail = "UPDATE `iStoreUsers` SET `psswd`=? WHERE id = ?";
                 PreparedStatement preparedMailUpdateStatement = connection.prepareStatement(sqlUpdateEmail);
                 preparedMailUpdateStatement.setString(1, newPasswordHash);
                 preparedMailUpdateStatement.setInt(2, this._id);
                 preparedMailUpdateStatement.execute();
-                CloseUpdateNicknamePane();
+                CloseUpdatePasswordPane();
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -308,10 +311,11 @@ public class UpdateEmployeeController {
                 }
             }
         }
-        String sqlPasswordRequest = "SELECT psswd FROM iStoreUser WHERE email = ?";
+        String sqlPasswordRequest = "SELECT psswd FROM iStoreUsers WHERE email = ?";
         PreparedStatement preparedPasswordStatement = connection.prepareStatement(sqlPasswordRequest);
-        preparedPasswordStatement.setString(1, newPassword);
+        preparedPasswordStatement.setString(1, this._email);
         ResultSet resultPassword = preparedPasswordStatement.executeQuery();
+        resultPassword.next();
         if(newPasswordHash.equals(resultPassword.getString("psswd"))) {
             this._newPasswordError.setText("You have to enter a new password.");
             check = false;
@@ -329,7 +333,7 @@ public class UpdateEmployeeController {
             PreparedStatement preparedGetIdStatement = connection.prepareStatement(sqlGetId);
             preparedGetIdStatement.setString(1, this._email);
             ResultSet resultId = preparedGetIdStatement.executeQuery();
-
+            resultId.next();
             id = resultId.getInt("id");
             preparedGetIdStatement.close();
             connection.close();
@@ -347,6 +351,7 @@ public class UpdateEmployeeController {
             PreparedStatement preparedGetUsernameStatement = connection.prepareStatement(sqlGetUsername);
             preparedGetUsernameStatement.setInt(1, this._id);
             ResultSet resultUsername = preparedGetUsernameStatement.executeQuery();
+            resultUsername.next();
             username = resultUsername.getString("pseudo");
             preparedGetUsernameStatement.close();
             connection.close();
@@ -363,8 +368,9 @@ public class UpdateEmployeeController {
             String sqlGetRole = "SELECT role FROM iStoreUsers WHERE id = ?";
             PreparedStatement preparedGetRoleStatement = connection.prepareStatement(sqlGetRole);
             preparedGetRoleStatement.setInt(1, this._id);
-            ResultSet resultUsername = preparedGetRoleStatement.executeQuery();
-            role = resultUsername.getString("pseudo");
+            ResultSet resultRole = preparedGetRoleStatement.executeQuery();
+            resultRole.next();
+            role = resultRole.getString("role");
             preparedGetRoleStatement.close();
             connection.close();
         } catch (SQLException e) {

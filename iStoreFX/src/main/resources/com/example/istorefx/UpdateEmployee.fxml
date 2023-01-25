@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -77,7 +78,7 @@
                            </font>
                         </Label>
                         <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#UpdateMail" prefHeight="40.0" prefWidth="278.0" text="Update" />
-                        <Label fx:id="storeNameError" layoutX="100.0" layoutY="146.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
+                        <Label fx:id="_newEmailError" layoutX="100.0" layoutY="146.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
                         <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseUpdateEmailPane" prefHeight="15.0" prefWidth="58.0" text="Close" />
                      </children>
                   </AnchorPane>
@@ -90,23 +91,23 @@
                            </font>
                         </Label>
                         <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#UpdateNickname" prefHeight="40.0" prefWidth="278.0" text="Update" />
-                        <Label fx:id="storeNameError1" layoutX="100.0" layoutY="146.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
+                        <Label fx:id="_newNicknameError" layoutX="100.0" layoutY="146.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
                         <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseUpdateNicknamePane" prefHeight="15.0" prefWidth="58.0" text="Close" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="_updatePasswordPane" layoutX="60.0" layoutY="104.0" prefHeight="258.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
                      <children>
-                        <TextField fx:id="_newPasswordConfirmTextField" layoutX="100.0" layoutY="129.0" prefHeight="34.0" prefWidth="278.0" promptText="Confirm the new password" />
+                        <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#UpdatePassword" prefHeight="40.0" prefWidth="278.0" text="Update" />
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" onDragDetected="#UpdateMail" prefHeight="52.0" prefWidth="478.0" text="Update password">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#UpdatePassword" prefHeight="40.0" prefWidth="278.0" text="Update" />
                         <Label fx:id="_newPasswordConfirmError" layoutX="100.0" layoutY="163.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
-                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseUpdatePasswordPane" prefHeight="15.0" prefWidth="58.0" text="Close" />
-                        <TextField fx:id="_newPasswordTextField" layoutX="100.0" layoutY="59.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter the new password" />
                         <Label fx:id="_newPasswordError" layoutX="100.0" layoutY="93.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
+                        <PasswordField fx:id="_newPasswordTextField" layoutX="99.0" layoutY="66.0" prefHeight="26.0" prefWidth="266.0" promptText="Enter the new password" />
+                        <PasswordField fx:id="_newPasswordConfirmTextField" layoutX="102.0" layoutY="137.0" prefHeight="26.0" prefWidth="266.0" promptText="Confirm the new password" />
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseUpdatePasswordPane" prefHeight="15.0" prefWidth="58.0" text="Close" />
                      </children>
                   </AnchorPane>
                </children>

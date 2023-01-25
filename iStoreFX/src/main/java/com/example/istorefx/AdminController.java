@@ -262,7 +262,6 @@ public class AdminController {
             return;
         }else{
             RedirectToUpdatePage(emailManageEmployee);
-
         }
     }
 
@@ -274,14 +273,12 @@ public class AdminController {
             this.emailManageEmployeeError.setText("Please enter a mail.");
             check = false;
         }
-        String sqlEmailManageEmployeeRequest = "SELECT * FROM iStoreUsers WHERE email = ?";
+        String sqlEmailManageEmployeeRequest = "SELECT role FROM iStoreUsers WHERE email = ?";
         PreparedStatement preparedEmailManageEmployeeStatement = connection.prepareStatement(sqlEmailManageEmployeeRequest);
         preparedEmailManageEmployeeStatement.setString(1, emailManageEmployee);
         ResultSet resultEmployee = preparedEmailManageEmployeeStatement.executeQuery();
         if (resultEmployee.next()) {
-            this.emailManageEmployeeError.setText("");
-
-            if(resultEmployee.getString("role") == "admin") {
+            if(resultEmployee.getString("role").equals("admin")) {
                 check = false;
                 this.emailManageEmployeeError.setText("You cannot update an admin account.");
             }
@@ -304,10 +301,10 @@ public class AdminController {
             SingletonEmailHolder emailHolder = SingletonEmailHolder.getInstance();
             emailHolder.setEmail(emailManageEmployee);
 
-            Scene scene = new Scene(fxmlLoader.load(), 875, 616);
+            Scene scene = new Scene(fxmlLoader.load(), 600, 616);
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);
-            primaryStage.setResizable(true);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
