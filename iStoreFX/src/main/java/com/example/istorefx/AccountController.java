@@ -73,16 +73,17 @@ public class AccountController {
             preparedUpdateStatement.setString(1, new_email);
             preparedUpdateStatement.setInt(2, this._user.getId());
             preparedUpdateStatement.executeUpdate();
+            successChange("Email");
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void successPasswordChange() {
+    public void successChange(String mode) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Password changed");
-        alert.setHeaderText("Password changed");
-        alert.setContentText("Your password has been successfully changed");
+        alert.setTitle(mode + " changed");
+        alert.setHeaderText(mode + " changed");
+        alert.setContentText("Your " + mode + " has been successfully changed");
         alert.showAndWait();
     }
     public void updatePassword(String new_password) {
@@ -92,9 +93,8 @@ public class AccountController {
             PreparedStatement preparedUpdateStatement = connection.prepareStatement(sqlUpdateRequest);
             preparedUpdateStatement.setString(1, new_password);
             preparedUpdateStatement.setInt(2, this._user.getId());
-            int update_result = preparedUpdateStatement.executeUpdate();
             connection.close();
-            successPasswordChange();
+            successChange("Password");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -238,6 +238,14 @@ public class AccountController {
         alert.setContentText("Try again...");
         alert.showAndWait();
     }
+
+    public void errorPseudoMatch() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Pseudo changing");
+        alert.setHeaderText("Pseudo are not matching");
+        alert.setContentText("Try again...");
+        alert.showAndWait();
+    }
     public void changeEmail() {
 
 
@@ -273,6 +281,19 @@ public class AccountController {
         }
     }
 
+    public void updatePseudo(String new_pseudo) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlUpdateRequest = "UPDATE iStoreUsers SET pseudo = ? WHERE id = ?";
+            PreparedStatement preparedUpdateStatement = connection.prepareStatement(sqlUpdateRequest);
+            preparedUpdateStatement.setString(1, new_pseudo);
+            preparedUpdateStatement.setInt(2, this._user.getId());
+            connection.close();
+            successChange("Pseudo");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void changePseudo() {
         TextInputDialog pop_up = new TextInputDialog();
         pop_up.setTitle("iStores - Pseudo Changing");
@@ -290,8 +311,11 @@ public class AccountController {
                 String conf_pseudo = result_conf.get();
                 System.out.println("new : " + new_pseudo);
                 System.out.println("conf : " + conf_pseudo);
-                if (new_pseudo.equals(conf_pseudo))
-                    System.out.println("CHANGING TO " + conf_pseudo);
+                if (new_pseudo.equals(conf_pseudo)) {
+                    updatePseudo(new_pseudo);
+                } else {
+                    errorPseudoMatch();
+                }
             }
         }
     }
