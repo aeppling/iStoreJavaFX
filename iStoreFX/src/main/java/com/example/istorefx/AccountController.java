@@ -58,6 +58,20 @@ public class AccountController {
     @FXML
     private Button _deleteAccount;
 
+
+    public void updateEmail(String new_email) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlUpdateRequest = "UPDATE iStoreUsers SET email = ? WHERE id = ?";
+            PreparedStatement preparedUpdateStatement = connection.prepareStatement(sqlUpdateRequest);
+            preparedUpdateStatement.setString(1, new_email);
+            preparedUpdateStatement.setInt(2, this._user.getId());
+            preparedUpdateStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void successPasswordChange() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Password changed");
@@ -73,7 +87,6 @@ public class AccountController {
             preparedUpdateStatement.setString(1, new_password);
             preparedUpdateStatement.setInt(2, this._user.getId());
             int update_result = preparedUpdateStatement.executeUpdate();
-            System.out.println(update_result);
             connection.close();
             successPasswordChange();
         } catch (SQLException e) {
@@ -170,7 +183,7 @@ public class AccountController {
         PasswordField psswd = new PasswordField();
         TextInputDialog pop_up = new TextInputDialog();
         pop_up.setTitle("iStores -  Password Changing");
-        pop_up.setHeaderText("Password change");
+        pop_up.setHeaderText("Current password");
         pop_up.setContentText("Enter current password :");
         pop_up.getDialogPane().setContent(psswd);
         Optional<String> result = pop_up.showAndWait();
@@ -187,15 +200,69 @@ public class AccountController {
         }
     }
 
+    public boolean checkEmailExist(Connection connection, String new_email) throws SQLException {
+        boolean check = false;
+
+        String sqlEmailRequest = "SELECT * FROM iStoreUsers";
+        PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
+        ResultSet resultEmail = preparedMailStatement.executeQuery();
+        while (resultEmail.next()) {
+            if (resultEmail.getString("email").equals(new_email)) {
+                check = true;
+                break;
+            }
+        }
+        preparedMailStatement.close();
+        return (check);
+    }
+
+    public void errorEmailExist() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Email changing");
+        alert.setHeaderText("Email already used");
+        alert.setContentText("Can't set-up this email as new email");
+        alert.showAndWait();
+    }
+
+    public void errorEmailMatch() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Email changing");
+        alert.setHeaderText("Emails are not matching");
+        alert.setContentText("Try again...");
+        alert.showAndWait();
+    }
     public void changeEmail() {
-        TextInputDialog pop_up = new TextInputDialog();
-        pop_up.setTitle("iStores -  Password Changing");
-        pop_up.setHeaderText("Password change");
-        pop_up.setContentText("Enter current password :");
-        Optional<String> result = pop_up.showAndWait();
-        String input_psswd = null;
-        if (result.isPresent()) {
-            System.out.println(result.get());
+
+
+        TextInputDialog pop_up2 = new TextInputDialog();
+        pop_up2.setTitle("iStores - Email Changing");
+        pop_up2.setHeaderText("Email change");
+        pop_up2.setContentText("Enter wanted email :");
+        Optional<String> result2 = pop_up2.showAndWait();
+        if (result2.isPresent()) {
+            TextInputDialog pop_up = new TextInputDialog();
+            pop_up.setTitle("iStores - Email Changing");
+            pop_up.setHeaderText("Email change");
+            pop_up.setContentText("Confirm wanted email :");
+            Optional<String> result = pop_up.showAndWait();
+            if (result.isPresent()) {
+                if (result2.get().equals(result.get())) {
+                    try {
+                        Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+                        if (checkEmailExist(connection, result.get()) == false) {
+                            updateEmail(result.get());
+                        } else {
+                            errorEmailExist();
+                        }
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    errorEmailMatch();
+                }
+            }
         }
     }
 
