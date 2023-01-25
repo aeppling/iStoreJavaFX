@@ -172,6 +172,7 @@ public class AccountController {
                 }
             }
         }
+        connection.close();
         return (check);
     }
 
@@ -273,7 +274,26 @@ public class AccountController {
     }
 
     public void changePseudo() {
-
+        TextInputDialog pop_up = new TextInputDialog();
+        pop_up.setTitle("iStores - Pseudo Changing");
+        pop_up.setHeaderText("Pseudo change");
+        pop_up.setContentText("Enter new pseudo :");
+        Optional<String> result = pop_up.showAndWait();
+        if (result.isPresent()) {
+            String new_pseudo = result.get();
+            TextInputDialog pop_up_conf = new TextInputDialog();
+            pop_up_conf.setTitle("iStores - Pseudo Changing");
+            pop_up_conf.setHeaderText("New pseudo confirm");
+            pop_up_conf.setContentText("Confirm new pseudo :");
+            Optional<String> result_conf = pop_up_conf.showAndWait();
+            if (result_conf.isPresent()) {
+                String conf_pseudo = result_conf.get();
+                System.out.println("new : " + new_pseudo);
+                System.out.println("conf : " + conf_pseudo);
+                if (new_pseudo.equals(conf_pseudo))
+                    System.out.println("CHANGING TO " + conf_pseudo);
+            }
+        }
     }
 
     public void deleteAccount() {
