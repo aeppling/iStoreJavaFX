@@ -25,6 +25,12 @@ public class User {
         this._id = 0;
         this._cart = new Cart();
     }
+
+    public          User(String pseudo, String email, int id) {
+        this._pseudo = pseudo;
+        this._email = email;
+        this._id = id;
+    }
     public          User(String pseudo, String email, int id, String role) {
         this._pseudo = pseudo;
         this._email = email;

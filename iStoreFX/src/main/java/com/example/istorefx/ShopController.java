@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class ShopController {
-    private StoreRecord _store;
-    private Store       _shop;
-    private User        _user;
+    private StoreRecord     _store;
+    private Store           _shop;
+    private User            _user;
     @FXML
-    private Label       _storeName;
+    private Label           _storeName;
     @FXML
-    private GridPane    _gridPane;
+    private GridPane        _gridPane;
 
     @FXML
     private Button          _categoriesButton;
@@ -62,6 +62,11 @@ public class ShopController {
     private Button          _storeEmployeeButton;
     @FXML
     private Pane            _storeEmployeePane;
+    @FXML
+    private GridPane        _employeeGridPane;
+
+    private ArrayList<User> _employeeList;
+
 
     public String cutProfileString(String input) {
         String output;
@@ -207,6 +212,69 @@ public class ShopController {
         }
     }
 
+    public ArrayList<Integer> getLinkedId() {
+        String query = new String("SELECT * FROM StoreUserLink WHERE StoreID = ?");
+        ArrayList<Integer>  listID = new ArrayList<Integer>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement preparedEmployeeIDRequest = connection.prepareStatement(query);
+            preparedEmployeeIDRequest.setInt(1, this._store.getId());
+            ResultSet EmployeeIDList = preparedEmployeeIDRequest.executeQuery();
+            while (EmployeeIDList.next()) {
+                listID.add(EmployeeIDList.getInt("UserID"));
+            }
+            System.out.println(listID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (listID);
+    }
+
+    public void getEmployeeArray() {
+        String query = new String("SELECT * FROM iStoreUsers");
+        ArrayList<Integer> listID = getLinkedId();
+
+     //   final String[] data = yourList.toArray(new String[yourList.size()]);
+       // final java.sql.Array sqlArray = connection.createArrayOf(typeName, data);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet allUsers = preparedStatement.executeQuery();
+            while (allUsers.next()) {
+                System.out.println("LOOOPY");
+                int count = 0;
+                while (count < listID.size()) {
+                    System.out.println("LOUP");
+                    if (allUsers.getInt("id") == listID.get(count)) {
+                        User employeeToAdd = new User(allUsers.getString("pseudo"),
+                                allUsers.getString("email"), allUsers.getInt("id"));
+                        this._employeeList.add(employeeToAdd);
+                        break;
+                    }
+                    count++;
+                }
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // CHANGE SINGLE EMPLOYEE CHECK
+    }
+
+    public void setEmployeeList() {
+        int count = 0;
+
+        while (count < this._employeeList.size()) {
+            Label employeeInfos = new Label(this._employeeList.get(count).getPseudo() + "   "
+                                                + this._employeeList.get(count).getEmail() + "   id:" +
+                                                    this._employeeList.get(count).getId());
+            this._employeeGridPane.addRow(0);
+            this._employeeGridPane.add(employeeInfos, 0, count);
+            this._employeeGridPane.setVgap(20);
+            count++;
+        }
+    }
+
     public void showStoreEmployee() {
         if (this._visibilityPanel == true) {
             this._storeEmployeePane.setVisible(false);
@@ -220,11 +288,15 @@ public class ShopController {
         ObservableList<String>      actionTypes = FXCollections.observableArrayList();
         actionTypes.add("Add");
         actionTypes.add("Lower");
+        this._employeeList = new ArrayList<User>();
 
         this._storeEmployeeButton.setVisible(true);
         this._employeeMenu.setVisible(true);
         this._productAimed.setItems(this._shop.getInventoryString());
         this._actionType.setItems(actionTypes);
+        getEmployeeArray();
+        if (this._employeeList != null)
+            setEmployeeList();
     }
 
     public void initImage() {
