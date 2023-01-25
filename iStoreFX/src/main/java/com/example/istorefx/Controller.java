@@ -35,6 +35,7 @@ public class Controller {
     private String          _email;
     private String          _password;
 
+
     public void initImage() {
         Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
         this._logoHeader.setImage(image);

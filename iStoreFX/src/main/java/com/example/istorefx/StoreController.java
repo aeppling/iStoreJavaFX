@@ -190,7 +190,7 @@ public class StoreController {
         this._gridPane.setMargin(button, new Insets(0, 0, 0, 0));
         this._gridPane.add(img, x, y);
         // ADD STORE BUTTON
-        button.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
+        button.setStyle("-fx-text-fill: black; -fx-background-color: white; -fx-border-color: black; -fx-border-radius: 3em");
         this._gridPane.setMargin(button, new Insets(0, 0, 20, 0));
         this._gridPane.setHalignment(button, HPos.CENTER);
         this._gridPane.setValignment(button, VPos.BOTTOM);

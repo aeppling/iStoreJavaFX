@@ -38,6 +38,11 @@ public class AccountController {
     private javafx.scene.control.Label _pseudoLabel;
     @FXML
     private Label _emailLabel;
+
+    @FXML
+    private Label _pseudoInfo;
+    @FXML
+    private Label _emailInfo;
     public String cutProfileString(String input) {
         String output;
         if (input.length() > 20) {
@@ -57,6 +62,7 @@ public class AccountController {
     private Button _changePseudo;
     @FXML
     private Button _deleteAccount;
+
 
 
     public void updateEmail(String new_email) {
@@ -374,6 +380,8 @@ public class AccountController {
         initButtons();
         initImage();
         displayProfile();
+        this._pseudoInfo.setText(this._user.getPseudo());
+        this._emailInfo.setText(this._user.getEmail());
     }
     public void Home() {
         Stage currentStage2 = (Stage) this._homeButton.getScene().getWindow();
