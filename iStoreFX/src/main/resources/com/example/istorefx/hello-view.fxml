@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="356.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.Controller">
    <children>
-      <Button id="loginButton" fx:id="loginButton" focusTraversable="false" layoutX="-4.0" layoutY="307.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="362.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #6096BA; -fx-border-radius: 5;" styleClass="loginButton" stylesheets="@../../../../java/com/example/istorefx/mainButton.css" text="Login" />
+      <Button id="loginButton" fx:id="loginButton" focusTraversable="false" layoutX="-4.0" layoutY="307.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="362.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #6096BA; -fx-border-radius: 5;" styleClass="loginButton" text="Login" />
       <Button fx:id="registerButton" focusTraversable="false" layoutX="239.0" layoutY="248.0" mnemonicParsing="false" onAction="#register" prefHeight="27.0" prefWidth="82.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #A3CEF1; -fx-border-radius: 5;" text="Register" />
       <AnchorPane layoutY="358.0" prefHeight="42.0" prefWidth="356.0" style="-fx-background-color: #274C77;">
          <children>

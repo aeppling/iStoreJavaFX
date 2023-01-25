@@ -1,0 +1,9 @@
+.loginButton {
+    -fx-background-color:  black;
+    -fx-background-radius: 5;
+    -fx-border-color: #6096BA;
+    -fx-border-radius: 5;
+}
+.loginButton:hover {
+    -fx-background-color: black;
+}
