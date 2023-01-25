@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Optional;
 
@@ -55,16 +57,133 @@ public class AccountController {
     private Button _changePseudo;
     @FXML
     private Button _deleteAccount;
-    public void changePassword() {
-        TextInputDialog pop_up = new TextInputDialog("Eeeeee");
+
+    public void successPasswordChange() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Password changed");
+        alert.setHeaderText("Password changed");
+        alert.setContentText("Your password has been successfully changed");
+        alert.showAndWait();
+    }
+    public void updatePassword(String new_password) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlUpdateRequest = "UPDATE iStoreUsers SET psswd = ? WHERE id = ?";
+            PreparedStatement preparedUpdateStatement = connection.prepareStatement(sqlUpdateRequest);
+            preparedUpdateStatement.setString(1, new_password);
+            preparedUpdateStatement.setInt(2, this._user.getId());
+            int update_result = preparedUpdateStatement.executeUpdate();
+            System.out.println(update_result);
+            connection.close();
+            successPasswordChange();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setNewPassword() {
+        PasswordField newPsswd = new PasswordField();
+        PasswordField newPsswdConfirm = new PasswordField();
+        TextInputDialog pop_up = new TextInputDialog();
         pop_up.setTitle("iStores -  Password Changing");
-        pop_up.setHeaderText("Changing password");
-        pop_up.setContentText("Enter your current password");
-        pop_up.show();
+        pop_up.setHeaderText("New password confirmation");
+        pop_up.setContentText("New password :");
+        pop_up.getDialogPane().setContent(newPsswd);
         Optional<String> result = pop_up.showAndWait();
-        String  input_psswd = null;
+        pop_up.show();
+        String new_p = new String();
+        String confirm_p = new String();
         if (result.isPresent()) {
-            input_psswd = result.get();
+            new_p = newPsswd.getText();
+            TextInputDialog pop_upConf = new TextInputDialog();
+            pop_upConf.setTitle("iStores -  Password Changing");
+            pop_upConf.setHeaderText("New password confirmation");
+            pop_upConf.setContentText("New password :");
+            pop_upConf.getDialogPane().setContent(newPsswdConfirm);
+            Optional<String> resultConfirm = pop_upConf.showAndWait();
+            if (resultConfirm.isPresent()) {
+                confirm_p = newPsswdConfirm.getText();
+                System.out.println(new_p);
+                System.out.println(confirm_p);
+                try {
+                    if (new_p.equals(confirm_p)) {
+                        updatePassword(HashPassword(new_p));
+                    }
+                    else {
+                        errorPasswordMatch();
+                        return ;
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void errorPasswordMatch() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Password changing");
+        alert.setHeaderText("Not matching");
+        alert.setContentText("Try again...");
+        alert.showAndWait();
+    }
+    public void errorPassword() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Password changing");
+        alert.setHeaderText("Wrong password");
+        alert.setContentText("Try again...");
+        alert.showAndWait();
+    }
+    public boolean checkPasswordMatch(String password) throws SQLException {
+        boolean check = false;
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+        String sqlPasswordRequest = "SELECT * FROM iStoreUsers WHERE id LIKE ?";
+        PreparedStatement preparedPasswordStatement = connection.prepareStatement(sqlPasswordRequest);
+        preparedPasswordStatement.setInt(1, this._user.getId());
+        ResultSet resultPassword = preparedPasswordStatement.executeQuery();
+        while (resultPassword.next()) {
+            if (resultPassword.getInt("id") == this._user.getId()) {
+                if (resultPassword.getString("psswd").equals(password)) {
+                    System.out.println("MATCH!");
+                    setNewPassword();
+                }
+                else {
+                    errorPassword();
+                    return (false);
+                }
+            }
+        }
+        return (check);
+    }
+
+    public String HashPassword(String hashed_password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(hashed_password.getBytes());
+        byte[] digest = md.digest();
+        StringBuffer buffer = new StringBuffer();
+        for (byte b : digest) {
+            buffer.append(String.format("%02x", b & 0xff));
+        }
+        return buffer.toString();
+    }
+    public void changePassword() {
+        PasswordField psswd = new PasswordField();
+        TextInputDialog pop_up = new TextInputDialog();
+        pop_up.setTitle("iStores -  Password Changing");
+        pop_up.setHeaderText("Password change");
+        pop_up.setContentText("Enter current password :");
+        pop_up.getDialogPane().setContent(psswd);
+        Optional<String> result = pop_up.showAndWait();
+        String input_psswd = null;
+        if (result.isPresent()) {
+            try {
+                input_psswd = psswd.getText();
+                checkPasswordMatch(HashPassword(input_psswd));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e2) {
+                e2.printStackTrace();
+            }
         }
     }
 
