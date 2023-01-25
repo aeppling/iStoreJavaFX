@@ -288,6 +288,7 @@ public class AccountController {
             PreparedStatement preparedUpdateStatement = connection.prepareStatement(sqlUpdateRequest);
             preparedUpdateStatement.setString(1, new_pseudo);
             preparedUpdateStatement.setInt(2, this._user.getId());
+            preparedUpdateStatement.executeUpdate();
             connection.close();
             successChange("Pseudo");
         } catch (SQLException e) {
