@@ -188,7 +188,15 @@ public class AccountController {
     }
 
     public void changeEmail() {
-
+        TextInputDialog pop_up = new TextInputDialog();
+        pop_up.setTitle("iStores -  Password Changing");
+        pop_up.setHeaderText("Password change");
+        pop_up.setContentText("Enter current password :");
+        Optional<String> result = pop_up.showAndWait();
+        String input_psswd = null;
+        if (result.isPresent()) {
+            System.out.println(result.get());
+        }
     }
 
     public void changePseudo() {

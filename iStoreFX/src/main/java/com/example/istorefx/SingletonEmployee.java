@@ -4,5 +4,5 @@ public class SingletonEmployee {
 
     private User _employee;
 
-    private
+    //private
 }
