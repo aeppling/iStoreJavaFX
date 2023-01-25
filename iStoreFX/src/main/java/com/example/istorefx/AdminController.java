@@ -102,6 +102,8 @@ public class AdminController {
             return ;
         }else{
             try {
+                connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+
                 if (imgUrl.isEmpty()) {
                     String sqlStoreInsert = "INSERT INTO iStoreStores(name) VALUES(?)";
                     PreparedStatement preparedStoreInsertStatement = connection.prepareStatement(sqlStoreInsert);
@@ -198,6 +200,7 @@ public class AdminController {
         }else{
             try {
                 // Add store to DataBase
+                connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
                 String sqlMailWhitelistInsert = "INSERT INTO iStoreWhitelist(email) VALUES(?)";
                 PreparedStatement preparedsqlMailWhitelistInsertStatement = connection.prepareStatement(sqlMailWhitelistInsert);
                 preparedsqlMailWhitelistInsertStatement.setString(1, emailWhiteList);
