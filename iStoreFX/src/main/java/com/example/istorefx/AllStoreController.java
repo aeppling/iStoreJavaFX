@@ -130,15 +130,16 @@ public class AllStoreController {
                 //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
                 //img.setFitWidth();
                 // System.out.println("Height : " + image.getWidth());
-                img.setFitWidth(60);
-                img.setFitHeight(60);
+                img.setFitWidth(70);
+                img.setFitHeight(70);
                 this._gridPane.setHalignment(img, HPos.CENTER);
                 this._gridPane.setValignment(img, VPos.TOP);
                 this._gridPane.add(img, col_count, row_count);
-                storeName.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
+                storeName.setStyle("-fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
+              //  storeName.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
                 this._gridPane.setHalignment(storeName, HPos.CENTER);
                 this._gridPane.setValignment(storeName, VPos.BOTTOM);
-                this._gridPane.setMargin(img, new Insets(40, 0, 40, 0));
+                this._gridPane.setMargin(img, new Insets(40, 0, 33, 0));
                 this._gridPane.add(storeName, col_count, row_count);
                 col_count++;
             }
