@@ -68,10 +68,6 @@ public class StoreController {
                 StoreRecord storeRecord = new StoreRecord(resultStore.getString("name"), resultStore.getInt("id"), resultStore.getString("store_img"));
                 this._storeList.add(storeRecord);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,6 +187,7 @@ public class StoreController {
         this._gridPane.add(img, x, y);
         // ADD STORE BUTTON
         button.setStyle("-fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
+        button.setOnAction(e -> enterStore(storeRecord));
         this._gridPane.setMargin(button, new Insets(0, 0, 20, 0));
         this._gridPane.setHalignment(button, HPos.CENTER);
         this._gridPane.setValignment(button, VPos.BOTTOM);

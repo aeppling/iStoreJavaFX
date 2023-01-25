@@ -127,16 +127,13 @@ public class AllStoreController {
                 img.setPickOnBounds(true);
                 StoreRecord store = this._storeList.get(i - 6);
                 img.setOnMouseClicked(e -> enterStore(store));
-                //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
-                //img.setFitWidth();
-                // System.out.println("Height : " + image.getWidth());
                 img.setFitWidth(70);
                 img.setFitHeight(70);
                 this._gridPane.setHalignment(img, HPos.CENTER);
                 this._gridPane.setValignment(img, VPos.TOP);
                 this._gridPane.add(img, col_count, row_count);
                 storeName.setStyle("-fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
-              //  storeName.setStyle("-fx-text-fill: white; -fx-background-color: black; -fx-border-radius: 5em");
+                storeName.setOnAction(e -> enterStore(store));
                 this._gridPane.setHalignment(storeName, HPos.CENTER);
                 this._gridPane.setValignment(storeName, VPos.BOTTOM);
                 this._gridPane.setMargin(img, new Insets(40, 0, 33, 0));

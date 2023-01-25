@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class ShopController {
     @FXML
     private Button          _confirmAction;
 
+    private boolean         _visibilityPanel;
     @FXML
     private ImageView       _profileIcon;
     @FXML
@@ -55,7 +57,11 @@ public class ShopController {
     @FXML
     private Label           _emailLabel;
     @FXML
-    private Button      _accountButton;
+    private Button          _accountButton;
+    @FXML
+    private Button          _storeEmployeeButton;
+    @FXML
+    private Pane            _storeEmployeePane;
 
     public String cutProfileString(String input) {
         String output;
@@ -201,11 +207,21 @@ public class ShopController {
         }
     }
 
+    public void showStoreEmployee() {
+        if (this._visibilityPanel == true) {
+            this._storeEmployeePane.setVisible(false);
+            this._visibilityPanel = false;
+        } else {
+            this._storeEmployeePane.setVisible(true);
+            this._visibilityPanel = true;
+        }
+    }
     public void employeeInit() {
         ObservableList<String>      actionTypes = FXCollections.observableArrayList();
         actionTypes.add("Add");
         actionTypes.add("Lower");
 
+        this._storeEmployeeButton.setVisible(true);
         this._employeeMenu.setVisible(true);
         this._productAimed.setItems(this._shop.getInventoryString());
         this._actionType.setItems(actionTypes);
@@ -345,7 +361,10 @@ public class ShopController {
         return (check);
     }
     public void initialize() {
+        this._visibilityPanel = false;
         this._employeeMenu.setVisible(false);
+        this._storeEmployeeButton.setVisible(false);
+        this._storeEmployeePane.setVisible(false);
         Connection connection = null;
         SingletonStoreHolder holder = SingletonStoreHolder.getInstance();
         SingletonUserHolder holder2 = SingletonUserHolder.getInstance();
