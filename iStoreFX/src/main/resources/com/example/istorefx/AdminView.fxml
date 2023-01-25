@@ -8,7 +8,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.AdminController">
    <children>
-      <AnchorPane prefHeight="106.0" prefWidth="602.0" style="-fx-background-color: #E7ECEF;" />
+      <AnchorPane prefHeight="106.0" prefWidth="602.0" style="-fx-background-color: #E7ECEF;">
+         <children>
+            <Button fx:id="_disconnectButton" layoutX="448.0" layoutY="43.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494;" text="Disconnect" textFill="#fafafa" />
+         </children></AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0">
          <children>
             <Label contentDisplay="CENTER" layoutX="14.0" layoutY="9.0" prefHeight="52.0" prefWidth="221.0" text="Admin Dashboard">

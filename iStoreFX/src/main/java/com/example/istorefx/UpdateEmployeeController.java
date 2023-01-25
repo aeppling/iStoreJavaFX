@@ -1,6 +1,7 @@
 package com.example.istorefx;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Optional;
 
 public class UpdateEmployeeController {
 
@@ -29,6 +31,8 @@ public class UpdateEmployeeController {
     private Button _backButton;
     @FXML
     private Label _emailLabel;
+    @FXML
+    private Label _roleLabel;
     @FXML
     private AnchorPane _updateEmailPane;
     @FXML
@@ -64,14 +68,11 @@ public class UpdateEmployeeController {
         this._nickname = GetAccountUsernameFromID();
         this._nicknameLabel.setText(this._nickname);
         this._emailLabel.setText(this._email);
-
-
-
-        DisplayRoleChoiceBox();
+        this._roleLabel.setText(this._role);
     }
 
-    public void DisplayRoleChoiceBox(){
-        String role1, role2;
+    public void DisplayRoleChoiceBox() throws SQLException {
+        String role1,role2;
         if(this._role.equals("employee")){
             role1 = "standart";
 
@@ -79,7 +80,39 @@ public class UpdateEmployeeController {
             role1 = "employee";
         }
         role2 = "admin";
-        this._roleChoice = new ChoiceBox<String>(FXCollections.observableArrayList(this._role, role1, role2));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("iStores -  Confirm role");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(this._role, role1, role2);
+
+        dialog.setHeaderText("Confirm new role :");
+        dialog.setContentText("Choose new role : ");
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            this._role = result.get();
+            this._roleLabel.setText(this._role);
+            Connection connection = null;
+            try {
+                connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Update DB
+            try {
+                    String sqlUpdateRole = "UPDATE `iStoreUsers` SET `role`= ? WHERE id = ?";
+                    PreparedStatement preparedRoleUpdateStatement = connection.prepareStatement(sqlUpdateRole);
+                    preparedRoleUpdateStatement.setString(1, this._role);
+                preparedRoleUpdateStatement.setInt(2, this._id);
+                    preparedRoleUpdateStatement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            connection.close();
+        }
+        if(this._role.equals("admin")){
+            Back();
+        }
     }
     public void DeleteAccount() {
         try {
