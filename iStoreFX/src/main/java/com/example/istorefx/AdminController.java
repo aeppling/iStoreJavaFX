@@ -84,7 +84,7 @@ public class AdminController {
         this._CreateStorePane.setVisible(false);
     }
 
-    public void CreateStore() {
+    public void CreateStore() throws SQLException {
         // Called when user clicks on Create Store button
         String storeName = storeNameField.getText();
         String imgUrl = storeImgUrlField.getText();
@@ -115,6 +115,7 @@ public class AdminController {
                     preparedStoreInsertStatement.setString(2, imgUrl);
                     preparedStoreInsertStatement.execute();
                     preparedStoreInsertStatement.close();
+
                 }
                 // Add store to DataBase
 
@@ -123,7 +124,9 @@ public class AdminController {
             }catch (SQLException e) {
                 e.printStackTrace();
             }
+            connection.close();
         }
+
 
 
     }
@@ -162,6 +165,7 @@ public class AdminController {
             check = false;
         }
         preparedStoreNameStatement.close();
+        connection.close();
         return (check);
 
     }
@@ -176,7 +180,7 @@ public class AdminController {
         this._whitelistPane.setVisible(false);
 
     }
-    public void AddToWhiteList(){
+    public void AddToWhiteList() throws SQLException {
         // Called when user click on Add to Whitelist button
         String emailWhiteList = emailWhitelistField.getText();
         Connection connection = null;
@@ -204,6 +208,7 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
+        connection.close();
 
     }
 
@@ -224,6 +229,7 @@ public class AdminController {
             check = false;
         }
         preparedMailWhiteListStatement.close();
+        connection.close();
         return (check);
     }
 
@@ -255,7 +261,7 @@ public class AdminController {
         if(!is_good){
             return;
         }else{
-            RedirectToUpdatePage();
+            RedirectToUpdatePage(emailManageEmployee);
 
         }
     }
@@ -283,9 +289,10 @@ public class AdminController {
             check = false;
             this.emailManageEmployeeError.setText("No account using this email exists.");
         }
+        connection.close();
         return check;
     }
-    public void RedirectToUpdatePage(){
+    public void RedirectToUpdatePage(String emailManageEmployee){
         User user = this._admin;
         Stage currentStage2 = (Stage) _manageEmployeeButton.getScene().getWindow();
         currentStage2.close();
@@ -294,6 +301,9 @@ public class AdminController {
         try {
             SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
             userHolder.setUser(user);
+            SingletonEmailHolder emailHolder = SingletonEmailHolder.getInstance();
+            emailHolder.setEmail(emailManageEmployee);
+
             Scene scene = new Scene(fxmlLoader.load(), 875, 616);
             primaryStage.setTitle("iStore");
             primaryStage.setScene(scene);

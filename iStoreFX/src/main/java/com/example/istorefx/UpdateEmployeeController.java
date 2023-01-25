@@ -1,9 +1,11 @@
 package com.example.istorefx;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,8 +22,10 @@ public class UpdateEmployeeController {
     private String _email;
     private String _nickname;
     private int _id;
+    private String _role;
     private String password;
-
+    @FXML
+    private ChoiceBox<String> _roleChoice;
     @FXML
     private Label _nicknameLabel;
     @FXML
@@ -56,9 +60,26 @@ public class UpdateEmployeeController {
     public void initialize() {
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
         this._admin = holder.getUser();
+        SingletonEmailHolder emailHolder = SingletonEmailHolder.getInstance();
+        this._email = emailHolder.getEmail();
         this._id = GetAccountIdFromMail();
+        this._role = GetAccountRoleFromID();
+        this._nickname = GetAccountUsernameFromID();
         this._nicknameLabel.setText(this._nickname);
         this._emailLabel.setText(this._email);
+        this._roleChoice = new ChoiceBox<String>();
+    }
+
+    public void DisplayRoleChoiceBox(){
+        String role1, role2;
+        if(this._role.equals("employee")){
+            role1 = "standart";
+
+        }else{
+            role1 = "employee";
+        }
+        role2 = "admin";
+        this._roleChoice.setItems(FXCollections.observableArrayList(this._role, role1, role2));
 
     }
     public void DeleteAccount() {
@@ -70,18 +91,17 @@ public class UpdateEmployeeController {
             preparedDeleteLinkStatement.setInt(1, this._id);
             preparedDeleteLinkStatement.execute();
             preparedDeleteLinkStatement.close();
-
             // Delete account from iStoreUsers
             String sqlDeleteAccount = "DELETE * FROM iStoreUsers WHERE email = ?";
             PreparedStatement preparedDeleteAccountStatement = connection.prepareStatement(sqlDeleteAccount);
             preparedDeleteAccountStatement.setString(1, this._email);
             preparedDeleteAccountStatement.execute();
             preparedDeleteAccountStatement.close();
-
+            connection.close();
+            Back();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
     public void DisplayUpdateNicknamePane(){
         this._updateNicknamePane.setVisible(true);
@@ -101,8 +121,7 @@ public class UpdateEmployeeController {
     public void CloseUpdateEmailPane(){
         this._updateEmailPane.setVisible(false);
     }
-
-    public void UpdateNickname(){
+    public void UpdateNickname() throws SQLException {
         String newNickname = this._newNicknameTextField.getText();
         Connection connection = null;
         boolean is_good = false;
@@ -117,7 +136,7 @@ public class UpdateEmployeeController {
         }else{
             // Update DB
             try {
-                String sqlUpdateNickname = "UPDATE `iStoreUsers` SET `pseudo`=?, WHERE id = ?";
+                String sqlUpdateNickname = "UPDATE `iStoreUsers` SET `pseudo`= ?, WHERE id = ?";
                 PreparedStatement preparedNicknameUpdateStatement = connection.prepareStatement(sqlUpdateNickname);
                 preparedNicknameUpdateStatement.setString(1, newNickname);
                 preparedNicknameUpdateStatement.setInt(2, this._id);
@@ -128,11 +147,9 @@ public class UpdateEmployeeController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
+        connection.close();
     }
-
-
     private boolean CheckErrorFromUpdateNickname(Connection connection, String newNickname) {
         boolean check = true;
         this._newNicknameError.setText("");
@@ -152,8 +169,7 @@ public class UpdateEmployeeController {
         }
         return check;
     }
-
-    public void UpdateMail(){
+    public void UpdateMail() throws SQLException {
         String newEmail = this._newEmailTextField.getText();
         Connection connection = null;
         boolean is_good = false;
@@ -179,8 +195,8 @@ public class UpdateEmployeeController {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
+        connection.close();
     }
     public boolean CheckErrorFromUpdateMail(Connection connection, String newEmail)throws SQLException{
         this._newEmailError.setText("");
@@ -216,6 +232,7 @@ public class UpdateEmployeeController {
             preparedMailAddWhiteListStatement.setString(1, newEmail);
             preparedMailAddWhiteListStatement.execute();
         }
+        connection.close();
         return check;
     }
 
@@ -241,16 +258,14 @@ public class UpdateEmployeeController {
                 preparedMailUpdateStatement.setInt(2, this._id);
                 preparedMailUpdateStatement.execute();
                 CloseUpdateNicknamePane();
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-
     }
-
     private boolean CheckErrorFromUpdatePassword(Connection connection, String newPassword, String newPasswordHash) throws SQLException{
-
         this._newPasswordError.setText("");
         this._newPasswordConfirmError.setText("");
         String newPasswordConfirm = this._newPasswordConfirmTextField.getText();
@@ -293,8 +308,6 @@ public class UpdateEmployeeController {
                 }
             }
         }
-
-
         String sqlPasswordRequest = "SELECT psswd FROM iStoreUser WHERE email = ?";
         PreparedStatement preparedPasswordStatement = connection.prepareStatement(sqlPasswordRequest);
         preparedPasswordStatement.setString(1, newPassword);
@@ -303,26 +316,61 @@ public class UpdateEmployeeController {
             this._newPasswordError.setText("You have to enter a new password.");
             check = false;
         }
-
+        connection.close();
         return check;
+
     }
 
     public int GetAccountIdFromMail(){
         int id = 0;
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
-
             String sqlGetId = "SELECT id FROM iStoreUsers WHERE email = ?";
             PreparedStatement preparedGetIdStatement = connection.prepareStatement(sqlGetId);
             preparedGetIdStatement.setString(1, this._email);
             ResultSet resultId = preparedGetIdStatement.executeQuery();
-            preparedGetIdStatement.close();
+
             id = resultId.getInt("id");
+            preparedGetIdStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return id;
 
+        return id;
+    }
+    private String GetAccountUsernameFromID() {
+        String username = null;
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlGetUsername = "SELECT pseudo FROM iStoreUsers WHERE id = ?";
+            PreparedStatement preparedGetUsernameStatement = connection.prepareStatement(sqlGetUsername);
+            preparedGetUsernameStatement.setInt(1, this._id);
+            ResultSet resultUsername = preparedGetUsernameStatement.executeQuery();
+            username = resultUsername.getString("pseudo");
+            preparedGetUsernameStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return username;
+    }
+
+    private String GetAccountRoleFromID() {
+        String role = null;
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlGetRole = "SELECT role FROM iStoreUsers WHERE id = ?";
+            PreparedStatement preparedGetRoleStatement = connection.prepareStatement(sqlGetRole);
+            preparedGetRoleStatement.setInt(1, this._id);
+            ResultSet resultUsername = preparedGetRoleStatement.executeQuery();
+            role = resultUsername.getString("pseudo");
+            preparedGetRoleStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return role;
     }
     public String HashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
