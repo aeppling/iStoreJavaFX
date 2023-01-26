@@ -263,18 +263,42 @@ public class ShopController {
         // CHANGE SINGLE EMPLOYEE CHECK
     }
 
+    public void deleteEmployee(int id) {
+        System.out.println("Delete emloye id:" + id);
+    }
+    public void addNewEmployee() {
+        System.out.println("Add new employee");
+    }
     public void setEmployeeList() {
         int count = 0;
 
+        //ADD COLUMN HERE FOR DELETE BUTTON
+        // THEN AT LAST LINE, ADD ONE ROW FOR ADDING BUTTON
+        this._employeeGridPane.addColumn(0);
+        this._employeeGridPane.addColumn(1);
+        this._employeeGridPane.addColumn(2);
         while (count < this._employeeList.size()) {
-            Label employeeInfos = new Label(this._employeeList.get(count).getPseudo() + "   "
+            Label   employeeInfos = new Label(this._employeeList.get(count).getPseudo() + "   "
                                                 + this._employeeList.get(count).getEmail() + "   id:" +
                                                     this._employeeList.get(count).getId());
-            this._employeeGridPane.addRow(0);
+
+            this._employeeGridPane.addRow(count);
             this._employeeGridPane.add(employeeInfos, 0, count);
+            if (this._user.getRole().equals("admin")) {
+                Button deleteButton = new Button(" remove ");
+                int id = this._employeeList.get(count).getId();
+                deleteButton.setOnAction(e -> deleteEmployee(id));
+                this._employeeGridPane.add(deleteButton, 1, count);
+            }
             this._employeeGridPane.setVgap(20);
+            this._employeeGridPane.setHgap(40);
             count++;
         }
+        Button addButton = new Button("Add new employee to " + this._store.getName());
+        addButton.setOnAction(e -> addNewEmployee());
+        this._employeeGridPane.addRow(count);
+        this._employeeGridPane.add(addButton, 0, count);
+        this._employeeGridPane.setMargin(addButton, new Insets(100, 100, 100, 100));// SET MARGIN HERE WITH inset(0, 0, 0, 0)
     }
 
     public void showStoreEmployee() {

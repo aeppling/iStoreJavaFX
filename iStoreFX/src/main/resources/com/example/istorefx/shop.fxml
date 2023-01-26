@@ -61,9 +61,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ChoiceBox fx:id="_actionType" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_actionType" prefHeight="27.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <ChoiceBox fx:id="_productAimed" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" prefHeight="27.0" prefWidth="139.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #6096BA; -fx-background-radius: 5; -fx-border-radius: 5;" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #6096BA; -fx-background-radius: 5; -fx-border-radius: 5;" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
                         <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" promptText=" Enter amount..." style="-fx-border-color: #A3CEF1; -fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
@@ -80,7 +80,7 @@
                                  <children>
                                     <ScrollPane prefHeight="306.0" prefWidth="730.0">
                                        <content>
-                                          <GridPane fx:id="_employeeGridPane" prefHeight="293.0" prefWidth="732.0">
+                                          <GridPane fx:id="_employeeGridPane" prefHeight="294.0" prefWidth="714.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                             </columnConstraints>
