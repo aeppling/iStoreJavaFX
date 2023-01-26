@@ -261,6 +261,12 @@ public class ShopController {
         // CHANGE SINGLE EMPLOYEE CHECK
     }
 
+    public void deleteEmployee(int id) {
+        System.out.println("Delete emloye id:" + id);
+    }
+    public void addNewEmployee() {
+        System.out.println("Add new employee");
+    }
     public void setEmployeeList() {
         int count = 0;
 
@@ -278,14 +284,19 @@ public class ShopController {
             this._employeeGridPane.add(employeeInfos, 0, count);
             if (this._user.getRole().equals("admin")) {
                 Button deleteButton = new Button(" remove ");
-                String test = new String("Delete employee" + this._employeeList.get(count).getId());
-                deleteButton.setOnAction(e -> System.out.println(test));
+                int id = this._employeeList.get(count).getId();
+                deleteButton.setOnAction(e -> deleteEmployee(id));
                 this._employeeGridPane.add(deleteButton, 1, count);
             }
             this._employeeGridPane.setVgap(20);
             this._employeeGridPane.setHgap(40);
             count++;
         }
+        Button addButton = new Button("Add new employee to " + this._store.getName());
+        addButton.setOnAction(e -> addNewEmployee());
+        this._employeeGridPane.addRow(count);
+        this._employeeGridPane.add(addButton, 0, count);
+        this._employeeGridPane.setMargin(addButton, new Insets(100, 100, 100, 100));// SET MARGIN HERE WITH inset(0, 0, 0, 0)
     }
 
     public void showStoreEmployee() {
