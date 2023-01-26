@@ -264,13 +264,26 @@ public class ShopController {
     public void setEmployeeList() {
         int count = 0;
 
+        //ADD COLUMN HERE FOR DELETE BUTTON
+        // THEN AT LAST LINE, ADD ONE ROW FOR ADDING BUTTON
+        this._employeeGridPane.addColumn(0);
+        this._employeeGridPane.addColumn(1);
+        this._employeeGridPane.addColumn(2);
         while (count < this._employeeList.size()) {
-            Label employeeInfos = new Label(this._employeeList.get(count).getPseudo() + "   "
+            Label   employeeInfos = new Label(this._employeeList.get(count).getPseudo() + "   "
                                                 + this._employeeList.get(count).getEmail() + "   id:" +
                                                     this._employeeList.get(count).getId());
-            this._employeeGridPane.addRow(0);
+
+            this._employeeGridPane.addRow(count);
             this._employeeGridPane.add(employeeInfos, 0, count);
+            if (this._user.getRole().equals("admin")) {
+                Button deleteButton = new Button(" remove ");
+                String test = new String("Delete employee" + this._employeeList.get(count).getId());
+                deleteButton.setOnAction(e -> System.out.println(test));
+                this._employeeGridPane.add(deleteButton, 1, count);
+            }
             this._employeeGridPane.setVgap(20);
+            this._employeeGridPane.setHgap(40);
             count++;
         }
     }
