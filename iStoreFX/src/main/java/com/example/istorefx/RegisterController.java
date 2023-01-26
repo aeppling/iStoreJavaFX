@@ -262,6 +262,7 @@ public class RegisterController {
             return ;
         System.out.println("TRUUUUUE, now send query");
         Connection connection = null;
+        String role = null;
         PreparedStatement preparedRegisterStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
@@ -271,7 +272,12 @@ public class RegisterController {
             preparedRegisterStatement.setString(2, this.inputEmail.getText());
             String hashed_password = HashPassword(this.inputPassword.getText());
             preparedRegisterStatement.setString(3, hashed_password);
-            preparedRegisterStatement.setString(4, "standart");
+            if(isFirstUser()){
+                role = "admin";
+            }else{
+                role = "standart";
+            }
+            preparedRegisterStatement.setString(4, role);
             preparedRegisterStatement.execute();
             preparedRegisterStatement.close();
         } catch (SQLException e) {
@@ -280,20 +286,47 @@ public class RegisterController {
             e2.printStackTrace();
         }
         try { //LAUNCH APP IF WHITELISTED, ELSE REQUEST WHITELIST AND GO TO LOGINPAGE W/ MSG
-            if (isWhitelisted(this.inputEmail.getText(), connection) == true) {
+            if ((role.equals("standart"))
+                    || (role.equals("employee"))) {
+                if (isWhitelisted(this.inputEmail.getText(), connection) == true) {
+                    User user = new User(this._pseudo, this._email);
+                    Store(user);
+                } else { // ELSE REQUEST WHITELIST
+                    System.out.println("NotWhitelisted");
+                    requestWhitelist(connection);
+                    WhiteListValidation();
+                }
+            }else if(role.equals("admin")){
                 User user = new User(this._pseudo, this._email);
-               Store(user);
-            }
-            else { // ELSE REQUEST WHITELIST
-                System.out.println("NotWhitelisted");
-                requestWhitelist(connection);
-                WhiteListValidation();
+                AdminDashboard(user);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         System.out.println(this.inputEmail2.getText());
         System.out.println(this.inputEmail.getText());
+    }
+
+    private boolean isFirstUser() throws SQLException {
+        // Check if its the first user
+        boolean check;
+        Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+
+        String sqlRequest = "SELECT * FROM iStoreUsers";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlRequest);
+
+        ResultSet resultEmail = preparedStatement.executeQuery();
+        if (resultEmail.next()) {
+            check = false;
+        }
+        else{
+            check = true;
+        }
+        preparedStatement.close();
+        connection.close();
+        return check;
+
     }
 
     public void Store(User user) {
@@ -355,6 +388,24 @@ public class RegisterController {
             primaryStage.setTitle("iStore - Login Page");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void AdminDashboard(User user) {
+        // Redirect to Admin Dashboard
+        Stage currentStage2 = (Stage) _disconnectButton.getScene().getWindow();
+        currentStage2.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(user);
+            Scene scene = new Scene(fxmlLoader.load(), 600.0, 620);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
