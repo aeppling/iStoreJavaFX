@@ -236,6 +236,7 @@ public class ShopController {
         String query = new String("SELECT * FROM iStoreUsers");
         ArrayList<Integer> listID = getLinkedId();
 
+        this._employeeList.clear();
      //   final String[] data = yourList.toArray(new String[yourList.size()]);
        // final java.sql.Array sqlArray = connection.createArrayOf(typeName, data);
         try {
@@ -325,18 +326,59 @@ public class ShopController {
                         "   " + resultUsers.getString("pseudo"));
                 returnTab.add(userCompacted);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return (returnTab);
     }
+
+    public void errorAddEmployee(String compactedNewEmployee) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(this._store.getName() + " - Employee management error");
+        alert.setHeaderText("Error on adding employee");
+        alert.setContentText("Error on adding " + compactedNewEmployee + " to " + this._store.getName() + ", already employee here");
+        alert.showAndWait();
+    }
+    public int getIDfromCompacted(String compactedNewEmployee) {
+        int id = -1;
+
+        id = Integer.valueOf(compactedNewEmployee.substring(0, compactedNewEmployee.indexOf(' ')));
+        return (id);
+    }
+    public void addNewEmployeeDatabase(String compactedNewEmployee) {
+        String insertQuery = new String("INSERT INTO StoreUserLink (UserID, StoreID) VALUES (?, ?)");
+        String alreadyEmployeeQuery = new String("SELECT * FROM StoreUserLink WHERE UserID = ?");
+
+        int id = getIDfromCompacted(compactedNewEmployee);
+        if (id == -1) {
+            errorAddEmployee(compactedNewEmployee);
+            return ;
+        }
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement alreadyEmployee = connection.prepareStatement(alreadyEmployeeQuery);
+            alreadyEmployee.setInt(1, id);
+            ResultSet results = alreadyEmployee.executeQuery();
+            if (results.next()) {
+                errorAddEmployee(compactedNewEmployee);
+                return ;
+            }
+            PreparedStatement preparedInsertStatement = connection.prepareStatement(insertQuery);
+            preparedInsertStatement.setInt(1, id);
+            preparedInsertStatement.setInt(2, this._store.getId());
+            preparedInsertStatement.execute();
+            connection.close();
+            adminValidationMessage(id, "add");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void addNewEmployee() {
         System.out.println("Add new employee");
         String choosen = null;
         ArrayList userList = getAllUsersCompacted();
-//        String test[] = {"Monday", "Tuesday", "Wednesday",
-  //              "Thursday", "Friday"};
         ChoiceDialog<String> dialog = new ChoiceDialog<>("none", userList);
         dialog.setTitle(this._store.getName() + " - Adding employee");
         dialog.setHeaderText("Choose new employee");
@@ -346,14 +388,20 @@ public class ShopController {
             choosen = result.get();
             if (choosen == "none")
                 return ;
-            System.out.println(choosen);
+            addNewEmployeeDatabase(choosen);
         }
+        getEmployeeArray();
+        setEmployeeList();
+        // x2 showStoreEmployee() to refresh window
+        showStoreEmployee();
+        showStoreEmployee();
     }
     public void setEmployeeList() {
         int count = 0;
 
         //ADD COLUMN HERE FOR DELETE BUTTON
         // THEN AT LAST LINE, ADD ONE ROW FOR ADDING BUTTON
+        this._employeeGridPane.getChildren().clear();
         this._employeeGridPane.addColumn(0);
         this._employeeGridPane.addColumn(1);
         this._employeeGridPane.addColumn(2);
