@@ -43,6 +43,8 @@ public class AllUsersController {
     private TextField       _searchBar;
     @FXML
     private Button          _searchButton;
+    @FXML
+    private Button _adminDashboardButton;
 
     public String cutProfileString(String input) {
         String output;
@@ -73,7 +75,7 @@ public class AllUsersController {
         this._logoHeader.setFitWidth(170);
         this._logoHeader.setFitHeight(170);
     }
-    public void initButtons() {
+    public void initButtons() throws SQLException {
         //ALL STORES BTN
         javafx.scene.image.Image image = new javafx.scene.image.Image(getClass().getResourceAsStream("allstores-icon.png"));
         ImageView img = new ImageView();
@@ -95,6 +97,21 @@ public class AllUsersController {
         img3.setFitWidth(60);
         img3.setFitHeight(60);
         this._homeButton.setGraphic(img3);
+        // Admin Dashboard BTN
+        String sqlRoleRequest = "SELECT role FROM iStoreUsers WHERE id = ?";
+        Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+        PreparedStatement preparedRoleStatement = connection.prepareStatement(sqlRoleRequest);
+        preparedRoleStatement.setInt(1, this._user.getId());
+        ResultSet resultRole = preparedRoleStatement.executeQuery();
+        resultRole.next();
+        if(resultRole.getString("role").equals("admin")){
+            this._adminDashboardButton.setVisible(true);
+
+        }else{
+            this._adminDashboardButton.setVisible(false);
+        }
+        preparedRoleStatement.close();
+        connection.close();
     }
 
     public void searchRequest() {
@@ -138,7 +155,7 @@ public class AllUsersController {
             {searchRequest();}
         });
     }
-    public void initialize() {
+    public void initialize() throws SQLException {
         SingletonUserHolder holder2 = SingletonUserHolder.getInstance();
         this._user = holder2.getUser();
         initButtons();
@@ -238,6 +255,24 @@ public class AllUsersController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void AdminDashboard() {
+        // Redirect to Admin Dashboard
+        Stage currentStage2 = (Stage) _disconnectButton.getScene().getWindow();
+        currentStage2.close();
+        Stage primaryStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
+        try {
+            SingletonUserHolder userHolder = SingletonUserHolder.getInstance();
+            userHolder.setUser(this._user);
+            Scene scene = new Scene(fxmlLoader.load(), 600.0, 620);
+            primaryStage.setTitle("iStore");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
