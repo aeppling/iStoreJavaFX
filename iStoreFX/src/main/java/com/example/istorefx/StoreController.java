@@ -185,7 +185,7 @@ public class StoreController {
     }
     public void createStoreWindow(int x, int y, StoreRecord storeRecord) {
         //IMAGE CREATING
-        Button button = new Button(storeRecord.getName());
+        Button button = new Button(" " + storeRecord.getName() + " ");
         Image image = new Image(getClass().getResourceAsStream("icons8-department-shop-64.png"));
         ImageView img = new ImageView();
 
@@ -203,7 +203,7 @@ public class StoreController {
         this._gridPane.setMargin(button, new Insets(0, 0, 0, 0));
         this._gridPane.add(img, x, y);
         // ADD STORE BUTTON
-        button.setStyle("-fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
+        button.setStyle("-fx-border-width: 0.3em; -fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
         button.setOnAction(e -> enterStore(storeRecord));
         this._gridPane.setMargin(button, new Insets(0, 0, 20, 0));
         this._gridPane.setHalignment(button, HPos.CENTER);

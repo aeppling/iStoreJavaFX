@@ -243,10 +243,8 @@ public class ShopController {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet allUsers = preparedStatement.executeQuery();
             while (allUsers.next()) {
-                System.out.println("LOOOPY");
                 int count = 0;
                 while (count < listID.size()) {
-                    System.out.println("LOUP");
                     if (allUsers.getInt("id") == listID.get(count)) {
                         User employeeToAdd = new User(allUsers.getString("pseudo"),
                                 allUsers.getString("email"), allUsers.getInt("id"));
@@ -263,8 +261,54 @@ public class ShopController {
         // CHANGE SINGLE EMPLOYEE CHECK
     }
 
+    public void adminConfirmationMessage(int id) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+
+            alert.setTitle(this._store.getName() + " - Deleting employee");
+            alert.setHeaderText("Confirm deletion");
+            alert.setContentText("Confirm removing id:" + id + " from " + this._store.getName());
+            Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+                deleteEmployee(id);
+        }
+    }
+
+    public void adminValidationMessage(int id, String mode) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        if (mode == "delete") {
+            alert.setTitle(this._store.getName() + " - Deleted employee");
+            alert.setHeaderText("Employee deleted");
+            alert.setContentText("Employee with id : " + id + " has been deleted from " + this._store.getName());
+        }
+        else {
+            alert.setTitle(this._store.getName() + " - Added employee");
+            alert.setHeaderText("Employee added");
+            alert.setContentText("Employee with id : " + id + " has been added to " + this._store.getName());
+        }
+        alert.showAndWait();
+    }
     public void deleteEmployee(int id) {
-        System.out.println("Delete emloye id:" + id);
+        String queryDeleteLink = new String("DELETE FROM StoreUserLink WHERE UserID = ?");
+        int count = 0;
+
+        System.out.println("Make ALERT Delete emloye id:" + id);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement preparedDeleteStatement = connection.prepareStatement(queryDeleteLink);
+            preparedDeleteStatement.setInt(1, id);
+            preparedDeleteStatement.execute();
+            connection.close();
+        } catch (SQLException e ) {
+            e.printStackTrace();
+        }
+        while (count < this._employeeList.size()) {
+            if (this._employeeList.get(count).getId() == id) {
+                this._employeeList.remove(count);
+                break ;
+            }
+            count++;
+        }
+        adminValidationMessage(id, "delete");
     }
     public void addNewEmployee() {
         System.out.println("Add new employee");
@@ -287,7 +331,7 @@ public class ShopController {
             if (this._user.getRole().equals("admin")) {
                 Button deleteButton = new Button(" remove ");
                 int id = this._employeeList.get(count).getId();
-                deleteButton.setOnAction(e -> deleteEmployee(id));
+                deleteButton.setOnAction(e -> adminConfirmationMessage(id));
                 this._employeeGridPane.add(deleteButton, 1, count);
             }
             this._employeeGridPane.setVgap(20);
