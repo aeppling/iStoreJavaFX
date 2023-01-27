@@ -292,11 +292,13 @@ public class ShopController {
             this._employeeGridPane.setHgap(40);
             count++;
         }
-        Button addButton = new Button("Add new employee to " + this._store.getName());
-        addButton.setOnAction(e -> addNewEmployee());
-        this._employeeGridPane.addRow(count);
-        this._employeeGridPane.add(addButton, 0, count);
-        this._employeeGridPane.setMargin(addButton, new Insets(100, 100, 100, 100));// SET MARGIN HERE WITH inset(0, 0, 0, 0)
+        if (this._user.getRole().equals("admin")) {
+            Button addButton = new Button("Add new employee to " + this._store.getName());
+            addButton.setOnAction(e -> addNewEmployee());
+            this._employeeGridPane.addRow(count);
+            this._employeeGridPane.add(addButton, 0, count);
+            this._employeeGridPane.setMargin(addButton, new Insets(100, 100, 100, 100));// SET MARGIN HERE WITH inset(0, 0, 0, 0)
+        }
     }
 
     public void showStoreEmployee() {
