@@ -292,7 +292,6 @@ public class ShopController {
         String queryDeleteLink = new String("DELETE FROM StoreUserLink WHERE UserID = ?");
         int count = 0;
 
-        System.out.println("Make ALERT Delete emloye id:" + id);
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
             PreparedStatement preparedDeleteStatement = connection.prepareStatement(queryDeleteLink);
@@ -310,6 +309,12 @@ public class ShopController {
             count++;
         }
         adminValidationMessage(id, "delete");
+        // refreshing window
+        getEmployeeArray();
+        setEmployeeList();
+        // x2 showStoreEmployee() to refresh window
+        showStoreEmployee();
+        showStoreEmployee();
     }
 
     public ArrayList<String> getAllUsersCompacted() {
@@ -317,8 +322,9 @@ public class ShopController {
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
-            String sqlUsersRequest = "SELECT pseudo, email, id FROM iStoreUsers";
+            String sqlUsersRequest = "SELECT pseudo, email, id FROM iStoreUsers LEFT JOIN StoreUserLink ON iStoreUsers.id = StoreUserLink.UserID WHERE StoreUserLink.StoreID != ? OR StoreUserLink.StoreID is null";
             PreparedStatement preparedStoreStatement = connection.prepareStatement(sqlUsersRequest);
+            preparedStoreStatement.setInt(1, this._store.getId());
             ResultSet resultUsers = preparedStoreStatement.executeQuery();
             while (resultUsers.next()) {
                 String userCompacted = new String(resultUsers.getInt("id") +
@@ -390,6 +396,7 @@ public class ShopController {
                 return ;
             addNewEmployeeDatabase(choosen);
         }
+        // refreshing window
         getEmployeeArray();
         setEmployeeList();
         // x2 showStoreEmployee() to refresh window
@@ -412,11 +419,13 @@ public class ShopController {
 
             this._employeeGridPane.addRow(count);
             this._employeeGridPane.add(employeeInfos, 0, count);
+            this._employeeGridPane.setMargin(employeeInfos, new Insets(0, 0, 0, 50));
             if (this._user.getRole().equals("admin")) {
                 Button deleteButton = new Button(" remove ");
                 int id = this._employeeList.get(count).getId();
                 deleteButton.setOnAction(e -> adminConfirmationMessage(id));
                 this._employeeGridPane.add(deleteButton, 1, count);
+                this._employeeGridPane.setMargin(deleteButton, new Insets(0, 50, 0, 0));
             }
             this._employeeGridPane.setVgap(20);
             this._employeeGridPane.setHgap(40);
@@ -427,7 +436,7 @@ public class ShopController {
             addButton.setOnAction(e -> addNewEmployee());
             this._employeeGridPane.addRow(count);
             this._employeeGridPane.add(addButton, 0, count);
-            this._employeeGridPane.setMargin(addButton, new Insets(100, 100, 100, 100));// SET MARGIN HERE WITH inset(0, 0, 0, 0)
+            this._employeeGridPane.setMargin(addButton, new Insets(10, 0, 0, 270));// SET MARGIN HERE WITH inset(0, 0, 0, 0)
         }
     }
 
