@@ -310,8 +310,44 @@ public class ShopController {
         }
         adminValidationMessage(id, "delete");
     }
+
+    public ArrayList<String> getAllUsersCompacted() {
+        ArrayList<String> returnTab = new ArrayList<String>();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            String sqlUsersRequest = "SELECT pseudo, email, id FROM iStoreUsers";
+            PreparedStatement preparedStoreStatement = connection.prepareStatement(sqlUsersRequest);
+            ResultSet resultUsers = preparedStoreStatement.executeQuery();
+            while (resultUsers.next()) {
+                String userCompacted = new String(resultUsers.getInt("id") +
+                        "   " + resultUsers.getString("email") +
+                        "   " + resultUsers.getString("pseudo"));
+                returnTab.add(userCompacted);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return (returnTab);
+    }
     public void addNewEmployee() {
         System.out.println("Add new employee");
+        String choosen = null;
+        ArrayList userList = getAllUsersCompacted();
+//        String test[] = {"Monday", "Tuesday", "Wednesday",
+  //              "Thursday", "Friday"};
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("none", userList);
+        dialog.setTitle(this._store.getName() + " - Adding employee");
+        dialog.setHeaderText("Choose new employee");
+        dialog.setContentText("Choose user to add as employee to " + this._store.getName());
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            choosen = result.get();
+            if (choosen == "none")
+                return ;
+            System.out.println(choosen);
+        }
     }
     public void setEmployeeList() {
         int count = 0;

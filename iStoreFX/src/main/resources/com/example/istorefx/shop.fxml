@@ -56,6 +56,7 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -65,9 +66,10 @@
                         <ChoiceBox fx:id="_productAimed" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #6096BA; -fx-background-radius: 5; -fx-border-radius: 5;" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
                         <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" promptText=" Enter amount..." style="-fx-border-color: #A3CEF1; -fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="_storeEmployeeButton" mnemonicParsing="false" onAction="#showStoreEmployee" prefHeight="26.0" prefWidth="59.0" text="Employee" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                        <Button mnemonicParsing="false" text="Add new" GridPane.columnIndex="4" />
                      </children>
                   </GridPane>
-                  <Button fx:id="_storeEmployeeButton" layoutX="658.0" layoutY="14.0" mnemonicParsing="false" onAction="#showStoreEmployee" prefHeight="26.0" prefWidth="40.0" text="Button" />
                </children>
             </AnchorPane>
             <Pane fx:id="_storeEmployeePane" layoutX="381.0" layoutY="147.0" prefHeight="317.0" prefWidth="335.0">
