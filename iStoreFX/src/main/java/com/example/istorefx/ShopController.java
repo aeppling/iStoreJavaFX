@@ -67,9 +67,33 @@ public class ShopController {
 
     private ArrayList<User> _employeeList;
     @FXML
-    private Button _adminDashboardButton;
+    private Button          _adminDashboardButton;
 
+    @FXML
+    private Button          _addNewProductButton;
 
+    public void addNewProduct() {
+
+        Dialog<Button> dialog = new Dialog<Button>();
+        GridPane gridContainer = new GridPane();
+        Label productNameLabel = new Label();
+        TextField productName = new TextField();
+        Label priceLabel = new Label();
+        Spinner<Float> price = new Spinner<>(1, 100000000, 1.1);
+        //price.ste;
+        Label maxStockLabel = new Label();
+        Spinner<Integer> maxStock = new Spinner<>(1.0, 100000000, 1);
+        gridContainer.addRow(0);
+        gridContainer.add(productName, 0, 0);
+        gridContainer.addRow(1);
+        gridContainer.add(price, 0, 1);
+        gridContainer.addRow(2);
+        gridContainer.add(maxStock, 0, 2);
+        dialog.getDialogPane().setContent(gridContainer);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        dialog.showAndWait();
+    }
     public String cutProfileString(String input) {
         String output;
         if (input.length() > 20) {
