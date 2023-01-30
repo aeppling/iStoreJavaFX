@@ -51,7 +51,7 @@
             <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                <children>
                   <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="78.0" layoutY="40.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
+                  <Label fx:id="_pseudoLabel" alignment="CENTER" layoutX="78.0" layoutY="40.0" style="-fx-font-weight: bold;" text="Username" textAlignment="CENTER" textFill="WHITE" />
                   <Label fx:id="_emailLabel" alignment="CENTER" layoutX="24.0" layoutY="76.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
                </children></AnchorPane>
             <Button fx:id="_homeButton" disable="true" layoutX="252.0" layoutY="19.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />

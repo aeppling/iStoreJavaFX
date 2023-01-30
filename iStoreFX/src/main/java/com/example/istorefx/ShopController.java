@@ -74,27 +74,41 @@ public class ShopController {
     @FXML
     private Button          _addNewProductButton;
 
+    public void addNewProductSecondStep(String name, String price) {
+
+    }
     public void addNewProduct() {
 
         Dialog<Button> dialog = new Dialog<Button>();
         GridPane gridContainer = new GridPane();
         Label productNameLabel = new Label();
         TextField productName = new TextField();
+        productName.setPromptText("Enter product name...");
         Label priceLabel = new Label();
-        Spinner<Float> price = new Spinner<>(1, 100000000, 1.1);
-        //price.ste;
+        TextField price = new TextField();
+        price.setPromptText("Enter product price (ex : 3.46)");
         Label maxStockLabel = new Label();
-        Spinner<Integer> maxStock = new Spinner<>(1.0, 100000000, 1);
+        TextField maxStock = new TextField();
+        maxStock.setPromptText("Enter product maximum stock...");
+        dialog.setTitle(this._store.getName() + " - Adding new item");
         gridContainer.addRow(0);
-        gridContainer.add(productName, 0, 0);
+        gridContainer.add(productNameLabel, 0, 0);
         gridContainer.addRow(1);
-        gridContainer.add(price, 0, 1);
+        gridContainer.add(productName, 0, 1);
         gridContainer.addRow(2);
+        gridContainer.add(priceLabel, 0, 2);
+        gridContainer.addRow(3);
+        gridContainer.add(price, 0, 3);
+
         gridContainer.add(maxStock, 0, 2);
         dialog.getDialogPane().setContent(gridContainer);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.NEXT);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        dialog.showAndWait();
+        Optional<Button> action = dialog.showAndWait();
+        System.out.println(action.get());
+        //if (action. == ButtonType) {
+          //  addNewProductSecondStep(productName.getText(), price.getText());
+        //}
     }
     public String cutProfileString(String input) {
         String output;
@@ -650,6 +664,7 @@ public class ShopController {
         SingletonUserHolder holder2 = SingletonUserHolder.getInstance();
         this._store = holder.getStore();
         this._storeName.setText(this._store.getName());
+        this._storeName.setStyle("-fx-font-weight: bold;");
         this._user = holder2.getUser();
         try {
             connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
