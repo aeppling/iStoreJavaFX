@@ -203,7 +203,7 @@ public class StoreController {
         this._gridPane.setMargin(button, new Insets(0, 0, 0, 0));
         this._gridPane.add(img, x, y);
         // ADD STORE BUTTON
-        button.setStyle("-fx-border-width: 0.3em; -fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
+        button.setStyle("-fx-font-weight: bold; -fx-border-width: 0.3em; -fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-radius: 3em");
         button.setOnAction(e -> enterStore(storeRecord));
         this._gridPane.setMargin(button, new Insets(0, 0, 20, 0));
         this._gridPane.setHalignment(button, HPos.CENTER);
