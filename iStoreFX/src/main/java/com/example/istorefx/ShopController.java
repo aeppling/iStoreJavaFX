@@ -59,6 +59,8 @@ public class ShopController {
     @FXML
     private Button          _accountButton;
     @FXML
+    private Button          _deleteStoreButton;
+    @FXML
     private Button          _storeEmployeeButton;
     @FXML
     private Pane            _storeEmployeePane;
@@ -525,9 +527,11 @@ public class ShopController {
         resultRole.next();
         if(resultRole.getString("role").equals("admin")){
             this._adminDashboardButton.setVisible(true);
+            this._deleteStoreButton.setVisible(true);
 
         }else{
             this._adminDashboardButton.setVisible(false);
+            this._deleteStoreButton.setVisible(false);
         }
         preparedRoleStatement.close();
         connection.close();
@@ -799,5 +803,29 @@ public class ShopController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void DeleteStore() throws SQLException {
+        // Delete the store and All link with the store
+        // Delete link with users
+        Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+        String DeleteStoreUserRequest = "DELETE FROM StoreUserLink WHERE StoreID = ?";
+        PreparedStatement preparedDeleteStoreUserRequest = connection.prepareStatement(DeleteStoreUserRequest);
+        preparedDeleteStoreUserRequest.setInt(1, this._store.getId());
+        preparedDeleteStoreUserRequest.execute();
+        preparedDeleteStoreUserRequest.close();
+        // Delete links with products
+        String DeleteStoreProductRequest = "DELETE FROM StoreProductLink WHERE StoreID = ?";
+        PreparedStatement preparedDeleteStoreProductRequest = connection.prepareStatement(DeleteStoreProductRequest);
+        preparedDeleteStoreProductRequest.setInt(1, this._store.getId());
+        preparedDeleteStoreProductRequest.execute();
+        preparedDeleteStoreProductRequest.close();
+        // delete store
+        String DeleteStoreRequest = "DELETE FROM iStoreStores WHERE id = ?";
+        PreparedStatement preparedDeleteStoreRequest = connection.prepareStatement(DeleteStoreRequest);
+        preparedDeleteStoreRequest.setInt(1, this._store.getId());
+        preparedDeleteStoreRequest.execute();
+        preparedDeleteStoreRequest.close();
+        connection.close();
+        AllStores();
     }
 }
