@@ -2,6 +2,7 @@ package com.example.istorefx;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -15,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -74,11 +76,104 @@ public class ShopController {
     @FXML
     private Button          _addNewProductButton;
 
-    public void addNewProductSecondStep(String name, String price) {
+    public void validationProductAdding(String name, float price, int max_stock) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Product adding");
+        alert.setHeaderText("Successfully added '" + name + "' !");
+        alert.setContentText("At " + price + "$ \n" + "With " + max_stock + " max stock.");
+        alert.showAndWait();
+    }
+    public void addNewProductFinalStep(String name, float price, int max_stock) {
+        String insertQuery = new String("INSERT INTO iStoreProducts (name, price, max_storage, current_stock) VALUES (?, ?, ?, 0)");
+        String insertLinkQuery = new String("INSERT INTO StoreProductLink (ProductID, StoreID) VALUES (?, ?)");
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            insertStatement.setString(1, name);
+            insertStatement.setFloat(2, price);
+            insertStatement.setInt(3, max_stock);
+            int nb_affected = insertStatement.executeUpdate();
+            if (nb_affected == 0) {
+                connection.close();
+                errorProductAdding("Error on database side...");
+                return ;
+            }
+            int user_id = -1;
+            // get new product id
+            try (ResultSet generatedKeys = insertStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    user_id = (int)generatedKeys.getLong(1);
+                }
+                else {
+                    connection.close();
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+            //
+            if (user_id == -1) {
+                connection.close();
+                errorProductAdding("Error on database side...");
+                return ;
+            }
+            PreparedStatement insertLinkStatement = connection.prepareStatement(insertLinkQuery);
+            insertLinkStatement.setInt(1, user_id);
+            insertLinkStatement.setInt(2, this._store.getId());
+            int nb_affected_link = insertLinkStatement.executeUpdate();
+            if (nb_affected_link == 0) {
+                errorProductAdding("Error on database side...");
+                connection.close();
+                return ;
+            }
+            validationProductAdding(name, price, max_stock);
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void confirmProductAdding(String name, float price, int max_stock) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Product adding");
+        alert.setHeaderText("Product preview");
+        alert.setContentText("Adding '" + name + "'\n\n" + "At " + price + "$ \n" + "With " + max_stock + " max stock.");
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+            addNewProductFinalStep(name, price, max_stock);
+        }
+    }
+    public void errorProductAdding(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Product adding error");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+    public void addNewProductCheckingStep(String name, String price, String max_stock) {
+        float c_price = -1;
+        int   c_max_stock = -1;
+
+        if ((name.isEmpty()) || (price.isEmpty()) || (max_stock.isEmpty())) {
+            errorProductAdding("Please fill out the required fields");
+            return;
+        }
+        try {
+            c_max_stock = Integer.parseInt(max_stock);
+            c_price = Float.parseFloat(price);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        if (c_price <= 0) {
+            errorProductAdding("Price must be a valid positive > 0 decimal number");
+            return;
+        }
+        if (c_max_stock <= 0) {
+            errorProductAdding("Max stock must be a valid positive > 0 number");
+            return ;
+        }
+        confirmProductAdding(name, c_price, c_max_stock);
+        // display preview and confirm
     }
     public void addNewProduct() {
-
         Dialog<Button> dialog = new Dialog<Button>();
         GridPane gridContainer = new GridPane();
         Label productNameLabel = new Label();
@@ -86,10 +181,10 @@ public class ShopController {
         productName.setPromptText("Enter product name...");
         Label priceLabel = new Label();
         TextField price = new TextField();
-        price.setPromptText("Enter product price (ex : 3.46)");
+        price.setPromptText("Enter price (ex : 3.46)");
         Label maxStockLabel = new Label();
         TextField maxStock = new TextField();
-        maxStock.setPromptText("Enter product maximum stock...");
+        maxStock.setPromptText("Enter maximum stock...");
         dialog.setTitle(this._store.getName() + " - Adding new item");
         gridContainer.addRow(0);
         gridContainer.add(productNameLabel, 0, 0);
@@ -99,16 +194,16 @@ public class ShopController {
         gridContainer.add(priceLabel, 0, 2);
         gridContainer.addRow(3);
         gridContainer.add(price, 0, 3);
-
         gridContainer.add(maxStock, 0, 2);
+        Button test = new Button("Add product");
+        test.setOnAction(e -> {
+            addNewProductCheckingStep(productName.getText(), price.getText(), maxStock.getText());
+        });
+        gridContainer.addRow(4);
+        gridContainer.add(test, 0, 4);
         dialog.getDialogPane().setContent(gridContainer);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.NEXT);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        Optional<Button> action = dialog.showAndWait();
-        System.out.println(action.get());
-        //if (action. == ButtonType) {
-          //  addNewProductSecondStep(productName.getText(), price.getText());
-        //}
+        dialog.showAndWait();
     }
     public String cutProfileString(String input) {
         String output;
