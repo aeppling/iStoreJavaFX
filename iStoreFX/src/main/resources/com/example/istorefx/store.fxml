@@ -46,8 +46,6 @@
       <AnchorPane layoutY="-1.0" prefHeight="106.0" prefWidth="915.0" style="-fx-background-color: #E7ECEF; -fx-border-color: #6096BA; -fx-border-width: 0 0 1 0;">
          <children>
             <Separator layoutX="378.0" layoutY="17.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <Separator layoutX="510.0" layoutY="17.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
-            <Separator layoutX="636.0" layoutY="17.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
             <AnchorPane layoutX="730.0" layoutY="-10.0" prefHeight="122.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
                <children>
                   <ImageView fx:id="_profileIcon" fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
@@ -55,14 +53,14 @@
                   <Label fx:id="_emailLabel" alignment="CENTER" layoutX="24.0" layoutY="76.0" text="user email" textAlignment="CENTER" textFill="WHITE" />
                </children></AnchorPane>
             <Button fx:id="_homeButton" disable="true" layoutX="252.0" layoutY="19.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="121.0" style="-fx-background-color: #E7ECEF;" />
-            <Button fx:id="_categoriesButton" layoutX="386.0" layoutY="19.0" mnemonicParsing="false" onAction="#Categories" prefHeight="74.0" prefWidth="122.0" style="-fx-background-color: #E7ECEF;" />
-            <Button fx:id="_allstoresButton" layoutX="516.0" layoutY="19.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
+            <Button fx:id="_allstoresButton" layoutX="384.0" layoutY="19.0" mnemonicParsing="false" onAction="#AllStores" prefHeight="74.0" prefWidth="114.0" style="-fx-background-color: #E7ECEF;" />
             <Separator layoutX="248.0" layoutY="19.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
             <Pane fx:id="_logoHeaderPane" layoutX="2.0" layoutY="6.0" prefHeight="100.0" prefWidth="210.0">
                <children>
                   <ImageView fx:id="_logoHeader" fitHeight="74.0" fitWidth="183.0" layoutX="39.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
+            <Separator layoutX="504.0" layoutY="17.0" orientation="VERTICAL" prefHeight="74.0" prefWidth="6.0" />
          </children>
          <opaqueInsets>
             <Insets />
