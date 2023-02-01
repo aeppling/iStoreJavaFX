@@ -29,7 +29,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="173.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" text="Manage employee" textAlignment="CENTER">
+            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="173.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" text="Manage users" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
