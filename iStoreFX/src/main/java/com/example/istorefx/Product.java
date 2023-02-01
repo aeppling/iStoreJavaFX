@@ -55,4 +55,9 @@ public class Product {
         return (this._max_stock);
     }
 
+    @Override
+    public String toString() {
+        return (this._name + " - id:" + this._id);
+    }
+
 }

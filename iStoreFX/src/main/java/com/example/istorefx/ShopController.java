@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -76,8 +77,61 @@ public class ShopController {
     @FXML
     private Button          _addNewProductButton;
 
+    @FXML
+    private Button          _deleteProductButton;
+
+    public void validationProductDeleting(Product deleted) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Product removed");
+        alert.setHeaderText("Successfully removed '" + deleted.getName() + " id:" + deleted.getId());
+        alert.setContentText("Successfully removed '" + deleted.getName() + "' from '" + this._store.getName() + "'");
+        alert.showAndWait();
+    }
+    public void deleteProductDatabaseAndStore(Product to_delete) {
+        this._shop.getInventory().remove(to_delete);
+        String deleteQuery = new String("DELETE FROM iStoreProducts WHERE id = ?");
+        String deleteLinkQuery = new String("DELETE FROM StoreProductLink WHERE ProductID = ? AND StoreID = ?");
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            PreparedStatement deleteLinkStatement = connection.prepareStatement(deleteLinkQuery);
+            deleteLinkStatement.setInt(1, to_delete.getId());
+            deleteLinkStatement.setInt(2, this._store.getId());
+            deleteLinkStatement.execute();
+            deleteStatement.setInt(1, to_delete.getId());
+            deleteStatement.execute();
+            validationProductDeleting(to_delete);
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void confirmProductDelete(Product to_delete) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(this._store.getName() + " - Product removing");
+        alert.setHeaderText("Removing '" + to_delete.getName() + "'");
+        alert.setContentText("Removing '" + to_delete.getName() + "' id :" + to_delete.getId() + "\n" + "From '" + this._store.getName() + "'");
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+            deleteProductDatabaseAndStore(to_delete);
+        }
+    }
+    public void deleteProductList() {
+        Product choosen = null;
+        ChoiceDialog<Product> dialog = new ChoiceDialog<Product>(this._shop.getProduct(0), this._shop.getInventory());
+        dialog.setTitle(this._store.getName() + " - Deleting item");
+        dialog.setHeaderText("Choose item to remove");
+        dialog.setContentText("Choose an item to remove from '" + this._store.getName() + "' store");
+        Optional<Product> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            choosen = result.get();
+            confirmProductDelete(choosen);
+        }
+    }
+
     public void validationProductAdding(String name, float price, int max_stock) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Product adding");
         alert.setHeaderText("Successfully added '" + name + "' !");
         alert.setContentText("At " + price + "$ \n" + "With " + max_stock + " max stock.");
@@ -517,7 +571,6 @@ public class ShopController {
         }
     }
     public void addNewEmployee() {
-        System.out.println("Add new employee");
         String choosen = null;
         ArrayList userList = getAllUsersCompacted();
         ChoiceDialog<String> dialog = new ChoiceDialog<>("none", userList);
@@ -691,8 +744,17 @@ public class ShopController {
     public void createImageProduct(int x, int y, Product product) {
         Image       image = new Image(getClass().getResourceAsStream("product-icon.png"));
         ImageView   img = new ImageView();
-        Button      label = new Button(product.getName() + " : " + product.getPrice() + "$");
+        Button      label = null;
 
+        if ((this._user.getRole().equals("admin")) || (this._user.getRole().equals("employee"))) {
+            label = new Button(product.getName() + " : " + product.getPrice() + "$" + "\n->" + product.getCurrentStock() + "/" + product.getMaxStock() + " left in stock");
+        }
+        else {
+            label = new Button(product.getName() + " : " + product.getPrice() + "$");
+        }
+        if (label == null)
+            return;
+        label.setAlignment(Pos.CENTER);
         // ADD PRODUCT IMAGE
         img.setImage(image);
         img.setPickOnBounds(true);
@@ -914,9 +976,8 @@ public class ShopController {
             e.printStackTrace();
         }
     }
-    public void DeleteStore() throws SQLException {
-        // Delete the store and All link with the store
-        // Delete link with users
+
+    public void DeleteStoreDatabase() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
         String DeleteStoreUserRequest = "DELETE FROM StoreUserLink WHERE StoreID = ?";
         PreparedStatement preparedDeleteStoreUserRequest = connection.prepareStatement(DeleteStoreUserRequest);
@@ -937,5 +998,23 @@ public class ShopController {
         preparedDeleteStoreRequest.close();
         connection.close();
         AllStores();
+    }
+    public void DeleteStore() {
+        // Delete the store and All link with the store
+        // Delete link with users
+        //
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Deleting store");
+        alert.setHeaderText("Deleting '" + this._store.getName() + "' from iStore.");
+        alert.setContentText("Do you want to continue ?");
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+            try {
+                DeleteStoreDatabase();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

@@ -75,4 +75,8 @@ public class Inventory {
         }
         return (InventoryObs);
     }
+
+    public ArrayList<Product>               getFullList() {
+        return (this._productList);
+    }
 }

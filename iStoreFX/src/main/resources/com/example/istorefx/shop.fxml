@@ -28,7 +28,7 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <Button fx:id="_deleteStoreButton" layoutX="558.0" layoutY="35.0" mnemonicParsing="false" onAction="#DeleteStore" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5;" text="Delete store" textFill="#fafafa" />
+                  <Button fx:id="_deleteStoreButton" layoutX="570.0" layoutY="35.0" mnemonicParsing="false" onAction="#DeleteStore" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #ffffff; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5;" text="Delete store" textFill="#ff9494" />
                </children>
             </AnchorPane>
             <ScrollPane layoutY="163.0" prefHeight="341.0" prefWidth="730.0">
@@ -51,24 +51,28 @@
             </ScrollPane>
             <AnchorPane layoutX="19.0" layoutY="103.0" prefHeight="54.0" prefWidth="689.0">
                <children>
-                  <GridPane fx:id="_employeeMenu" layoutX="24.0" layoutY="14.0" prefHeight="26.0" prefWidth="634.0">
+                  <GridPane fx:id="_employeeMenu" layoutX="24.0" layoutY="14.0" prefHeight="26.0" prefWidth="673.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.20001220703125" minWidth="10.0" prefWidth="76.60000610351562" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.79998779296875" minWidth="10.0" prefWidth="100.80003356933595" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.8000030517578" minWidth="10.0" prefWidth="160.79998779296875" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="122.40001220703124" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.19997558593752" minWidth="10.0" prefWidth="191.99998779296868" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ChoiceBox fx:id="_actionType" prefHeight="27.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <ChoiceBox fx:id="_productAimed" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_actionType" prefHeight="27.0" prefWidth="92.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ChoiceBox fx:id="_productAimed" prefHeight="27.0" prefWidth="169.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
                         <Button fx:id="_confirmAction" mnemonicParsing="false" onAction="#employeeAction" prefHeight="27.0" prefWidth="112.0" style="-fx-background-color: #A3CEF1; -fx-border-color: #6096BA; -fx-background-radius: 5; -fx-border-radius: 5;" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                        <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="21.0" promptText=" Enter amount..." style="-fx-border-color: #A3CEF1; -fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="_storeEmployeeButton" mnemonicParsing="false" onAction="#showStoreEmployee" prefHeight="26.0" prefWidth="59.0" text="Employee" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-                        <Button fx:id="_addNewProductButton" mnemonicParsing="false" onAction="#addNewProduct" text="Add new" GridPane.columnIndex="4" />
+                        <TextField fx:id="_actionAmount" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="70.0" promptText=" Enter amount..." style="-fx-border-color: #A3CEF1; -fx-border-radius: 5; -fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="_storeEmployeeButton" mnemonicParsing="false" onAction="#showStoreEmployee" prefHeight="26.0" prefWidth="74.0" text="Employees" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                        <Button fx:id="_addNewProductButton" mnemonicParsing="false" onAction="#addNewProduct" prefHeight="26.0" prefWidth="46.0" text="ADD" GridPane.columnIndex="4" />
+                        <Button fx:id="_deleteProductButton" mnemonicParsing="false" onAction="#deleteProductList" prefHeight="26.0" prefWidth="56.0" text="DELETE" GridPane.columnIndex="4" GridPane.halignment="LEFT">
+                           <GridPane.margin>
+                              <Insets left="48.0" />
+                           </GridPane.margin></Button>
                      </children>
                   </GridPane>
                </children>
@@ -119,11 +123,11 @@
             </children></AnchorPane>
         <AnchorPane layoutX="730.0" layoutY="106.0" prefHeight="513.0" prefWidth="183.0" style="-fx-background-color: #274C77;">
             <children>
-                <Button fx:id="AllUsersButton" layoutX="30.0" layoutY="45.0" mnemonicParsing="false" onAction="#AllUsers" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5; -fx-font-weight: bold;" text="Other user" textFill="#fafafa" />
-                <Button fx:id="_accountButton" layoutX="30.0" layoutY="84.0" mnemonicParsing="false" onAction="#Account" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5; -fx-font-weight: bold;" text="My account" textFill="#fafafa" />
-                <Button fx:id="_disconnectButton" layoutX="34.0" layoutY="434.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-font-weight: bold;" text="Disconnect" textFill="#ff9494" />
+                <Button fx:id="AllUsersButton" layoutX="30.0" layoutY="45.0" mnemonicParsing="false" onAction="#AllUsers" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5; -fx-font-weight: bold; -fx-border-width: 1.5;" text="Other user" textFill="#fafafa" />
+                <Button fx:id="_accountButton" layoutX="30.0" layoutY="84.0" mnemonicParsing="false" onAction="#Account" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5; -fx-font-weight: bold; -fx-border-width: 1.5;" text="My account" textFill="#fafafa" />
+                <Button fx:id="_disconnectButton" layoutX="34.0" layoutY="434.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-font-weight: bold; -fx-border-width: 1.5;" text="Disconnect" textFill="#ff9494" />
                 <Separator layoutX="18.0" layoutY="-2.0" prefHeight="0.0" prefWidth="150.0" />
-                <Button fx:id="_adminDashboardButton" layoutX="30.0" layoutY="124.0" mnemonicParsing="false" onAction="#AdminDashboard" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5; -fx-font-weight: bold;" text="Admin Dashboard" textFill="#fafafa" />
+                <Button fx:id="_adminDashboardButton" layoutX="30.0" layoutY="124.0" mnemonicParsing="false" onAction="#AdminDashboard" prefHeight="27.0" prefWidth="122.0" style="-fx-background-color: #274C77; -fx-border-color: #ffffff; -fx-border-radius: 5; -fx-font-weight: bold; -fx-border-width: 1.5;" text="Admin Dashboard" textFill="#fafafa" />
             </children>
         </AnchorPane>
     </children>
