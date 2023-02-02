@@ -15,8 +15,8 @@
    <children>
       <AnchorPane prefHeight="106.0" prefWidth="602.0" style="-fx-background-color: #E7ECEF;">
          <children>
-            <Button fx:id="_disconnectButton" layoutX="448.0" layoutY="43.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494;" text="Disconnect" textFill="#fafafa" />
-            <Button fx:id="tabPaneWhitelistBackButton" layoutX="43.0" layoutY="41.0" mnemonicParsing="false" onAction="#hideWhitelistTabPane" text="&lt;  Back to dashboard" />
+            <Button fx:id="_disconnectButton" layoutX="448.0" layoutY="43.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494; -fx-border-width: 1.5; -fx-font-weight: bold;" text="Disconnect" textFill="#fafafa" />
+            <Button fx:id="tabPaneWhitelistBackButton" layoutX="43.0" layoutY="41.0" mnemonicParsing="false" onAction="#hideWhitelistTabPane" style="-fx-background-color: #A3CEF1; -fx-border-color: #274C77; -fx-background-radius: 5; -fx-border-radius: 5;" text="&lt;  Back to dashboard" />
          </children></AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0">
          <children>
@@ -149,7 +149,7 @@
       </AnchorPane>
       <AnchorPane layoutY="571.0" prefHeight="52.0" prefWidth="602.0" style="-fx-background-color: #274C77;">
          <children>
-            <Label layoutX="34.0" layoutY="18.0" text="Léo RICHEZ &amp; Adrien EPPLING                                                 @SUPINFO 2023" textFill="WHITE">
+            <Label layoutX="34.0" layoutY="18.0" text="Léo RICHEZ &amp; Adrien EPPLING                                                                                                                      @SUPINFO 2023" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
