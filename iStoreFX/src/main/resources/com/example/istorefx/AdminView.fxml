@@ -101,7 +101,7 @@
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayManageEmployeePane" prefHeight="15.0" prefWidth="58.0" text="Close" />
                </children>
             </AnchorPane>
-            <TabPane fx:id="tabPaneWhitelist" layoutY="1.0" prefHeight="466.0" prefWidth="602.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPaneWhitelist" layoutY="1.0" prefHeight="466.0" prefWidth="602.0" tabClosingPolicy="UNAVAILABLE" visible="false">
               <tabs>
                 <Tab text="Whitelisted">
                   <content>
