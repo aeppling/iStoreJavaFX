@@ -2,8 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.istorefx.AdminController">
@@ -11,6 +16,7 @@
       <AnchorPane prefHeight="106.0" prefWidth="602.0" style="-fx-background-color: #E7ECEF;">
          <children>
             <Button fx:id="_disconnectButton" layoutX="448.0" layoutY="43.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494;" text="Disconnect" textFill="#fafafa" />
+            <Button fx:id="tabPaneWhitelistBackButton" layoutX="43.0" layoutY="41.0" mnemonicParsing="false" onAction="#hideWhitelistTabPane" text="&lt;  Back to dashboard" />
          </children></AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0">
          <children>
@@ -24,22 +30,27 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="_whitelistEmailButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="109.0" mnemonicParsing="false" onAction="#DisplayWhitelistPane" prefHeight="40.0" prefWidth="194.0" text="Whitelist an email" textAlignment="CENTER">
+            <Button fx:id="tabPaneWhitelistButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="112.0" mnemonicParsing="false" onAction="#showWhitelistTabPane" prefHeight="40.0" prefWidth="194.0" text="Whitelist lists" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="173.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" text="Manage users" textAlignment="CENTER">
+            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" text="Manage users" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="248.0" mnemonicParsing="false" onAction="#DisplayCreateStorePane" prefHeight="40.0" prefWidth="194.0" text="New store" textAlignment="CENTER">
+            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#DisplayCreateStorePane" prefHeight="40.0" prefWidth="194.0" text="New store" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="317.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" text="Manage inventory" textAlignment="CENTER">
+            <Button fx:id="_whitelistEmailButton1" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="166.0" mnemonicParsing="false" onAction="#DisplayWhitelistPane" prefHeight="40.0" prefWidth="194.0" text="Whitelist an email" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="337.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" text="Manage inventory" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
@@ -90,6 +101,50 @@
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayManageEmployeePane" prefHeight="15.0" prefWidth="58.0" text="Close" />
                </children>
             </AnchorPane>
+            <TabPane fx:id="tabPaneWhitelist" layoutY="1.0" prefHeight="466.0" prefWidth="602.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Whitelisted">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="427.0" prefWidth="602.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="434.0" prefWidth="574.0">
+                                       <children>
+                                          <GridPane fx:id="whitelistedGridPane" prefHeight="81.0" prefWidth="571.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Requests">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="436.0" prefWidth="594.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="434.0" prefWidth="592.0">
+                                       <children>
+                                          <GridPane fx:id="requestGridPane" prefHeight="91.0" prefWidth="583.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                          </GridPane>
+                                       </children></AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
          </children>
       </AnchorPane>
       <AnchorPane layoutY="571.0" prefHeight="52.0" prefWidth="602.0" style="-fx-background-color: #274C77;">

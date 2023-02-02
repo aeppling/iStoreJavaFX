@@ -1,12 +1,15 @@
 package com.example.istorefx;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javax.imageio.ImageIO;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -14,63 +17,132 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AdminController {
 
-    private User _admin; // TODO -> change to Admin Use = error
+    private User            _admin; // TODO -> change to Admin Use = error
     @FXML
-    private Button _manageEmployeeButton;
+    private Button          _manageEmployeeButton;
     @FXML
-    private Button _createStoreButton;
+    private Button          _createStoreButton;
     @FXML
-    private Button _whitelistEmailButton;
+    private Button          _whitelistEmailButton;
     @FXML
-    private Button _manageInventoryButton;
+    private Button          _manageInventoryButton;
     @FXML
-    private Button _backButton;
+    private Button          _backButton;
     @FXML
-    private Label pseudo;
+    private Label           pseudo;
     @FXML
-    private AnchorPane _whitelistPane;
+    private AnchorPane      _whitelistPane;
     @FXML
-    private AnchorPane _CreateStorePane;
+    private AnchorPane      _CreateStorePane;
     @FXML
-    private AnchorPane _manageEmployeePane;
+    private AnchorPane      _manageEmployeePane;
+    @FXML
+    private Button          _closeDisplayCreateStoreButton;
+    @FXML
+    private Button          _CreateStoreDisplayButton;
+    @FXML
+    private TextField       storeNameField;
+    @FXML
+    private TextField       emailWhitelistField;
+    @FXML
+    private TextField       emailManageEmployeeField;
+    @FXML
+    private Label           storeNameError;
+    @FXML
+    private Label           emailWhitelistError;
+    @FXML
+    private Label           emailManageEmployeeError;
 
     @FXML
-    private Button _closeDisplayCreateStoreButton;
+    private Label           storeImgUrlError;
     @FXML
-    private Button _CreateStoreDisplayButton;
+    private TextField       storeImgUrlField;
 
     @FXML
-    private TextField storeNameField;
+    private TabPane         tabPaneWhitelist;
     @FXML
-    private TextField emailWhitelistField;
+    private Button          tabPaneWhitelistButton;
     @FXML
-    private TextField emailManageEmployeeField;
+    private Button          tabPaneWhitelistBackButton;
     @FXML
-    private Label storeNameError;
+    private GridPane        whitelistedGridPane;
     @FXML
-    private Label emailWhitelistError;
-    @FXML
-    private Label emailManageEmployeeError;
+    private GridPane        requestGridPane;
 
-    @FXML
-    private Label storeImgUrlError;
-    @FXML
-    private TextField storeImgUrlField;
-
-
-
+    private ArrayList<String> whitelistedList;
+    private ArrayList<String> requestList;
 
     public void initialize() {
+        this.whitelistedList = new ArrayList<String>();
+        this.requestList = new ArrayList<String>();
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
         this._admin = holder.getUser();
         this.pseudo.setText(this._admin.getPseudo());
+        this.tabPaneWhitelist.setVisible(false);
+        this.tabPaneWhitelistBackButton.setVisible(false);
+        getWhitelistAndRequestLists();
+        setUpWhitelistAndRequestPane();
+    }
+    public void setUpWhitelistAndRequestPane() {
+        int count = 0;
 
+        ObservableList<Node> children = this.whitelistedGridPane.getChildren();
+        ObservableList<Node> children2 = this.requestGridPane.getChildren();
+        children.clear();
+        children2.clear();
+        while (count < this.whitelistedList.size()) {
+            Label entry = new Label(this.whitelistedList.get(count));
+            this.whitelistedGridPane.addRow(count);
+            this.whitelistedGridPane.add(entry, 0, count);
+            count++;
+        }
+        count = 0;
+        while (count < this.requestList.size()) {
+            Label entry = new Label(this.requestList.get(count));
+            this.requestGridPane.addRow(count);
+            this.requestGridPane.add(entry, 0, count);
+            count++;
+        }
+    }
+    public void getWhitelistAndRequestLists() {
+        String queryWhitelisted = new String("SELECT email FROM iStoreWhitelist");
+        String queryRequested = new String("SELECT email FROM iStoreWhitelistRequest");
+
+        if (!this.requestList.isEmpty())
+            this.requestList.clear();
+        if (!this.whitelistedList.isEmpty())
+            this.whitelistedList.clear();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement whitelistedQuery = connection.prepareStatement(queryWhitelisted);
+            ResultSet whitelistedResult = whitelistedQuery.executeQuery();
+            while (whitelistedResult.next()) {
+                this.whitelistedList.add(whitelistedResult.getString("email"));
+            }
+            PreparedStatement requestedQuery = connection.prepareStatement(queryRequested);
+            ResultSet requestedResult = requestedQuery.executeQuery();
+            while (requestedResult.next()) {
+                this.requestList.add(requestedResult.getString("email"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void hideWhitelistTabPane() {
+        this.tabPaneWhitelist.setVisible(false);
+        this.tabPaneWhitelistBackButton.setVisible(false);
     }
 
+    public void showWhitelistTabPane() {
+        this.tabPaneWhitelist.setVisible(true);
+        this.tabPaneWhitelistBackButton.setVisible(true);
+    }
     // Create New Store
 
     public void DisplayCreateStorePane() {
@@ -224,6 +296,8 @@ public class AdminController {
                 e.printStackTrace();
             }
             DeleteFromDemandsList(emailWhiteList);
+            getWhitelistAndRequestLists();
+            setUpWhitelistAndRequestPane();
         }
         connection.close();
     }
