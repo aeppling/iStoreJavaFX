@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javax.imageio.ImageIO;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -77,16 +80,27 @@ public class AdminController {
     private ArrayList<String> whitelistedList;
     private ArrayList<String> requestList;
 
+    @FXML
+    private ImageView         _logoHeader;
+
     public void initialize() {
         this.whitelistedList = new ArrayList<String>();
         this.requestList = new ArrayList<String>();
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
         this._admin = holder.getUser();
+        initImage();
         this.pseudo.setText(this._admin.getPseudo());
         this.tabPaneWhitelist.setVisible(false);
         this.tabPaneWhitelistBackButton.setVisible(false);
         getWhitelistAndRequestLists();
         setUpWhitelistAndRequestPane();
+    }
+
+    public void initImage() {
+        Image image = new Image(getClass().getResourceAsStream("logo-no-background.png"));
+        this._logoHeader.setImage(image);
+        this._logoHeader.setFitWidth(140);
+        this._logoHeader.setFitHeight(140);
     }
     public void setUpWhitelistAndRequestPane() {
         int count = 0;

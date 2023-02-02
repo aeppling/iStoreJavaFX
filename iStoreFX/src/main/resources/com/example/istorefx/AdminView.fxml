@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,8 +16,9 @@
    <children>
       <AnchorPane prefHeight="106.0" prefWidth="602.0" style="-fx-background-color: #E7ECEF;">
          <children>
-            <Button fx:id="_disconnectButton" layoutX="448.0" layoutY="43.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #274C77; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494; -fx-border-width: 1.5; -fx-font-weight: bold;" text="Disconnect" textFill="#fafafa" />
-            <Button fx:id="tabPaneWhitelistBackButton" layoutX="43.0" layoutY="41.0" mnemonicParsing="false" onAction="#hideWhitelistTabPane" style="-fx-background-color: #A3CEF1; -fx-border-color: #274C77; -fx-background-radius: 5; -fx-border-radius: 5;" text="&lt;  Back to dashboard" />
+            <Button fx:id="tabPaneWhitelistBackButton" layoutX="44.0" layoutY="40.0" mnemonicParsing="false" onAction="#hideWhitelistTabPane" style="-fx-background-color: #A3CEF1; -fx-border-color: #274C77; -fx-background-radius: 5; -fx-border-radius: 5;" text="&lt;  Back to dashboard" />
+            <Button fx:id="_disconnectButton" layoutX="451.0" layoutY="39.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #ffffff; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494; -fx-border-width: 1.5; -fx-font-weight: bold;" text="Disconnect" textFill="#fafafa" />
+            <ImageView fx:id="_logoHeader" fitHeight="88.0" fitWidth="148.0" layoutX="227.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
       <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0">
          <children>
@@ -30,32 +32,32 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="tabPaneWhitelistButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="112.0" mnemonicParsing="false" onAction="#showWhitelistTabPane" prefHeight="40.0" prefWidth="194.0" text="Whitelist lists" textAlignment="CENTER">
+            <Button fx:id="tabPaneWhitelistButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="112.0" mnemonicParsing="false" onAction="#showWhitelistTabPane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Whitelist lists" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" text="Manage users" textAlignment="CENTER">
+            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Manage users" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#DisplayCreateStorePane" prefHeight="40.0" prefWidth="194.0" text="New store" textAlignment="CENTER">
+            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#DisplayCreateStorePane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="New store" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_whitelistEmailButton1" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="166.0" mnemonicParsing="false" onAction="#DisplayWhitelistPane" prefHeight="40.0" prefWidth="194.0" text="Whitelist an email" textAlignment="CENTER">
+            <Button fx:id="_whitelistEmailButton1" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="166.0" mnemonicParsing="false" onAction="#DisplayWhitelistPane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Whitelist an email" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="337.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" text="Manage inventory" textAlignment="CENTER">
+            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="337.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Manage inventory" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="_CreateStorePane" layoutX="61.0" layoutY="99.0" prefHeight="258.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
+            <AnchorPane fx:id="_CreateStorePane" layoutX="61.0" layoutY="99.0" prefHeight="286.0" prefWidth="481.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #000000; -fx-border-radius: 5;" visible="false">
                <children>
                   <TextField fx:id="storeNameField" layoutX="100.0" layoutY="53.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter the store name" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" prefHeight="52.0" prefWidth="478.0" text="Create a new store">
@@ -65,7 +67,7 @@
                   </Label>
                   <Button fx:id="_CreateStoreDisplayButton" layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#CreateStore" prefHeight="40.0" prefWidth="278.0" text="Create" />
                   <Label fx:id="storeNameError" layoutX="100.0" layoutY="87.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
-                  <Button fx:id="_closeDisplayCreateStoreButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayCreateStorePane" prefHeight="15.0" prefWidth="58.0" text="Close" />
+                  <Button fx:id="_closeDisplayCreateStoreButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayCreateStorePane" prefHeight="15.0" prefWidth="58.0" style="-fx-background-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #274C77;" text="Close" />
                   <TextField fx:id="storeImgUrlField" layoutX="100.0" layoutY="139.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter the url of your store image (optional) " />
                   <Label fx:id="storeImgUrlError" layoutX="100.0" layoutY="173.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
                   <Label fx:id="storeNameError11" alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" layoutX="100.0" layoutY="105.0" prefHeight="34.0" prefWidth="278.0" text="Logos are displayed in 40x40px, &#10;please upload image with a resolution of 1:1" wrapText="true">
@@ -75,7 +77,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="_whitelistPane" layoutX="71.0" layoutY="101.0" prefHeight="266.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
+            <AnchorPane fx:id="_whitelistPane" layoutX="71.0" layoutY="101.0" prefHeight="286.0" prefWidth="481.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #000000; -fx-border-radius: 5;" visible="false">
                <children>
                   <TextField fx:id="emailWhitelistField" layoutX="100.0" layoutY="87.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter an email" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" prefHeight="52.0" prefWidth="478.0" text="Whitelist an email">
@@ -85,10 +87,10 @@
                   </Label>
                   <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#AddToWhiteList" prefHeight="40.0" prefWidth="278.0" text="Add to whitelist" />
                   <Label fx:id="emailWhitelistError" layoutX="100.0" layoutY="121.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
-                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayWhitelistPane" prefHeight="15.0" prefWidth="58.0" text="Close" />
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayWhitelistPane" prefHeight="15.0" prefWidth="58.0" style="-fx-background-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #274C77;" text="Close" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="_manageEmployeePane" layoutX="81.0" layoutY="99.0" prefHeight="266.0" prefWidth="478.0" style="-fx-background-color: #d3d3d3;" visible="false">
+            <AnchorPane fx:id="_manageEmployeePane" layoutX="81.0" layoutY="99.0" prefHeight="285.0" prefWidth="482.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #000000; -fx-border-radius: 5;" visible="false">
                <children>
                   <TextField fx:id="emailManageEmployeeField" layoutX="100.0" layoutY="87.0" prefHeight="34.0" prefWidth="278.0" promptText="Enter the email of a user" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutY="1.0" prefHeight="52.0" prefWidth="478.0" text="Manage Employee">
@@ -98,14 +100,14 @@
                   </Label>
                   <Button layoutX="100.0" layoutY="204.0" mnemonicParsing="false" onAction="#UpdateUser" prefHeight="40.0" prefWidth="278.0" text="Update account" />
                   <Label fx:id="emailManageEmployeeError" layoutX="100.0" layoutY="121.0" prefHeight="18.0" prefWidth="266.0" style="-fx-text-fill: #be4d25;" />
-                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayManageEmployeePane" prefHeight="15.0" prefWidth="58.0" text="Close" />
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseDisplayManageEmployeePane" prefHeight="15.0" prefWidth="58.0" style="-fx-background-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #274C77;" text="Close" />
                </children>
             </AnchorPane>
             <TabPane fx:id="tabPaneWhitelist" layoutY="1.0" prefHeight="466.0" prefWidth="602.0" tabClosingPolicy="UNAVAILABLE" visible="false">
               <tabs>
                 <Tab text="Whitelisted">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <ScrollPane prefHeight="427.0" prefWidth="602.0">
                                 <content>
@@ -125,7 +127,7 @@
                 </Tab>
                 <Tab text="Requests">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                            <children>
                               <ScrollPane prefHeight="436.0" prefWidth="594.0">
                                 <content>
