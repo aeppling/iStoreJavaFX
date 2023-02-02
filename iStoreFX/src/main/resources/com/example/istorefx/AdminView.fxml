@@ -20,39 +20,39 @@
             <Button fx:id="_disconnectButton" layoutX="451.0" layoutY="39.0" mnemonicParsing="false" onAction="#Disconnect" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #ffffff; -fx-border-color: #FF9494; -fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: #FF9494; -fx-border-width: 1.5; -fx-font-weight: bold;" text="Disconnect" textFill="#fafafa" />
             <ImageView fx:id="_logoHeader" fitHeight="88.0" fitWidth="148.0" layoutX="227.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
-      <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0">
+      <AnchorPane layoutY="106.0" prefHeight="466.0" prefWidth="602.0" style="-fx-background-color: #ffffff;">
          <children>
-            <Label contentDisplay="CENTER" layoutX="14.0" layoutY="9.0" prefHeight="52.0" prefWidth="221.0" text="Admin Dashboard">
+            <Label contentDisplay="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="52.0" prefWidth="210.0" style="-fx-font-weight: bold;" text="Admin Dashboard">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="pseudo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="393.0" layoutY="9.0" prefHeight="52.0" prefWidth="194.0" text="Pseudo">
+            <Label fx:id="pseudo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="395.0" layoutY="14.0" prefHeight="52.0" prefWidth="194.0" text="Pseudo">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="tabPaneWhitelistButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="112.0" mnemonicParsing="false" onAction="#showWhitelistTabPane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Whitelist lists" textAlignment="CENTER">
+            <Button fx:id="tabPaneWhitelistButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="112.0" mnemonicParsing="false" onAction="#showWhitelistTabPane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" text="Whitelist lists" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Manage users" textAlignment="CENTER">
+            <Button fx:id="_manageEmployeeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="221.0" mnemonicParsing="false" onAction="#DisplayManageEmployeePane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" text="Manage users" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#DisplayCreateStorePane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="New store" textAlignment="CENTER">
+            <Button fx:id="_createStoreButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#DisplayCreateStorePane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" text="New store" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_whitelistEmailButton1" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="166.0" mnemonicParsing="false" onAction="#DisplayWhitelistPane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Whitelist an email" textAlignment="CENTER">
+            <Button fx:id="_whitelistEmailButton1" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="166.0" mnemonicParsing="false" onAction="#DisplayWhitelistPane" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" text="Whitelist an email" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="337.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Manage inventory" textAlignment="CENTER">
+            <Button fx:id="_manageInventoryButton" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="337.0" mnemonicParsing="false" onAction="#Store" prefHeight="40.0" prefWidth="194.0" style="-fx-background-color: #ffffff; -fx-border-color: #A3CEF1; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" text="Manage inventory" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
