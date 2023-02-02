@@ -142,7 +142,7 @@ public class AllStoreController {
                 this._gridPane.setHalignment(img, HPos.CENTER);
                 this._gridPane.setValignment(img, VPos.TOP);
                 this._gridPane.add(img, col_count, row_count);
-                storeName.setStyle("-fx-font-weight: bold; -fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #6096BA; -fx-border-width: 0.3em; -fx-border-radius: 3em");
+                storeName.setStyle("-fx-font-weight: bold; -fx-text-fill: #4F4F4F; -fx-background-color: #E7ECEF; -fx-background-radius: 3em; -fx-border-color: #24D3FF28; -fx-border-width: 0.3em; -fx-border-radius: 3em");
                 storeName.setOnAction(e -> enterStore(store));
                 this._gridPane.setHalignment(storeName, HPos.CENTER);
                 this._gridPane.setValignment(storeName, VPos.BOTTOM);

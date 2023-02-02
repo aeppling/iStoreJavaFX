@@ -736,7 +736,8 @@ public class ShopController {
         ImageView   img = new ImageView();
         Button      label = null;
 
-        if ((this._user.getRole().equals("admin")) || (this._user.getRole().equals("employee"))) {
+        if (((this._user.getRole().equals("employee")) && isEmployeeWorkingHere(this._user))
+                || (this._user.getRole().equals("admin"))) {
             label = new Button(product.getName() + " : " + product.getPrice() + "$" + "\n->" + product.getCurrentStock() + "/" + product.getMaxStock() + " left in stock");
         }
         else {
