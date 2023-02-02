@@ -182,6 +182,19 @@ public class AdminController {
         this._whitelistPane.setVisible(false);
 
     }
+
+    public void DeleteFromDemandsList(String emailWhiteList) {
+        try {
+            String deleteQuery = new String("DELETE FROM iStoreWhitelistRequest WHERE email LIKE ?");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            deleteStatement.setString(1, emailWhiteList);
+            deleteStatement.execute();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void AddToWhiteList() throws SQLException {
         // Called when user click on Add to Whitelist button
         String emailWhiteList = emailWhitelistField.getText();
@@ -197,7 +210,7 @@ public class AdminController {
 
         if (!is_good){
             return ;
-        }else{
+        } else {
             try {
                 // Add store to DataBase
                 connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
@@ -207,12 +220,12 @@ public class AdminController {
                 preparedsqlMailWhitelistInsertStatement.execute();
                 preparedsqlMailWhitelistInsertStatement.close();
                 CloseDisplayWhitelistPane();
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
+            DeleteFromDemandsList(emailWhiteList);
         }
         connection.close();
-
     }
 
     private boolean CheckMailWhiteListError(Connection connection, String emailWhiteList) throws SQLException{
