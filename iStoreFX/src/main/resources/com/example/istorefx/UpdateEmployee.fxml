@@ -67,6 +67,11 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="405.0" layoutY="240.0" mnemonicParsing="false" onAction="#DisplayRoleChoiceBox" prefHeight="40.0" prefWidth="176.0" text="Update role" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="309.0" mnemonicParsing="false" onAction="#DisplayUpdatePasswordPane" prefHeight="40.0" prefWidth="194.0" text="Update password" textAlignment="CENTER">
                      <font>
                         <Font size="16.0" />
@@ -113,11 +118,6 @@
                         <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CloseUpdatePasswordPane" prefHeight="15.0" prefWidth="58.0" text="Close" />
                      </children>
                   </AnchorPane>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="405.0" layoutY="240.0" mnemonicParsing="false" onAction="#DisplayRoleChoiceBox" prefHeight="40.0" prefWidth="176.0" text="Update role" textAlignment="CENTER">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="-2.0" layoutY="572.0" prefHeight="54.0" prefWidth="604.0" style="-fx-background-color: #274C77;">
