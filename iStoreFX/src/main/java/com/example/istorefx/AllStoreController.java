@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -64,7 +63,6 @@ public class AllStoreController {
         // ADD PROFIL ICON
         this._profileIcon.setImage(image);
         this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
-        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
         this._profileIcon.setFitWidth(40);
         this._profileIcon.setFitWidth(40);
         // ADD PROFIL INFO
@@ -118,11 +116,9 @@ public class AllStoreController {
         int row_count = 3;
 
         this._gridPane.getChildren().clear();
-        System.out.println(this._searchBar.getText());
         while (i - 6 < this._storeList.size()) {
             int occurence = (this._storeList.get(i - 6).getName().toLowerCase().split(this._searchBar.getText().toLowerCase()).length) - 1;
             if (occurence > 0) {
-                System.out.println("DISPLAY" + i);
                 if (col_count > 2) {
                     col_count = 0;
                     row_count++;

@@ -121,8 +121,6 @@ public class AccountController {
             Optional<String> resultConfirm = pop_upConf.showAndWait();
             if (resultConfirm.isPresent()) {
                 confirm_p = newPsswdConfirm.getText();
-                System.out.println(new_p);
-                System.out.println(confirm_p);
                 try {
                     if (new_p.equals(confirm_p)) {
                         updatePassword(HashPassword(new_p));
@@ -163,7 +161,6 @@ public class AccountController {
         while (resultPassword.next()) {
             if (resultPassword.getInt("id") == this._user.getId()) {
                 if (resultPassword.getString("psswd").equals(password)) {
-                    System.out.println("MATCH!");
                     setNewPassword();
                 }
                 else {
@@ -310,8 +307,6 @@ public class AccountController {
             Optional<String> result_conf = pop_up_conf.showAndWait();
             if (result_conf.isPresent()) {
                 String conf_pseudo = result_conf.get();
-                System.out.println("new : " + new_pseudo);
-                System.out.println("conf : " + conf_pseudo);
                 if (new_pseudo.equals(conf_pseudo)) {
                     updatePseudo(new_pseudo);
                 } else {
@@ -322,14 +317,6 @@ public class AccountController {
     }
 
     public void deleteAccount() {
-        /*Button yesButton = (Button) alert.getDialogPane().lookupButton( ButtonType.YES );
-        yesButton.setDefaultButton( false );
-
-        //Activate Defaultbehavior for no-Button:
-        Button noButton = (Button) alert.getDialogPane().lookupButton( ButtonType.NO );
-        noButton.setDefaultButton( true );
-        */
-
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("iStore - Account deleting");
         alert.setHeaderText("You're going to delete your account");
@@ -337,12 +324,10 @@ public class AccountController {
         alert.getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
         alert.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
         alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
-        // ZDZDQZDZ
         Button yesButton = (Button) alert.getDialogPane().lookupButton(ButtonType.YES);
         yesButton.setDefaultButton(false);
         Button noButton = (Button) alert.getDialogPane().lookupButton(ButtonType.NO);
         noButton.setDefaultButton(true);
-        //DZDZDDZ
         Optional<ButtonType> action = alert.showAndWait();
         if (action.get() == ButtonType.YES) {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
@@ -356,7 +341,6 @@ public class AccountController {
             noButton.setDefaultButton(true);
             Optional<ButtonType> action2 = alert2.showAndWait();
             if (action2.get() == ButtonType.YES) {
-                System.out.println("DELETE");
                 String deleteRequest = new String("DELETE FROM iStoreUsers WHERE id = ?");
                 String deleteRequest2 = new String("DELETE FROM StoreUserLink WHERE UserID = ?");
                 try {
@@ -374,15 +358,13 @@ public class AccountController {
                 }
             }
         }
-        //DELETE FROM table_name WHERE condition;
     }
     public void displayProfile() {
         Image image = new Image(getClass().getResourceAsStream("profile-icon.png"));
 
         // ADD PROFIL ICON
         this._profileIcon.setImage(image);
-        this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
-        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
+        this._profileIcon.setPickOnBounds(true);
         this._profileIcon.setFitWidth(40);
         this._profileIcon.setFitWidth(40);
         // ADD PROFIL INFO

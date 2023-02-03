@@ -157,7 +157,6 @@ public class AdminController {
         this.tabPaneWhitelist.setVisible(true);
         this.tabPaneWhitelistBackButton.setVisible(true);
     }
-    // Create New Store
 
     public void DisplayCreateStorePane() {
         // Display Create Store overlay
@@ -186,7 +185,7 @@ public class AdminController {
 
         if (!is_good){
             return ;
-        }else{
+        } else {
             try {
                 connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
 
@@ -206,8 +205,6 @@ public class AdminController {
 
                 }
                 // Add store to DataBase
-
-
                 CloseDisplayCreateStorePane();
             }catch (SQLException e) {
                 e.printStackTrace();

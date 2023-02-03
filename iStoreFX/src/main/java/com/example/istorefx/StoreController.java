@@ -90,7 +90,6 @@ public class StoreController {
         // ADD PROFIL ICON
         this._profileIcon.setImage(image);
         this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
-        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
         this._profileIcon.setFitWidth(40);
         this._profileIcon.setFitWidth(40);
         // ADD PROFIL INFO
@@ -136,7 +135,6 @@ public class StoreController {
         connection.close();
     }
     public void initialize() throws SQLException {
-        System.out.println("Receiving data");
         SingletonUserHolder holder = SingletonUserHolder.getInstance();
         this._user = holder.getUser();
         getStores();
@@ -165,10 +163,6 @@ public class StoreController {
             }
             if (row_count > 2)
                 break;
-            System.out.println(this._storeList.get(tot_count).getName());
-            System.out.println(this._storeList.get(tot_count).getId());
-            System.out.println(this._storeList.get(tot_count).getStoreImg());
-            System.out.println("in col = " + col_count + " and row = " + row_count);
             createStoreWindow(col_count, row_count, this._storeList.get(tot_count));
             col_count++;
             tot_count++;
@@ -184,9 +178,6 @@ public class StoreController {
         img.setImage(image);
         img.setPickOnBounds(true);
         img.setOnMouseClicked(e -> enterStore(storeRecord));
-        //this._gridPane.getColumnConstraints().get(x).getMaxWidth();
-        //img.setFitWidth();
-       // System.out.println("Height : " + image.getWidth());
         img.setFitWidth(80);
         img.setFitHeight(80);
         this._gridPane.setHalignment(img, HPos.CENTER);
@@ -222,7 +213,6 @@ public class StoreController {
             }
     }
     public void AllStores() {
-        System.out.println("Allstores");
         Stage currentStage = (Stage) _allstoresButton.getScene().getWindow();
         currentStage.close();
         Stage primaryStage = new Stage();

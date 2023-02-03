@@ -60,7 +60,6 @@ public class AllUsersController {
         // ADD PROFIL ICON
         this._profileIcon.setImage(image);
         this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
-        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
         this._profileIcon.setFitWidth(40);
         this._profileIcon.setFitWidth(40);
         // ADD PROFIL INFO

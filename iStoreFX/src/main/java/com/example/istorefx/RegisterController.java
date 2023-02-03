@@ -64,7 +64,6 @@ public class RegisterController {
             String sqlRegister = "INSERT INTO iStoreWhitelistRequest(email) VALUES(?)";
             preparedRegisterStatementWhitelist = connection.prepareStatement(sqlRegister);
             preparedRegisterStatementWhitelist.setString(1, this.inputEmail.getText());
-            System.out.println(preparedRegisterStatementWhitelist);
             preparedRegisterStatementWhitelist.execute();
             preparedRegisterStatementWhitelist.close();
         } catch (SQLException e) {
@@ -77,7 +76,6 @@ public class RegisterController {
         String sqlMailRequest = "SELECT * FROM iStoreWhitelist WHERE email LIKE ?";
         PreparedStatement preparedMailStatement = connection.prepareStatement(sqlMailRequest);
         preparedMailStatement.setString(1, this.inputEmail.getText());
-        System.out.println("After : " + preparedMailStatement.toString());
         ResultSet resultEmail = preparedMailStatement.executeQuery();
         if (resultEmail.next()) {
             check = true;
@@ -158,7 +156,6 @@ public class RegisterController {
         String sqlMailRequest = "SELECT * FROM iStoreUsers WHERE pseudo LIKE ?";
         PreparedStatement preparedMailStatement = connection.prepareStatement(sqlMailRequest);
         preparedMailStatement.setString(1,this.inputPseudo.getText());
-        System.out.println("After : " + preparedMailStatement.toString());
         ResultSet resultPseudo = preparedMailStatement.executeQuery();
         if (resultPseudo.next()) {
             this.pseudoError.setText("An account is already registered with this nickname!");
@@ -250,8 +247,6 @@ public class RegisterController {
         }
         if (checkValidFields() == false)
             check = false;
-        if (check == true)
-            System.out.println("GOOOOOD");
         this._email = inputEmail.getText();
         this._pseudo = inputPseudo.getText();
         return (check);
@@ -260,7 +255,6 @@ public class RegisterController {
     public void submitForm() {
         if (this.checkForm() == false)
             return ;
-        System.out.println("TRUUUUUE, now send query");
         Connection connection = null;
         String role = null;
         PreparedStatement preparedRegisterStatement = null;
@@ -292,7 +286,6 @@ public class RegisterController {
                     User user = new User(this._pseudo, this._email);
                     Store(user);
                 } else { // ELSE REQUEST WHITELIST
-                    System.out.println("NotWhitelisted");
                     requestWhitelist(connection);
                     WhiteListValidation();
                 }
@@ -304,8 +297,6 @@ public class RegisterController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(this.inputEmail2.getText());
-        System.out.println(this.inputEmail.getText());
     }
 
     private boolean isFirstUser() throws SQLException {

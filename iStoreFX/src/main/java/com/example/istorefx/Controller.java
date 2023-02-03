@@ -11,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -65,7 +64,6 @@ public class Controller {
         String sqlMailRequest = "SELECT * FROM iStoreWhitelist WHERE email LIKE ?";
         PreparedStatement preparedMailStatement = connection.prepareStatement(sqlMailRequest);
         preparedMailStatement.setString(1, email);
-        System.out.println("After : " + preparedMailStatement.toString());
         ResultSet resultEmail = preparedMailStatement.executeQuery();
         if (resultEmail.next()) {
             check = true;
@@ -92,13 +90,7 @@ public class Controller {
         boolean check = false;
 
         while (resultPassword.next()) {
-            System.out.println("LOOP");
-            System.out.println(resultPassword.getString("email"));
-            System.out.println(this._email);
             if (resultPassword.getString("email").equals(this._email)) {
-                System.out.println("HERE");
-                System.out.println(resultPassword.getString("psswd"));
-                System.out.println(password);
                 if (resultPassword.getString("psswd").equals(password)) {
                     // IS VALIDa
                     User user = new User(resultPassword.getString("pseudo"), this._email, resultPassword.getInt("id"), resultPassword.getString("role"));
@@ -163,7 +155,6 @@ public class Controller {
         String sqlEmailRequest = "SELECT * FROM iStoreUsers WHERE email LIKE ?";
         PreparedStatement preparedMailStatement = connection.prepareStatement(sqlEmailRequest);
         preparedMailStatement.setString(1, this._email);
-        System.out.println("After : " + preparedMailStatement.toString());
         ResultSet resultEmail = preparedMailStatement.executeQuery();
         if (resultEmail.next()) {
             this.emailError.setText("");
@@ -176,12 +167,9 @@ public class Controller {
     }
     public void login() {
         boolean is_good = false;
-        System.out.println("LOGIN");
         //CHECK LOGIN IN DDB AND CONNECT
         this._email = this.pseudoLogin.getText();
         this._password = this.passwordLogin.getText();
-        System.out.println(this._email);
-        System.out.println(this._password);
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
@@ -196,8 +184,6 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (is_good == true)
-            System.out.println("CONNECT USER");
     }
 
     public void register(ActionEvent event) {

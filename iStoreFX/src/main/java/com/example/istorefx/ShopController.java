@@ -272,7 +272,6 @@ public class ShopController {
         // ADD PROFIL ICON
         this._profileIcon.setImage(image);
         this._profileIcon.setPickOnBounds(true); // allows click on transparent areas
-        this._profileIcon.setOnMouseClicked(e -> System.out.println("Clicked profile : " + this._user.getPseudo()));
         this._profileIcon.setFitWidth(40);
         this._profileIcon.setFitWidth(40);
         // ADD PROFIL INFO
@@ -288,14 +287,12 @@ public class ShopController {
                 PreparedStatement preparedUpdateRequest = connection.prepareStatement(lowerUpdateRequest);
                 preparedUpdateRequest.setInt(1, quantity);
                 preparedUpdateRequest.setInt(2, product.getId());
-                System.out.println(preparedUpdateRequest);
                 preparedUpdateRequest.executeUpdate();
             } else if (actionType == "Add") {
                 String addUpdateRequest = "UPDATE iStoreProducts SET iStoreProducts.current_stock = iStoreProducts.current_stock + ? WHERE iStoreProducts.id = ?";
                 PreparedStatement preparedUpdateRequest = connection.prepareStatement(addUpdateRequest);
                 preparedUpdateRequest.setInt(1, quantity);
                 preparedUpdateRequest.setInt(2, product.getId());
-                System.out.println(preparedUpdateRequest);
                 preparedUpdateRequest.executeUpdate();
             }
             connection.close();
@@ -312,8 +309,6 @@ public class ShopController {
         }
     }
     public void executeStockAction(String actionType, Product product, int quantity, String mode) {
-        System.out.println("Executing :");
-        System.out.println(actionType + " " + quantity + " " + product.getName() + " as " + mode);
         updateLocalStock(actionType, product, quantity);
         updateDatabaseStock(actionType, product, quantity);
     }
@@ -411,7 +406,6 @@ public class ShopController {
             while (EmployeeIDList.next()) {
                 listID.add(EmployeeIDList.getInt("UserID"));
             }
-            System.out.println(listID);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -827,8 +821,6 @@ public class ShopController {
         }
         initButtons();
         initImage();
-        System.out.println("ROLES :");
-        System.out.println(this._user.getRole());
         if (((this._user.getRole().equals("employee")) && isEmployeeWorkingHere(this._user))
             || (this._user.getRole().equals("admin"))) {
             employeeInit();
