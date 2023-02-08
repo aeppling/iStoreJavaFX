@@ -290,7 +290,7 @@ public class RegisterController {
                     WhiteListValidation();
                 }
             }else if(role.equals("admin")){
-                User user = new User(this._pseudo, this._email);
+                User user = new User(this._pseudo, this._email, this._id, role);
                 AdminDashboard(user);
 
             }
