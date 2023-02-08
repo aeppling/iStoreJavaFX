@@ -352,7 +352,7 @@ public class AccountController {
                     preparedDeleteRequest.setInt(1, this._user.getId());
                     preparedDeleteRequest.execute();
                     connection.close();
-                    Platform.exit();
+                    Disconnect();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
