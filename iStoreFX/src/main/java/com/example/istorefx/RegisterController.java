@@ -84,7 +84,7 @@ public class RegisterController {
         return (check);
     }
     public String HashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes());
         byte[] digest = md.digest();
         StringBuffer buffer = new StringBuffer();
@@ -109,7 +109,7 @@ public class RegisterController {
         else if (check != false)
             this.email2Error.setText("");
         if (inputPassword.getText().length() < 8) {
-            this.passwordError.setText("Password need to be at least 3 character length");
+            this.passwordError.setText("Password need to be at least 7 character length");
             check = false;
         }
         else if (check != false)
@@ -386,7 +386,7 @@ public class RegisterController {
     }
     public void AdminDashboard(User user) {
         // Redirect to Admin Dashboard
-        Stage currentStage2 = (Stage) _disconnectButton.getScene().getWindow();
+        Stage currentStage2 = (Stage) backButton.getScene().getWindow();
         currentStage2.close();
         Stage primaryStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AdminView.fxml"));
