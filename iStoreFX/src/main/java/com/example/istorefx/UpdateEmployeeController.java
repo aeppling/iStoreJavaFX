@@ -412,7 +412,7 @@ public class UpdateEmployeeController {
         return role;
     }
     public String HashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(password.getBytes());
         byte[] digest = md.digest();
         StringBuffer buffer = new StringBuffer();

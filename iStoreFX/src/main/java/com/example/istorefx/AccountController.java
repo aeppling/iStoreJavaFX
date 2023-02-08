@@ -174,7 +174,7 @@ public class AccountController {
     }
 
     public String HashPassword(String hashed_password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(hashed_password.getBytes());
         byte[] digest = md.digest();
         StringBuffer buffer = new StringBuffer();
