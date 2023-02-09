@@ -283,7 +283,7 @@ public class RegisterController {
             if ((role.equals("standart"))
                     || (role.equals("employee"))) {
                 if (isWhitelisted(this.inputEmail.getText(), connection) == true) {
-                    User user = new User(this._pseudo, this._email);
+                    User user = new User(this._pseudo, this._email, this._id, role);
                     Store(user);
                 } else { // ELSE REQUEST WHITELIST
                     requestWhitelist(connection);

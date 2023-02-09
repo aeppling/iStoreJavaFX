@@ -25,7 +25,7 @@ import java.util.Optional;
 
 public class AdminController {
 
-    private User            _admin; // TODO -> change to Admin Use = error
+    private User            _admin; //
     @FXML
     private Button          _manageEmployeeButton;
     @FXML

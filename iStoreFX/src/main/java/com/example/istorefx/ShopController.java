@@ -665,13 +665,8 @@ public class ShopController {
         img3.setFitHeight(60);
         this._homeButton.setGraphic(img3);
         // Admin Dashboard BTN
-        String sqlRoleRequest = "SELECT role FROM iStoreUsers WHERE id = ?";
-        Connection connection = DriverManager.getConnection("jdbc:mysql://bdhwxvxddidxmx75bp76-mysql.services.clever-cloud.com:3306/bdhwxvxddidxmx75bp76", "uka5u4mcxryqvq9d", "cDxsM6QAf1IcnXfN4AGC");
-        PreparedStatement preparedRoleStatement = connection.prepareStatement(sqlRoleRequest);
-        preparedRoleStatement.setInt(1, this._user.getId());
-        ResultSet resultRole = preparedRoleStatement.executeQuery();
-        resultRole.next();
-        if(resultRole.getString("role").equals("admin")){
+
+        if(this._user.getRole().equals("admin")){
             this._adminDashboardButton.setVisible(true);
             this._deleteStoreButton.setVisible(true);
 
@@ -679,8 +674,7 @@ public class ShopController {
             this._adminDashboardButton.setVisible(false);
             this._deleteStoreButton.setVisible(false);
         }
-        preparedRoleStatement.close();
-        connection.close();
+
     }
 
     public void buyProduct(Product product, int quantity) {

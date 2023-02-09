@@ -99,7 +99,7 @@ public class AllStoreController {
         preparedRoleStatement.setInt(1, this._user.getId());
         ResultSet resultRole = preparedRoleStatement.executeQuery();
         resultRole.next();
-        if(resultRole.getString("role").equals("admin")){
+        if(this._user.getRole().equals("admin")){
             this._adminDashboardButton.setVisible(true);
 
         }else{

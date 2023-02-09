@@ -352,7 +352,7 @@ public class AccountController {
                     preparedDeleteRequest.setInt(1, this._user.getId());
                     preparedDeleteRequest.execute();
                     connection.close();
-                    Disconnect();
+                    DisconnectForce();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -400,7 +400,7 @@ public class AccountController {
         preparedRoleStatement.setInt(1, this._user.getId());
         ResultSet resultRole = preparedRoleStatement.executeQuery();
         resultRole.next();
-        if(resultRole.getString("role").equals("admin")){
+        if(this._user.getRole().equals("admin")){
             this._adminDashboardButton.setVisible(true);
 
         }else{
@@ -513,6 +513,22 @@ public class AccountController {
                 e.printStackTrace();
             }
         }
+    }
+    public void DisconnectForce() {
+            Stage currentStage = (Stage) _homeButton.getScene().getWindow();
+            currentStage.close();
+            Stage primaryStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 356, 400);
+                primaryStage.setTitle("iStore - Login Page");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
     }
     public void AdminDashboard() {
         // Redirect to Admin Dashboard
